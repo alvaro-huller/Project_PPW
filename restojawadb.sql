@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2025 at 05:13 PM
+-- Generation Time: Oct 28, 2025 at 12:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `menu` (
   `id` int(11) NOT NULL,
+  `gambar` varchar(30) NOT NULL,
   `nama_menu` varchar(30) NOT NULL,
   `kategori` varchar(30) NOT NULL,
   `harga` int(7) NOT NULL,
@@ -39,8 +40,8 @@ CREATE TABLE `menu` (
 -- Dumping data for table `menu`
 --
 
-INSERT INTO `menu` (`id`, `nama_menu`, `kategori`, `harga`, `deskripsi`) VALUES
-(1, 'Gudeg', 'makanan', 10000, 'rasanya manis');
+INSERT INTO `menu` (`id`, `gambar`, `nama_menu`, `kategori`, `harga`, `deskripsi`) VALUES
+(17, '68fff296befa8.png', 'contoh', 'makanan', 10000, 'a');
 
 --
 -- Indexes for dumped tables
@@ -60,7 +61,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
