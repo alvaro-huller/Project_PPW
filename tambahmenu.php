@@ -39,7 +39,7 @@ if(isset($_POST["tambah"])) {
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <table>
             <tr>
                 <td>Nama Menu</td>
@@ -56,7 +56,7 @@ if(isset($_POST["tambah"])) {
             </tr>
             <tr>
                 <td>Harga</td>
-                <td><input type="text" name="harga" required></td>
+                <td><input type="number" name="harga" required></td>
             </tr>
             <tr>
                 <td>Deskripsi</td>

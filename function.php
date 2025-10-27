@@ -18,11 +18,11 @@ if($koneksidb->connect_errno){
 function tambahDataMenu($data){
     global $koneksidb;
 
-    $gambar = uploadGambar();
     $nama = $data["nama_menu"];
     $kategori = $data["kategori"];
     $harga = $data["harga"];
     $deskripsi = $data["deskripsi"];
+    $gambar = uploadGambar();
 
     // query untuk menambahkan data ke tabel menu di database restojawadb
     $tambah = "INSERT INTO menu (gambar, nama_menu , kategori, harga, deskripsi) values ('$gambar', '$nama', '$kategori', '$harga', '$deskripsi')";
