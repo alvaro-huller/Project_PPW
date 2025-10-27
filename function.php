@@ -18,7 +18,7 @@ if($koneksidb->connect_errno){
 function tambahDataMenu($data){
     global $koneksidb;
 
-    $gambar = $data["gambar"];
+    $gambar = uploadGambar();
     $nama = $data["nama_menu"];
     $kategori = $data["kategori"];
     $harga = $data["harga"];
