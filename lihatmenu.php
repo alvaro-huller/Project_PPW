@@ -18,20 +18,23 @@ $hasil = $koneksidb->query($query);
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="lihatmenu.php"><b>Resto Jawa</b></a>
+            <a class="navbar-brand" href="home_admin.php"><b>Resto Jawa</b></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="lihatmenu.php">Home</a>
+                        <a class="nav-link" href="home_admin.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="form.html">Daftar</a>
+                        <a class="nav-link active" href="lihatmenu.php">Lihat Menu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="design.html">Design</a>
+                        <a class="nav-link" href="tambahmenu.php">Tambah Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="transaksi.php">Transaksi</a>
                     </li>
                 </ul>
             </div>

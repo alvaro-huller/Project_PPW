@@ -9,32 +9,18 @@ include "function.php";
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="style/Style.css">
   </head>
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Komunitas Kucing</a>
+            <a class="navbar-brand" href="home_admin.php">Resto Jawa</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="form.html">Daftar</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="design.html">Design</a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </nav>
-
     <ul>
         <li><a href="tambahmenu.php">Tambah Menu</a></li>
         <li><a href="lihatmenu.php">Lihat Menu</a></li>
