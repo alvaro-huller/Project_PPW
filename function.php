@@ -14,7 +14,7 @@ if($koneksidb->connect_errno){
 }
 
 
-// fungsi menambahkan data menu ke tabel menu di database restojawadb
+// Fungsi menambahkan data menu ke tabel menu di database restojawadb
 function tambahDataMenu($data){
     global $koneksidb;
 
@@ -24,22 +24,22 @@ function tambahDataMenu($data){
     $deskripsi = $data["deskripsi"];
     $gambar = uploadGambar();
 
-    // query untuk menambahkan data ke tabel menu di database restojawadb
-    $tambah = "INSERT INTO menu (gambar, nama_menu , kategori, harga, deskripsi) values ('$gambar', '$nama', '$kategori', '$harga', '$deskripsi')";
-    $koneksidb->query($tambah);
+    // Query untuk menambahkan data ke tabel menu di database restojawadb
+    $query = "INSERT INTO menu (Gambar, NamaMenu, Kategori, Harga, Deskripsi) values ('$gambar', '$nama', '$kategori', '$harga', '$deskripsi')";
+    mysqli_query($koneksidb, $query);
 
     return mysqli_error($koneksidb);
 }
 
 
-// fungsi untuk mengolah input file gambar
+// Fungsi untuk mengolah input file gambar
 function uploadGambar(){
     $namafile = $_FILES['gambar']['name'];
     $ukuranfile = $_FILES['gambar']['size'];
     $tmpname = $_FILES['gambar']['tmp_name'];
     $error = $_FILES['gambar']['error'];
 
-    // cek apakah tidak ada gambar yang diupload
+    // Cek apakah tidak ada gambar yang diupload
     if($error === 4){
         echo "<script>
                 alert('pilih gambar terlebih dahulu');
@@ -47,7 +47,7 @@ function uploadGambar(){
         return false;
     }
 
-    // cek apakah yang diuplaod adalah gambar
+    // Cek apakah yang diuplaod adalah gambar
     $ekstensigambarvalid = ['jpg', 'jpeg', 'png'];
     $ekstensigambar = explode('.', $namafile);
     $ekstensigambar = strtolower(end($ekstensigambar));
@@ -59,7 +59,7 @@ function uploadGambar(){
         return false;
     }
 
-    // cek ukuran terlalu besar
+    // Cek ukuran terlalu besar
     if($ukuranfile > 1000000){
         echo "<script>
                 alert('ukuran gambar terlalu besar');
@@ -67,7 +67,7 @@ function uploadGambar(){
         return false;
     }
 
-    // generete nama gambar baru
+    // Generete nama gambar baru
     $namafilebaru = uniqid();
     $namafilebaru .= '.';
     $namafilebaru .= $ekstensigambar;
@@ -77,7 +77,7 @@ function uploadGambar(){
 }
 
 
-// fungsi mengupdate data menu di tabel menu di database restojawadb
+// Fungsi mengupdate data menu di tabel menu di database restojawadb
 function updateDataMenu($data){
     global $koneksidb;
 
@@ -88,33 +88,35 @@ function updateDataMenu($data){
     $harga = $data["harga"];
     $deskripsi = $data["deskripsi"];
 
-    // query untuk mengupdate data di tabel menu di database restojawadb
-    $update = "UPDATE menu SET gambar='$gambar', nama_menu='$nama' , kategori='$kategori', harga='$harga', deskripsi='$deskripsi' WHERE id=$id";
-    $koneksidb->query($update);
+    // Query untuk mengupdate data di tabel menu di database restojawadb
+    $query = "query menu SET Gambar = '$gambar', NamaMenu = '$nama', Kategori = '$kategori', Harga = '$harga', Deskripsi = '$deskripsi' WHERE IDMenu = $id";
+    mysqli_query($koneksidb, $query);
 }
 
 
-// fungsi menghapus data menu di tabel menu di database restojawadb
+// Fungsi menghapus data menu di tabel menu di database restojawadb
 function hapusDataMenu($data){
     global $koneksidb;
 
     $id = $data["id"];
 
-    // query untuk menghapus data di tabel menu di database restojawadb
-    $hapus = "DELETE FROM menu WHERE id = $id";
-    $koneksidb->query($hapus);
+    // Query untuk menghapus data di tabel menu di database restojawadb
+    $query = "DELETE FROM menu WHERE IDMenu = $id";
+    mysqli_query($koneksidb, $query);
 }
 
 
-function registrasi($data){
-    global $db;
+// Funsgi menambah data user ke tabel user di database restojawadb
+function tambahDataUser($data){
+    global $koneksidb;
 
-    $username = strtolower(stripslashes($data["username"]));
-    $password = mysqli_real_escape_string($db, $data["password"]);
-    $password2 = mysqli_real_escape_string($db, $data["password2"]);
+    $username = $data["username"];
+    $password = $data["password"];
+    $password2 = $data["password2"];
 
-    // cek username
-    $result = mysqli_query($db, "SELECT username FROM user WHERE username = '$username'");
+    // Cek apakah username sudah digunakan
+    $query = "SELECT Username FROM user WHERE Username = '$username'";
+    $result = mysqli_query($koneksidb, $query);
     if(mysqli_fetch_assoc($result)){
         echo "<script>
                 alert('username yang dipilih sudah ada');
@@ -122,7 +124,7 @@ function registrasi($data){
         return false;
     }
 
-    // cek konfirmasi password
+    // Cek apakah konfirmasi password benar
     if($password !== $password2){
         echo "<script>
                 alert('konfirmasi password tidak sesuai');
@@ -130,17 +132,36 @@ function registrasi($data){
         return false;
     }
 
-    // enkirpsi password
+    // Enkirpsi password
     $password = password_hash($password, PASSWORD_DEFAULT);
 
-    // tambahkan userbaru ke database
-    $query = "INSERT INTO user VALUES (
-                '',
-                '$username',
-                '$password')";
-    mysqli_query($db, $query);
+    // Tambahkan userbaru ke database
+    $query = "INSERT INTO user (Username, Password, Role) VALUES ('$username', '$password', 'pelanggan')";
+    mysqli_query($koneksidb, $query);
 
-    return mysqli_affected_rows($db);
+    return mysqli_affected_rows($koneksidb);
+}
+
+function login($data){
+    global $koneksidb;
+
+    $username = $data["username"];
+    $password = $data["password"];
+
+    $result = mysqli_query($koneksidb, "SELECT * FROM user WHERE Username = '$username'");
+
+    // cek username
+    if(mysqli_num_rows($result) === 1){
+        // cek password
+        $row = mysqli_fetch_assoc($result);
+        if(password_verify($password, $row["password"])){
+            // set session
+            $_SESSION["login"] = true;
+            header("Location: index.php");
+            exit;
+        }
+    }
+    $error = true;
 }
 
 ?>
