@@ -12,7 +12,7 @@ if(isset($_POST["register"])) {
         echo "
             <script>
                 alert('Akun Berhasil Dibuat');
-                document.location.href = '.php';
+                document.location.href = 'LoginPage.php';
             </script>
         ";
     }else {
@@ -21,7 +21,7 @@ if(isset($_POST["register"])) {
         echo "
             <script>
                 alert('Akun Gagal Dibuat');
-                document.location.href = '.php';
+                document.location.href = 'LoginPage.php';
             </script>
         ";
     }

@@ -1,8 +1,26 @@
 <?php
 include "function.php";
+
+session_start();
+
+  if($_SESSION["Role"] != "Admin") {
+    echo "
+            <script>
+                alert('Anda Tidak Memiliki Akses');
+                document.location.href = 'LoginPage.php';
+            </script>
+        ";
+  }
 $query = "SELECT * FROM menu";
 // $hasil = mysqli_query($koneksidb, $query);
 $hasil = $koneksidb->query($query);
+
+if(isset($_POST["hapus"])) {
+    $id = $_POST["id"];
+    $query = "DELETE FROM datamenu WHERE id = $id";
+}
+
+
 ?>
 
 <!doctype html>
@@ -25,13 +43,13 @@ $hasil = $koneksidb->query($query);
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="home_admin.php">Home</a>
+                        <a class="nav-link" href="HomeAdmin.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="lihatmenu.php">Lihat Menu</a>
+                        <a class="nav-link active" href="LihatMenuAdmin.php">Lihat Menu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="tambahmenu.php">Tambah Menu</a>
+                        <a class="nav-link" href="TambahMenu.php">Tambah Menu</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="transaksi.php">Transaksi</a>
@@ -52,16 +70,18 @@ $hasil = $koneksidb->query($query);
             <th>Deskripsi</th>
         </tr>
         <?php
-        echo("<pre>");
         while($data = mysqli_fetch_array($hasil)){
             ?>
             <tr>
             <td><?= $data['id']?></td>
-            <td><img src="img/<?= $data['gambar']?>" alt=""></td>
-            <td><?= $data['nama_menu']?></td>
-            <td><?= $data['kategori']?></td>
-            <td><?= $data['harga']?></td>
-            <td><?= $data['deskripsi']?></td>
+            <td><img src="img/<?= $data['GambarMenu']?>" alt=""></td>
+            <td><?= $data['NamaMenu']?></td>
+            <td><?= $data['Kategori']?></td>
+            <td><?= $data['HargaMenu']?></td>
+            <td><?= $data['Stok']?></td>
+            <td><?= $data['Deskripsi']?></td>
+            <td><form action="UpdateMenu.php" method="post"><button type="submit" class="btn btn-success cont" name="id" value="<?= $data['id']; ?>">Update Data</button></form></td>
+            <td><form action="" method="post"><button type="submit" class="btn btn-success cont" name="hapus" value="<?= $data['id']; ?>" onclick="return confirm('yakin')">Hapus Data</button></form></td>
             </tr>
             <?php
         }

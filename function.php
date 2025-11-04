@@ -18,14 +18,15 @@ if($koneksidb->connect_errno){
 function tambahDataMenu($data){
     global $koneksidb;
 
-    $nama = $data["nama_menu"];
-    $kategori = $data["kategori"];
-    $harga = $data["harga"];
-    $deskripsi = $data["deskripsi"];
     $gambar = uploadGambar();
+    $nama = $data["nama_menu"];
+    $harga = $data["harga"];
+    $kategori = $data["kategori"];
+    $stok = $data["stok"];
+    $deskripsi = $data["deskripsi"];
 
     // Query untuk menambahkan data ke tabel menu di database restojawadb
-    $query = "INSERT INTO menu (Gambar, NamaMenu, Kategori, Harga, Deskripsi) values ('$gambar', '$nama', '$kategori', '$harga', '$deskripsi')";
+    $query = "INSERT INTO menu (NamaMenu, HargaMenu, GambarMenu, Kategori, Stok, Deskripsi) values ('$nama', '$harga', '$gambar', '$kategori', '$stok', '$deskripsi')";
     mysqli_query($koneksidb, $query);
 
     return mysqli_error($koneksidb);
@@ -82,14 +83,14 @@ function updateDataMenu($data){
     global $koneksidb;
 
     $id = $data["id"];
-    $gambar = $data["gambar"];
     $nama = $data["nama_menu"];
     $kategori = $data["kategori"];
     $harga = $data["harga"];
+    $stok = $data["stok"];
     $deskripsi = $data["deskripsi"];
 
     // Query untuk mengupdate data di tabel menu di database restojawadb
-    $query = "query menu SET Gambar = '$gambar', NamaMenu = '$nama', Kategori = '$kategori', Harga = '$harga', Deskripsi = '$deskripsi' WHERE IDMenu = $id";
+    $query = "query menu SET NamaMenu = '$nama', Kategori = '$kategori', HargaMenu = '$harga', Stok = '$stok', Deskripsi = '$deskripsi' WHERE IDMenu = $id";
     mysqli_query($koneksidb, $query);
 }
 
@@ -148,20 +149,37 @@ function login($data){
     $username = $data["username"];
     $password = $data["password"];
 
-    $result = mysqli_query($koneksidb, "SELECT * FROM user WHERE Username = '$username'");
+    $query = "SELECT * FROM pegawai WHERE Username = '$username'";
+    $hasil = mysqli_query($koneksidb, $query);
 
     // cek username
-    if(mysqli_num_rows($result) === 1){
+    if(mysqli_num_rows($hasil) === 1){
         // cek password
-        $row = mysqli_fetch_assoc($result);
-        if(password_verify($password, $row["password"])){
+        $data = mysqli_fetch_assoc($hasil);
+        if($password === "admin123"){
             // set session
-            $_SESSION["login"] = true;
-            header("Location: index.php");
-            exit;
+            $_SESSION["Role"] = $data["Role"];
+            header("Location: HomeAdmin.php");
+            return 1;
         }
     }
-    $error = true;
+    
+    $query = "SELECT * FROM user WHERE Username = '$username'";
+    $hasil = mysqli_query($koneksidb, $query);
+
+    // cek username
+    if(mysqli_num_rows($hasil) === 1){
+        // cek password
+        $data = mysqli_fetch_assoc($hasil);
+        if(password_verify($password, $data["password"])){
+            // set session
+            $_SESSION["Role"] = $data["Role"];
+            header("Location: HomePage.php");
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 ?>
