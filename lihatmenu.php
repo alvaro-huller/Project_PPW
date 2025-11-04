@@ -25,16 +25,16 @@ $hasil = $koneksidb->query($query);
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="home_admin.php">Home</a>
+                        <a class="NavLink2" href="home_admin.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="lihatmenu.php">Lihat Menu</a>
+                        <a class="NavLink1" href="lihatmenu.php">Lihat Menu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="tambahmenu.php">Tambah Menu</a>
+                        <a class="NavLink2" href="tambahmenu.php">Tambah Menu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="transaksi.php">Transaksi</a>
+                        <a class="NavLink2" href="transaksi.php">Transaksi</a>
                     </li>
                 </ul>
             </div>
