@@ -3,6 +3,17 @@
 // Menghubungkan ke file function.php
 include "function.php";
 
+session_start();
+
+  if($_SESSION["Role"] != "Admin") {
+    echo "
+            <script>
+                alert('Anda Tidak Memiliki Akses');
+                document.location.href = 'LoginPage.php';
+            </script>
+        ";
+  }
+
 
 // Mengecek apakah tombol tambah sudah ditekan
 if(isset($_POST["tambah"])) {
@@ -14,7 +25,7 @@ if(isset($_POST["tambah"])) {
         echo "
             <script>
                 alert('Data Berhasil Ditambahkan');
-                document.location.href = 'home_admin.php';
+                document.location.href = 'HomeAdmin.php';
             </script>
         ";
     }else {
@@ -23,7 +34,7 @@ if(isset($_POST["tambah"])) {
         echo "
             <script>
                 alert('Data Gagal Ditambahkan');
-                document.location.href = 'home_admin.php';
+                document.location.href = 'HomeAdmin.php';
             </script>
         ";
     }
@@ -57,6 +68,10 @@ if(isset($_POST["tambah"])) {
             <tr>
                 <td>Harga</td>
                 <td><input type="number" name="harga" required></td>
+            </tr>
+            <tr>
+                <td>Stok</td>
+                <td><input type="number" name="stok" required></td>
             </tr>
             <tr>
                 <td>Deskripsi</td>

@@ -2,11 +2,13 @@
 
 include "function.php";
 
+session_start();
+
 // Mengecek apakah tombol register sudah ditekan
 if(isset($_POST["login"])) {
 
     // Memanggil fungsiDataMenu() untuk menambahkan data dengan mengirimkan $_POST sebagai parameter
-    if(login($_POST) > 0) {
+    if(login($_POST) != 0) {
 
         // Jika data berhasil ditambahkan
         echo "
