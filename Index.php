@@ -4,26 +4,17 @@ include "function.php";
 
 session_start();
 
-// Mengecek apakah tombol register sudah ditekan
+// Mengecek apakah tombol login sudah ditekan
 if(isset($_POST["login"])) {
 
-    // Memanggil fungsiDataMenu() untuk menambahkan data dengan mengirimkan $_POST sebagai parameter
-    if(login($_POST) != 0) {
+    // Memanggil fungsi login() untuk
+    if(login($_POST) == 0) {
 
-        // Jika data berhasil ditambahkan
-        echo "
-            <script>
-                alert('Berhasil Login');
-                document.location.href = 'login.php';
-            </script>
-        ";
-    }else {
-
-        // Jika data gagal ditambahkan
+        // Jika gagal login
         echo "
             <script>
                 alert('Gagal Login');
-                document.location.href = 'login.php';
+                document.location.href = 'Index.php';
             </script>
         ";
     }
@@ -50,13 +41,11 @@ if(isset($_POST["login"])) {
                 <td><input type="password" name="password" required></td>
             </tr>
             <tr>
-                <td>Konfirmasi Password</td>
-                <td><input type="password" name="password2" required></td>
-            </tr>
-            <tr>
-                <td><button type="register" name="register">Login</button></td>
+                <td><button type="submit" name="login">Login</button></td>
             </tr>
         </table>
     </form>
+
+    <a href="RegistrasiUser.php"><button type="submit" name="register">Buat Akun</button></a>
 </body>
 </html>

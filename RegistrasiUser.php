@@ -12,7 +12,7 @@ if(isset($_POST["register"])) {
         echo "
             <script>
                 alert('Akun Berhasil Dibuat');
-                document.location.href = 'LoginPage.php';
+                document.location.href = 'Index.php';
             </script>
         ";
     }else {
@@ -21,7 +21,7 @@ if(isset($_POST["register"])) {
         echo "
             <script>
                 alert('Akun Gagal Dibuat');
-                document.location.href = 'LoginPage.php';
+                document.location.href = 'Index.php';
             </script>
         ";
     }
@@ -52,7 +52,7 @@ if(isset($_POST["register"])) {
                 <td><input type="password" name="password2" required></td>
             </tr>
             <tr>
-                <td><button type="register" name="register">Tambah Menu</button></td>
+                <td><button type="submit" name="register">Buat Akun Baru</button></td>
             </tr>
         </table>
     </form>
