@@ -35,8 +35,8 @@
     </nav>
     <ul>
         <li><a href="TambahMenu.php">Tambah Menu</a></li>
+        <li><a href="LihatHistoriPesanan.php">Lihat Histori Pesanan</a></li>
         <li><a href="LihatMenuAdmin.php">Lihat Menu</a></li>
-        <li><a href="transaksi.php">Transaksi</a></li>
     </ul>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   </body>
