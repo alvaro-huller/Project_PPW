@@ -43,6 +43,15 @@ if(isset($_POST["hapus"])) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
+<<<<<<< HEAD:lihatmenu.php
+                        <a class="NavLink2" href="home_admin.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="NavLink1" href="lihatmenu.php">Lihat Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="NavLink2" href="tambahmenu.php">Tambah Menu</a>
+=======
                         <a class="nav-link" href="HomeAdmin.php">Home</a>
                     </li>
                     <li class="nav-item">
@@ -50,9 +59,10 @@ if(isset($_POST["hapus"])) {
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="TambahMenu.php">Tambah Menu</a>
+>>>>>>> f37cf6c15afced9c45285404e4d773d6caaaeb18:LihatMenuAdmin.php
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="transaksi.php">Transaksi</a>
+                        <a class="NavLink2" href="transaksi.php">Transaksi</a>
                     </li>
                 </ul>
             </div>
