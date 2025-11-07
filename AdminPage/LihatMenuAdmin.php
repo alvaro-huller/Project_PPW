@@ -11,7 +11,7 @@ session_start();
             </script>
         ";
   }
-$query = "SELECT * FROM menu";
+$query = "SELECT * FROM datamenu";
 $hasil = mysqli_query($koneksidb, $query);
 
 if(isset($_POST["hapus"])) {
