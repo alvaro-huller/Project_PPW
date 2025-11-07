@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2025 at 05:25 PM
+-- Generation Time: Nov 06, 2025 at 06:39 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -56,10 +56,17 @@ CREATE TABLE `datamenu` (
 --
 
 CREATE TABLE `pegawai` (
-  `IDPegawai` int(10) DEFAULT NULL,
+  `IDPegawai` int(10) NOT NULL,
   `Username` varchar(30) NOT NULL,
   `Role` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pegawai`
+--
+
+INSERT INTO `pegawai` (`IDPegawai`, `Username`, `Role`) VALUES
+(1, 'MJiddan', 'Admin');
 
 -- --------------------------------------------------------
 
@@ -93,6 +100,14 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`IDUser`, `Username`, `Password`, `Role`) VALUES
+(2, 'raja jawa', '$2y$10$aoCUTy42izxKkfmlP6rX.Oo', 'Pelanggan'),
+(3, 'jawir', '$2y$10$HeYmET3gC1baXf7Hx9B7JOK', 'Pelanggan');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -107,6 +122,12 @@ ALTER TABLE `datameja`
 --
 ALTER TABLE `datamenu`
   ADD PRIMARY KEY (`IDMenu`);
+
+--
+-- Indexes for table `pegawai`
+--
+ALTER TABLE `pegawai`
+  ADD PRIMARY KEY (`IDPegawai`);
 
 --
 -- Indexes for table `pesanan`
@@ -131,6 +152,12 @@ ALTER TABLE `datameja`
   MODIFY `IDMeja` int(10) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `pegawai`
+--
+ALTER TABLE `pegawai`
+  MODIFY `IDPegawai` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
@@ -140,7 +167,7 @@ ALTER TABLE `pesanan`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `IDUser` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDUser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
