@@ -9,8 +9,8 @@ $koneksidb = new mysqli($hostname, $username, $password, $database);
 
 
 // Mengecek apakah database restojawadb berhasil dikoneksikan
-if($koneksidb->connect_errno){
-    die("Koneksi Gagal" . $koneksidb->connect_errno);
+if($koneksidb->connect_error){
+    die("Koneksi Gagal" . $koneksidb->connect_error);
 }
 
 
