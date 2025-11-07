@@ -1,0 +1,197 @@
+/* Custom CSS untuk Dashboard Restoran */
+
+/* Variabel Warna */
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --info-color: #3498db;
+    --table-hover: #f5f5f5;
+}
+
+/* Body dan Background */
+body {
+    background-color: var(--light-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar Custom */
+.navbar {
+    background-color: var(--primary-color) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0.8rem 1rem;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 500;
+    padding: 0.7rem 1.2rem;
+    margin: 0 0.1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav .nav-link:hover {
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.navbar-nav .nav-link.active {
+    color: white !important;
+    background-color: rgba(255, 255, 255, 0.25);
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.navbar-nav .nav-link i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+/* Dropdown Menu */
+.navbar-nav .dropdown-menu {
+    background-color: var(--primary-color);
+    border: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.navbar-nav .dropdown-item {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.7rem 1.2rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .dropdown-item:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.navbar-nav .dropdown-item i {
+    width: 20px;
+    text-align: center;
+}
+
+/* Container dan Konten */
+.container-fluid {
+    padding: 0 2rem;
+}
+
+h1 {
+    color: var(--dark-color);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.lead {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+hr {
+    border-top: 2px solid var(--primary-color);
+    opacity: 0.2;
+}
+
+h2 {
+    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Tabel Custom */
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.table thead {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.table thead th {
+    border: none;
+    padding: 1rem;
+    font-weight: 600;
+}
+
+.table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background-color: var(--table-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Badge Status */
+.badge {
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.status-neruongo {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.status-dproser {
+    background-color: var(--info-color);
+    color: white;
+}
+
+.status-siap {
+    background-color: var(--success-color);
+    color: white;
+}
+
+/* Ikon Waktu */
+.bi-clock {
+    margin-right: 5px;
+    color: #7f8c8d;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .container-fluid {
+        padding: 0 1rem;
+    }
+    
+    .table-responsive {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.5rem 1rem;
+    }
+}
