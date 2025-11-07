@@ -23,29 +23,44 @@ if(isset($_POST["login"])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login Resto Jawa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style/loginstyle.css">
 </head>
 <body>
-    <form action="" method="post" enctype="multipart/form-data">
-        <table>
-            <tr>
-                <td>Username</td>
-                <td><input type="text" name="username" required></td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td><input type="password" name="password" required></td>
-            </tr>
-            <tr>
-                <td><button type="submit" name="login">Login</button></td>
-            </tr>
-        </table>
-    </form>
+    <div class="batik-background"></div>
+    <div class="container page-container">
+        <div class="card">
+            <div class="card-header">
+                <div class="logo">Resto Jawa</div>
+                <h2 class="mb-3">Login ke Akun Anda</h2>
+                <p class="welcome-text">Selamat datang di Resto Jawa!</p>
+                <p class="welcome-text">Silakan login untuk melanjutkan.</p>
+            </div>
+            <div class="card-body">
+                <form action="" method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username Anda">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password Anda">
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="login">Login</button>
+                    <div class="text-center">
+                        <span>Belum punya akun? </span>
+                        <a href="RegistrasiUser.php" class="link-text">Daftar sekarang</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    <a href="RegistrasiUser.php"><button type="submit" name="register">Buat Akun</button></a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
