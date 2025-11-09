@@ -8,7 +8,7 @@
     echo "
             <script>
                 alert('Anda Tidak Memiliki Akses');
-                document.location.href = 'Index.php';
+                document.location.href = '../Index.php';
             </script>
         ";
   }

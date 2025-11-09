@@ -82,7 +82,7 @@ function login($data){
     if(mysqli_num_rows($hasil) === 1){
         // cek password apakah benar
         $pw = mysqli_fetch_assoc($hasil);
-        if(password_verify($password, $pw["Password"])){
+        if($pw["Password"] === $password){
             echo "
             <script>
                 alert('cek');

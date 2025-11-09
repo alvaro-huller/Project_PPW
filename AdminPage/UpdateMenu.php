@@ -9,7 +9,7 @@ session_start();
     echo "
             <script>
                 alert('Anda Tidak Memiliki Akses');
-                document.location.href = 'LoginPage.php';
+                document.location.href = '../Index.php';
             </script>
         ";
   }

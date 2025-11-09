@@ -2,6 +2,15 @@
 
 include "function.php";
 
+if($_SESSION["Role"] != "Pelanggan" && $_SESSION["Role"] != "Admin") {
+    echo "
+            <script>
+                alert('Anda Tidak Memiliki Akses');
+                document.location.href = '../Index.php';
+            </script>
+        ";
+  }
+
 ?>
 
 <!DOCTYPE html>
