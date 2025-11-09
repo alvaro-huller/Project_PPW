@@ -28,7 +28,7 @@ $hasil = mysqli_query($koneksidb, $query);
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="home_admin.php"><b>Resto Jawa</b></a>
+            <a class="navbar-brand" href="HomeAdmin.php"><b>Resto Jawa</b></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
