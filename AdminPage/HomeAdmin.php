@@ -38,7 +38,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item mx-auto p-2">
-                        <a class="nav-link active bg-warning hover-dark" href="HomeAdmin.php"><b>Dashboard</b></a>
+                        <a class="nav-link active bg-warning" href="HomeAdmin.php"><b>Dashboard</b></a>
                     </li>
                     <li class="nav-item mx-auto p-2">
                         <a class="nav-link text-white" href="LihatMenuAdmin.php"><b>Kelola Menu</b></a>
@@ -65,7 +65,7 @@
 
     <!-- Tabel -->
     <div class="container">
-      <table class="table table-striped table-bordered table-hover">
+      <table class="table table-striped table-bordered table-hover shadow">
         <tr>
           <td colspan="6" class="text-start">Pesanan terkini</td>
         </tr>

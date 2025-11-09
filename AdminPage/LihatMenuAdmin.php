@@ -49,7 +49,7 @@ if(isset($_POST["hapus"])) {
                         <a class="nav-link text-white" href="HomeAdmin.php"><b>Dashboard</b></a>
                     </li>
                     <li class="nav-item mx-auto p-2">
-                        <a class="nav-link active bg-warning hover-dark" href="LihatMenuAdmin.php"><b>Kelola Menu</b></a>
+                        <a class="nav-link active bg-warning" href="LihatMenuAdmin.php"><b>Kelola Menu</b></a>
                     </li>
                     <li class="nav-item mx-auto p-2">
                         <a class="nav-link text-white" href="LihatHistoriPesanan.php"><b>Histori Pesanan</b></a>
@@ -73,7 +73,12 @@ if(isset($_POST["hapus"])) {
 
     <!-- Tabel -->
     <div class="container">
-        <table class="table table-striped table-bordered table-hover">
+        <table class="table table-striped table-bordered table-hover shadow">
+            <tr>
+                <td colspan="6" class="text-end">
+                  <a href="TambahMenu.php" class="btn btn-brown">Tambah menu</a>
+                </td>
+            </tr>
             <tr>
                 <th>ID Menu</th>
                 <th>Gambar</th>

@@ -45,7 +45,7 @@ $hasil = mysqli_query($koneksidb, $query);
                         <a class="nav-link text-white" href="LihatMenuAdmin.php"><b>Kelola Menu</b></a>
                     </li>
                     <li class="nav-item mx-auto p-2">
-                        <a class="nav-link active bg-warning hover-dark" href="LihatHistoriPesanan.php"><b>Histori Pesanan</b></a>
+                        <a class="nav-link active bg-warning" href="LihatHistoriPesanan.php"><b>Histori Pesanan</b></a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -66,7 +66,7 @@ $hasil = mysqli_query($koneksidb, $query);
     
     <!-- Tabel -->
     <div class="container">
-        <table class="table table-striped table-bordered table-hover">
+        <table class="table table-striped table-bordered table-hover shadow">
             <tr>
                 <th>ID Pesanan</th>
                 <th>ID Meja</th>

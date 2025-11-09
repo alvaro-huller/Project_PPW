@@ -46,3 +46,15 @@ nav {
 #hl:hover {
     text-decoration: underline;
 }
+
+/* Tombol di halaman tambah menu */
+.btn-brown {
+    background-color: #8B4513;
+    border-color: #8B4513;
+    color: white;
+}
+.btn-brown:hover {
+    background-color: #654321;
+    border-color: #654321;
+    color: white;
+}
