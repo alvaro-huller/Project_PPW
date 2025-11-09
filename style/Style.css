@@ -24,7 +24,7 @@ body {
     background-color: rgb(255, 233, 186);
 }
 
-/* Style Login Page */
+/* Style Login Page & Registrasi Page */
 
 .card-container {
     width: 500px;
@@ -42,5 +42,13 @@ body {
 }
 
 #register-hl:hover {
+    text-decoration: underline;
+}
+
+#hl {
+    text-decoration: none;
+}
+
+#hl:hover {
     text-decoration: underline;
 }
