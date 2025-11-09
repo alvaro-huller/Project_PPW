@@ -30,48 +30,43 @@ if(isset($_POST["register"])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrasi Resto Jawa</title>
+    <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style/loginstyle.css">
+    <link rel="stylesheet" href="style/Style.css">
 </head>
-<body>
-    <div class="batik-background"></div>
-    <div class="container page-container">
+<body id="login-page">
+    <div class="container card-container">
         <div class="card">
             <div class="card-header">
-                <div class="logo">Resto Jawa</div>
-                <h2 class="mb-3">Daftar Akun Baru</h2>
-                <p class="welcome-text">Buat akun untuk mulai reservasi di Resto Jawa</p>
+                <h3>Resto Jawa</h3>
+                <p class="m-1">Selamat datang di Resto Jawa!<br>
+                    Buat Akun Untuk Reservasi</p>
+                
             </div>
             <div class="card-body">
                 <form action="" method="post">
                     <div class="mb-3">
-                        <label for="regUsername" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="regUsername" name="username" placeholder="Pilih username Anda">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" placeholder="Masukkan Username Anda">
                     </div>
                     <div class="mb-3">
-                        <label for="regPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="regPassword" name="password" placeholder="Buat password Anda">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password1" class="form-control" placeholder="Masukkan Password Anda">
                     </div>
                     <div class="mb-3">
-                        <label for="confirmPassword" class="form-label">Konfirmasi Password</label>
-                        <input type="password" class="form-control" id="confirmPassword" name="password2" placeholder="Ulangi password Anda">
+                        <label class="form-label">Konfirmasi Password</label>
+                        <input type="password" name="password2" class="form-control" placeholder="Konfirmasi Password Anda">
                     </div>
-                    
-                    <button type="submit" name="register" class="btn btn-primary">Daftar</button>
-                    <div class="text-center">
-                        <span>Sudah punya akun? </span>
-                        <a href="Index.php" class="link-text">Login sekarang</a>
-                    </div>
+                    <button type="submit" id="tombol-registrasi" name="registrasi" class="btn btn-warning">BUAT AKUN</button>
                 </form>
+                <p>Sudah Punya Akun? <a id="hl" href="Index.php">Login Sekarang</a></p>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

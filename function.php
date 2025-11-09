@@ -70,7 +70,7 @@ function login($data){
 
             // Set session
             $_SESSION["Role"] = $data["Role"];
-            header("Location: AdminPage/HomeAdmin.php");
+            header("Location: AdminPage/Dashboard.php");
         }
     }
     
