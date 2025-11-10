@@ -12,6 +12,14 @@
             </script>
         ";
   }
+
+  if(isset($_POST["logout"])) {
+    unset($_SESSION["Role"]);
+    header("location: ../Index.php");
+  }
+
+  $query = "SELECT a.IDReservasi, b.* FROM reservasi a, pesanan b WHERE a.IDPesanan = b.IDPesanan AND Status = 'Proses'";
+  $hasil = mysqli_query($koneksidb, $query);
 ?>
 
 <!doctype html>
@@ -49,7 +57,7 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
                   <li class="nav-item">
-                    <a class="nav-link text-white" href="logout.php"><b>Keluar</b></a>
+                    <form action="" method="post"><button type="submit" name="logout"><b>Keluar</b></button></form>
                   </li>
                 </ul>
             </div>
@@ -67,19 +75,29 @@
     <div class="container">
       <table class="table table-striped table-bordered table-hover shadow">
         <tr>
-          <td colspan="6" class="text-start">Pesanan terkini</td>
+          <td colspan="8" class="text-start">Pesanan terkini</td>
         </tr>
         <tr>
+          <th>ID Reservasi</th>
           <th>ID Pesanan</th>
-          <th>Meja</th>
+          <th>ID Meja</th>
           <th>Menu</th>
-          <th>Waktu</th>
           <th>Total</th>
           <th>Status</th>
+          <th>Aksi</th>
         </tr>
         <?php
-        echo "<tr>";
-        ?>
+       while($data = mysqli_fetch_array($hasil)) {?>
+       <tr>
+          <td><?= $data["IDReservasi"]; ?></td>
+          <td><?= $data["IDPesanan"]; ?></td>
+          <td><?= $data["IDMeja"]; ?></td>
+          <td>Menu</td>
+          <td><?= $data["Total"]; ?></td>
+          <td><?= $sata["Status"]; ?></td>
+          <td>Aksi</td>
+        </tr>
+       <?php } ?>
       </table>
     </div>
 

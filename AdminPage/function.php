@@ -26,7 +26,7 @@ function tambahDataMenu($data){
     $deskripsi = $data["deskripsi"];
 
     // Query untuk menambahkan data ke tabel menu di database restojawadb
-    $query = "INSERT INTO menu (NamaMenu, HargaMenu, GambarMenu, Kategori, Stok, Deskripsi) values ('$nama', '$harga', '$gambar', '$kategori', '$stok', '$deskripsi')";
+    $query = "INSERT INTO datamenu (NamaMenu, HargaMenu, GambarMenu, Kategori, Stok, Deskripsi) values ('$nama', '$harga', '$gambar', '$kategori', '$stok', '$deskripsi')";
     mysqli_query($koneksidb, $query);
 
     return mysqli_error($koneksidb);
@@ -68,13 +68,9 @@ function uploadGambar(){
         return false;
     }
 
-    // Generete nama gambar baru
-    $namafilebaru = uniqid();
-    $namafilebaru .= '.';
-    $namafilebaru .= $ekstensigambar;
-    move_uploaded_file($tmpname, 'img/' . $namafilebaru);
+    move_uploaded_file($tmpname, '../img/' . $namafile);
 
-    return $namafilebaru;
+    return $namafile;
 }
 
 
@@ -99,11 +95,20 @@ function updateDataMenu($data){
 function hapusDataMenu($data){
     global $koneksidb;
 
-    $id = $data["id"];
+    $id = $data;
+    $query = "SELECT * FROM datamenu WHERE IDMenu = $id";
+    $hasil = mysqli_query($koneksidb, $query);
+    $data = mysqli_fetch_assoc($hasil);
+
+    $hapus = "../img/" . $data["GambarMenu"];
+
+    unlink($hapus);
 
     // Query untuk menghapus data di tabel menu di database restojawadb
-    $query = "DELETE FROM menu WHERE IDMenu = $id";
+    $query = "DELETE FROM datamenu WHERE IDMenu = $id";
     mysqli_query($koneksidb, $query);
+    echo "<script>alert('File berhasil dihapus');</script>";
+    echo "<script>setTimeout(function() { location.reload(); }, 1);</script>";
 }
 
 

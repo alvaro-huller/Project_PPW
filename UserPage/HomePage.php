@@ -2,16 +2,19 @@
 
 include "function.php";
 
-if($_SESSION["Role"] != "Pelanggan" && $_SESSION["Role"] != "Admin") {
-    echo "
-            <script>
-                alert('Anda Tidak Memiliki Akses');
-                document.location.href = '../Index.php';
-            </script>
-        ";
-  }
+// if($_SESSION["Role"] != "Pelanggan") {
+//     echo "
+//             <script>
+//                 alert('Anda Tidak Memiliki Akses');
+//                 document.location.href = '../Index.php';
+//             </script>
+//         ";
+//   }
 
-?>
+$query = "SELECT * FROM datamenu";
+$hasil = mysqli_query($koneksidb, $query);
+
+ ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,191 +23,11 @@ if($_SESSION["Role"] != "Pelanggan" && $_SESSION["Role"] != "Admin") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-dark: #5D4037;
-            --primary-light: #FFF8E1;
-            --accent-color: #8D6E63;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--primary-dark);
-        }
-        
-        .navbar {
-            background-color: var(--primary-dark);
-            height: 72px;
-        }
-        
-        .navbar-brand {
-            color: var(--primary-light) !important;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-        
-        .nav-link {
-            color: var(--primary-light) !important;
-            font-weight: 500;
-        }
-        
-        .nav-link:hover {
-            color: #FFD54F !important;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary-light);
-            color: var(--primary-dark);
-            border: none;
-            font-weight: 600;
-        }
-        
-        .btn-primary:hover {
-            background-color: #FFD54F;
-            color: var(--primary-dark);
-        }
-        
-        .hero-section {
-            background-color: var(--primary-dark);
-            color: var(--primary-light);
-            padding: 100px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(rgba(93, 64, 55, 0.8), rgba(93, 64, 55, 0.9)), 
-                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-            z-index: -1;
-        }
-        
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-        }
-        
-        .section-title {
-            color: var(--primary-dark);
-            font-weight: 700;
-            margin-bottom: 2rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background-color: var(--accent-color);
-        }
-        
-        .menu-section {
-            padding: 80px 0;
-            background-color: #f9f5f0;
-        }
-        
-        .menu-item {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            margin-bottom: 30px;
-        }
-        
-        .menu-item:hover {
-            transform: translateY(-5px);
-        }
-        
-        .menu-item-img {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .menu-item-content {
-            padding: 20px;
-        }
-        
-        .menu-item-title {
-            font-weight: 600;
-            color: var(--primary-dark);
-            margin-bottom: 10px;
-        }
-        
-        .menu-item-price {
-            color: var(--accent-color);
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-        
-        .about-section {
-            padding: 80px 0;
-            background-color: white;
-        }
-        
-        .contact-section {
-            padding: 80px 0;
-            background-color: var(--primary-dark);
-            color: var(--primary-light);
-        }
-        
-        .contact-section .section-title {
-            color: var(--primary-light);
-        }
-        
-        .contact-section .section-title::after {
-            background-color: var(--primary-light);
-        }
-        
-        .footer {
-            background-color: #2c1e17;
-            color: var(--primary-light);
-            padding: 40px 0;
-        }
-        
-        .footer a {
-            color: var(--primary-light);
-            text-decoration: none;
-        }
-        
-        .footer a:hover {
-            color: #FFD54F;
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../style/HomePage.css">
 </head>
-<body>
+<body class="bodyuser">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <nav id="usernav" class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <a class="navbar-brand" href="HomePage.php">Resto Jawa</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -242,7 +65,7 @@ if($_SESSION["Role"] != "Pelanggan" && $_SESSION["Role"] != "Admin") {
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Restaurant Interior" class="img-fluid rounded shadow">
+                    <img src="https://asset.kompas.com/crops/W4Rk5gx31HtfLjHYLSG4-cWrYU0=/0x0:780x390/780x390/data/photo/2012/12/27/1715322-set-memeriksa-goronggorong-780x390.jpg" alt="Restaurant Interior" class="img-fluid rounded shadow">
                 </div>
             </div>
         </div>
@@ -253,47 +76,26 @@ if($_SESSION["Role"] != "Pelanggan" && $_SESSION["Role"] != "Admin") {
         <div class="container">
             <h2 class="section-title text-center">Daftar Menu</h2>
             <div class="row">
-                <!-- Menu Item 1 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="menu-item">
-                        <div class="menu-item-img" style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80');"></div>
-                        <div class="menu-item-content">
-                            <h4 class="menu-item-title">Gudeg</h4>
-                            <p>Traditional Javanese dish made from young unripe jack fruit stewed for several hours with palm sugar and coconut milk.</p>
-                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="menu-item-price">$12.99</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php 
                 
-                <!-- Menu Item 2 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="menu-item">
-                        <div class="menu-item-img" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1981&q=80');"></div>
-                        <div class="menu-item-content">
-                            <h4 class="menu-item-title">Sate Ayam</h4>
-                            <p>Chicken satay with peanut sauce, served with rice cakes and sweet soy sauce.</p>
-                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="menu-item-price">$10.99</span>
+                while($data = mysqli_fetch_assoc($hasil)) {
+                ?>
+                    <div class='col-md-6 col-lg-4'>
+                        <div class='menu-item'>
+                            <div class='menu-item-img' style='background-image: url("../img/<?= $data["GambarMenu"]; ?>");'></div>
+                            <div class='menu-item-content'>
+                                <h4 class='menu-item-title'><?= $data["NamaMenu"]; ?></h4>
+                                <p><?= $data["Deskripsi"]; ?></p>
+                                <div class='d-flex justify-content-between align-items-center mt-3'>
+                                    <span class='menu-item-price'>RP <?= $data["HargaMenu"]; ?></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 
-                <!-- Menu Item 3 -->
-                <div class="col-md-6 col-lg-4">
-                    <div class="menu-item">
-                        <div class="menu-item-img" style="background-image: url('https://images.unsplash.com/photo-1563379926898-05f4575a45d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');"></div>
-                        <div class="menu-item-content">
-                            <h4 class="menu-item-title">Rawon</h4>
-                            <p>Traditional beef soup from East Java, using keluak as the main seasoning.</p>
-                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                <span class="menu-item-price">$14.99</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </section>

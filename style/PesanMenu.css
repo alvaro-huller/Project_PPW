@@ -1,0 +1,127 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #5D4037;
+}
+
+.header {
+    background-color: #5D4037;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-name {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.menu-section {
+    padding: 10px 10px;
+    background-color: #f9f5f0;
+}
+
+.selection-info {
+    background-color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #757575;
+}
+
+.menu-card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.menu-image {
+    height: 180px;
+    background-color: #e0e0e0;
+    background-size: cover;
+    background-position: center;
+}
+
+.menu-content {
+    padding: 15px;
+}
+
+.menu-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.menu-description {
+    font-size: 14px;
+    color: #757575;
+    margin-bottom: 10px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.menu-price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2e7d32;
+    margin-bottom: 10px;
+}
+
+.select-btn {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 15px;
+    font-size: 14px;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.select-btn:hover, .select-btn:active {
+    background-color: #1b5e20;
+}
+
+.select-btn.selected {
+    background-color: #ff9800;
+}
+
+.cart-btn {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.cart-btn:hover {
+    background-color: #f57c00;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .menu-card {
+        margin-bottom: 15px;
+    }
+    
+    .menu-image {
+        height: 150px;
+    }
+    
+    .resto-name {
+        font-size: 20px;
+    }
+}

@@ -63,8 +63,8 @@ if(isset($_POST["tambah"])) {
                 <div class="mb-3">
                     <label class="form-label">Kategori</label>
                     <select name="kategori" class="form-select" required>
-                        <option value="makanan">Makanan</option>
-                        <option value="minuman">Minuman</option>
+                        <option value="Lauk">Lauk</option>
+                        <option value="Minuman">Minuman</option>
                     </select>
                 </div>
                 

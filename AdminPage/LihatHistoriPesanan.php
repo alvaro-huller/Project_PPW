@@ -11,6 +11,11 @@ session_start();
             </script>
         ";
   }
+
+  if(isset($_POST["logout"])) {
+    unset($_SESSION["Role"]);
+    header("location: ../Index.php");
+  }
 $query = "SELECT * FROM pesanan WHERE Status = 'Served'";
 $hasil = mysqli_query($koneksidb, $query);
 ?>
@@ -50,7 +55,7 @@ $hasil = mysqli_query($koneksidb, $query);
                 </ul>
                 <ul class="navbar-nav ms-auto">
                   <li class="nav-item">
-                    <a class="nav-link text-white" href="logout.php"><b>Keluar</b></a>
+                    <form action="" method="post"><button type="submit" name="logout"><b>Keluar</b></button></form>
                   </li>
                 </ul>
             </div>
