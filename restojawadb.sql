@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2025 at 06:39 AM
+-- Generation Time: Nov 10, 2025 at 04:34 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,9 +29,31 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `datameja` (
   `IDMeja` int(10) NOT NULL,
+  `NoMeja` int(3) NOT NULL,
   `Jam` varchar(30) NOT NULL,
   `Status` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `datameja`
+--
+
+INSERT INTO `datameja` (`IDMeja`, `NoMeja`, `Jam`, `Status`) VALUES
+(1, 1, '10.00-12.00', 'Kosong'),
+(2, 1, '12.00-14.00', 'Kosong'),
+(3, 1, '14.00-16.00', 'Kosong'),
+(4, 1, '16.00-18.00', 'Kosong'),
+(5, 1, '18.00-20.00', 'Kosong'),
+(6, 2, '10.00-12.00', 'Kosong'),
+(7, 2, '12.00-14.00', 'Kosong'),
+(8, 2, '14.00-16.00', 'Kosong'),
+(9, 2, '16.00-18.00', 'Kosong'),
+(10, 2, '18.00-20.00', 'Kosong'),
+(11, 3, '10.00-12.00', 'Kosong'),
+(12, 3, '12.00-14.00', 'Kosong'),
+(13, 3, '14.00-16.00', 'Kosong'),
+(14, 3, '16.00-18.00', 'Kosong'),
+(15, 3, '18.00-20.00', 'Kosong');
 
 -- --------------------------------------------------------
 
@@ -42,12 +64,22 @@ CREATE TABLE `datameja` (
 CREATE TABLE `datamenu` (
   `IDMenu` int(10) NOT NULL,
   `NamaMenu` varchar(30) NOT NULL,
-  `HargaMenu` varchar(30) NOT NULL,
+  `HargaMenu` int(9) NOT NULL,
   `GambarMenu` varchar(30) NOT NULL,
   `Kategori` varchar(30) NOT NULL,
   `Stok` int(3) NOT NULL,
   `Deskripsi` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `datamenu`
+--
+
+INSERT INTO `datamenu` (`IDMenu`, `NamaMenu`, `HargaMenu`, `GambarMenu`, `Kategori`, `Stok`, `Deskripsi`) VALUES
+(1, 'Gudeg', 8000, 'Gudeg.jpg', 'Lauk', 10, ''),
+(2, 'Rawon', 8000, 'Rawon.jpeg', 'Lauk', 10, ''),
+(3, 'Sayur Lodeh', 8000, 'SayurLodeh.jpg', 'Lauk', 10, ''),
+(4, 'Sayur Asem', 8000, 'SayurAsem.jpg', 'Lauk', 10, '');
 
 -- --------------------------------------------------------
 
@@ -66,7 +98,8 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`IDPegawai`, `Username`, `Role`) VALUES
-(1, 'MJiddan', 'Admin');
+(1, 'MJiddan', 'Admin'),
+(2, 'SAlva', 'Admin');
 
 -- --------------------------------------------------------
 
@@ -77,13 +110,23 @@ INSERT INTO `pegawai` (`IDPegawai`, `Username`, `Role`) VALUES
 CREATE TABLE `pesanan` (
   `IDPesanan` int(10) NOT NULL,
   `IDMeja` int(10) NOT NULL,
-  `Jam` varchar(30) NOT NULL,
   `IDLauk1` int(10) NOT NULL,
   `IDLauk2` int(10) NOT NULL,
   `IDLauk3` int(10) NOT NULL,
   `IDMinuman` int(10) NOT NULL,
   `Total` int(11) NOT NULL,
   `Status` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reservasi`
+--
+
+CREATE TABLE `reservasi` (
+  `IDReservasi` int(10) NOT NULL,
+  `IDPesanan` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -104,8 +147,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`IDUser`, `Username`, `Password`, `Role`) VALUES
-(2, 'raja jawa', '$2y$10$aoCUTy42izxKkfmlP6rX.Oo', 'Pelanggan'),
-(3, 'jawir', '$2y$10$HeYmET3gC1baXf7Hx9B7JOK', 'Pelanggan');
+(1, 'raja jawa', 'projo02', 'Pelanggan');
 
 --
 -- Indexes for dumped tables
@@ -136,6 +178,12 @@ ALTER TABLE `pesanan`
   ADD PRIMARY KEY (`IDPesanan`);
 
 --
+-- Indexes for table `reservasi`
+--
+ALTER TABLE `reservasi`
+  ADD PRIMARY KEY (`IDReservasi`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -149,13 +197,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `datameja`
 --
 ALTER TABLE `datameja`
-  MODIFY `IDMeja` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `IDMeja` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `datamenu`
+--
+ALTER TABLE `datamenu`
+  MODIFY `IDMenu` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `IDPegawai` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `IDPegawai` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
@@ -164,10 +218,16 @@ ALTER TABLE `pesanan`
   MODIFY `IDPesanan` int(10) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `reservasi`
+--
+ALTER TABLE `reservasi`
+  MODIFY `IDReservasi` int(10) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `IDUser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IDUser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
