@@ -2,8 +2,6 @@
 
 include "function.php";
 
-session_start();
-
 // Mengecek apakah tombol login sudah ditekan
 if(isset($_POST["login"])) {
 

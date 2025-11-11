@@ -27,18 +27,20 @@ $hasil = mysqli_query($koneksidb, $query);
                 <div class="col">
                     <h1 class="page-name">Choose Your Menu</h1>
                 </div>
+
+                <div class="col">
+                    <div class="selection-info">
+                        Maksimal 3 Lauk
+                        <br>
+                        Lauk terpilin: 0/3
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <section class="menu-section" id="menu">
         <div class="container">
-            <!-- Selection Info -->
-            <div class="selection-info">
-                Lauk terpilin: 0/3
-                <br>
-                Maksimal 3 Lauk
-            </div>
 
             <h2 class="text-center">Daftar Menu</h2>
             
@@ -92,7 +94,7 @@ $hasil = mysqli_query($koneksidb, $query);
                     }
                     
                     // Update selection info and cart button
-                    selectionInfo.textContent = `Lauk terpilin: ${selectedCount}/${maxSelection}\nMaksimal ${maxSelection} Lauk`;
+                    selectionInfo.innerHTML = `Maksimal ${maxSelection} Lauk<br>\nLauk terpilin: ${selectedCount}/${maxSelection}`;
                     cartButton.textContent = `Lihat Pesanan (${selectedCount})`;
                 });
             });

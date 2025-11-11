@@ -1,0 +1,126 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #5D4037;
+}
+
+:root {
+    --primary-color: #5D4037;
+    --secondary-color: #FFF8E1;
+    --success-color: #4CAF50;
+    --gray-color: #9E9E9E;
+}
+
+.header {
+    background-color: #5D4037;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+.card-section {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.table-card {
+    border: 2px solid #e9ecef;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.table-card:hover {
+    border-color: var(--success-color);
+}
+
+.table-card.selected {
+    border-color: var(--primary-color);
+    background-color: var(--secondary-color);
+}
+
+.table-card.unavailable {
+    background-color: #f8f9fa;
+}
+
+.availability-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.availability-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.availability-dot.available {
+    background-color: var(--success-color);
+}
+
+.availability-dot.unavailable {
+    background-color: var(--gray-color);
+}
+
+.time-slot {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    border: none;
+    margin-bottom: 0.5rem;
+}
+
+.time-slot.available {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.time-slot.available:hover {
+    background-color: #45a049;
+}
+
+.time-slot.selected {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.time-slot.unavailable {
+    background-color: var(--gray-color);
+    color: white;
+}
+
+.reservation-summary {
+    background-color: var(--secondary-color);
+    border: 1px solid rgba(93, 64, 55, 0.2);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+.confirm-btn {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 1rem 2.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.confirm-btn:hover {
+    background-color: #6D4C41;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.confirm-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
