@@ -210,6 +210,7 @@ $hasil = mysqli_query($koneksidb, $query);
                         this.classList.remove('selected');
                         dotselected.classList.remove('selected');
                         statusselected.classList.remove('selected');
+                        statusselected.textContent = 'Tersedia';
                         konfirmasi.disabled = true;
                         jaminput.removeAttribute('value');
                         idmejainput.removeAttribute('value');
