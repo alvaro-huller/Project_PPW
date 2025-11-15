@@ -2,6 +2,9 @@
 
 include "function.php";
 
+$query = "SELECT * FROM datameja";
+$hasil = mysqli_query($koneksidb, $query);
+
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +15,101 @@ include "function.php";
     <title>Restaurant Reservation</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../style/Reservasi.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #5D4037;
+        }
+
+        .header {
+            background-color: #5D4037;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .card-section {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            border: 2px solid #e9ecef;
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .card:hover {
+            border-color: #4CAF50;
+        }
+
+        .availability-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .dot {
+            background-color: #4CAF50;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dot.selected {
+            background-color: gray;
+        }
+
+        .tersedia {
+            color: #4CAF50;
+        }
+        .tersedia.selected {
+            color: gray;
+        }
+
+        .booking {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            border: none;
+            margin-bottom: 0.5rem;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .booking.selected {
+            background-color: gray;
+        }
+
+        .booking:hover {
+            background-color: #387c3aff;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .konfirmasi {
+            background-color: #5D4037;
+            color: #FFF8E1;
+            padding: 1rem 2.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .konfirmasi:hover {
+            background-color: #6D4C41;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+    </style>
 </head>
 <body>
     <div class="header">
@@ -27,214 +124,107 @@ include "function.php";
             </div>
         </div>
     </div>
-
+    
     <div class="min-vh-100 bg-light">
         <div class="container px-4 py-5">
-
-            <!-- Top Section - Number of People -->
+            <form action="PesanMenu.php" method="post">
             <div class="card-section">
                 <div class="row">
                     <div class="col-md-6">
                         <h2 class="h3 mb-4 reservation-header">Jumlah Orang</h2>
-                        <select id="numberOfPeople" class="form-select form-select-lg">
+                        <select class="form-select form-select-lg" name="jumlahorang">
                             <option value="" selected disabled>Pilih jumlah orang</option>
                             <option value="1">1 Orang</option>
                             <option value="2">2 Orang</option>
                             <option value="3">3 Orang</option>
                             <option value="4">4 Orang</option>
-                            <option value="5">5 Orang</option>
-                            <option value="6">6 Orang</option>
-                            <option value="7">7 Orang</option>
-                            <option value="8">8 Orang</option>
-                            <option value="8+">Lebih dari 8 Orang</option>
                         </select>
                     </div>
                 </div>
             </div>
 
-            <!-- Table Availability Grid -->
             <div class="card-section">
                 <h2 class="h3 mb-5 reservation-header">Ketersediaan Meja</h2>
 
                 <div class="row g-4" id="tablesContainer">
-                    <!-- Tables will be dynamically inserted here -->
-                </div>
+                    <?php while($data = mysqli_fetch_assoc($hasil)) { if($data["Status"] == "Kosong"){?>
+                    <div class="card col-12 col-sm-6 col-lg-3">
+                        <div class="availability-indicator">
+                            <span class="dot"></span>
+                            <span class="tersedia small">Tersedia</span>
+                        </div>  
 
-                <!-- Selected Info -->
-                <div id="reservationSummary" class="reservation-summary d-none">
-                    <h3 class="h5 reservation-header mb-3">Reservasi Anda</h3>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <p class="text-muted mb-1">Meja</p>
-                            <p class="reservation-header mb-0" id="selectedTable">-</p>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3 class="meja h5 reservation-header mb-0" value="<?= $data["IDMeja"] ?>">Meja No  <?= $data["NoMeja"]; ?></h3>
                         </div>
-                        <div class="col-md-4">
-                            <p class="text-muted mb-1">Waktu</p>
-                            <p class="reservation-header mb-0" id="selectedTime">-</p>
+                        
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="jam" value="<?= $data["Jam"] ?>">
+                                <?= $data["Jam"]; ?>
+                            </span>
                         </div>
-                        <div class="col-md-4">
-                            <p class="text-muted mb-1">Jumlah Orang</p>
-                            <p class="reservation-header mb-0" id="selectedPeople">-</p>
-                        </div>
+
+                        <button type="button" class="booking">
+                            Booking
+                        </button>
+                        
                     </div>
+                    <?php } } ?> 
                 </div>
-
-                <!-- Confirm Button -->
-                <div class="mt-5 text-end">
-                    <button id="confirmButton" class="confirm-btn" disabled>
-                        Konfirmasi Reservasi
-                    </button>
-                </div>
+                    <div class="mt-5 text-end">
+                        <button type="submit" id="konfirmasi" class="konfirmasi" name="reservasi" disabled>
+                            Konfirmasi Reservasi
+                        </button>
+                    </div>
             </div>
+            <input type="text" id="jam" name="jam">
+            <input type="text" id="idmeja" name="idmeja">
+            </form>
         </div>
     </div>
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
-        // Table data
-        const tables = [
-            { id: "1", number: 1, capacity: 2, availableSlots: ["10:00", "12:00", "14:00"], bookedSlots: ["18:00", "20:00"] },
-            { id: "2", number: 2, capacity: 4, availableSlots: ["10:00", "12:00", "18:00"], bookedSlots: ["14:00", "20:00"] },
-            { id: "3", number: 3, capacity: 2, availableSlots: ["12:00", "14:00", "20:00"], bookedSlots: ["10:00", "18:00"] },
-            { id: "4", number: 4, capacity: 6, availableSlots: ["10:00", "18:00", "20:00"], bookedSlots: ["12:00", "14:00"] },
-            { id: "5", number: 5, capacity: 4, availableSlots: ["14:00", "18:00", "20:00"], bookedSlots: ["10:00", "12:00"] },
-            { id: "6", number: 6, capacity: 8, availableSlots: ["10:00", "12:00"], bookedSlots: ["14:00", "18:00", "20:00"] },
-            { id: "7", number: 7, capacity: 2, availableSlots: [], bookedSlots: ["10:00", "12:00", "14:00", "18:00", "20:00"] },
-            { id: "8", number: 8, capacity: 4, availableSlots: ["10:00", "14:00", "18:00"], bookedSlots: ["12:00", "20:00"] },
-        ];
-
-        // State variables
-        let selectedTable = null;
-        let selectedTime = null;
-        let numberOfPeople = "";
-
-        // DOM elements
-        const tablesContainer = document.getElementById('tablesContainer');
-        const reservationSummary = document.getElementById('reservationSummary');
-        const selectedTableElement = document.getElementById('selectedTable');
-        const selectedTimeElement = document.getElementById('selectedTime');
-        const selectedPeopleElement = document.getElementById('selectedPeople');
-        const confirmButton = document.getElementById('confirmButton');
-        const numberOfPeopleSelect = document.getElementById('numberOfPeople');
-
-        // Initialize the table grid
-        function renderTables() {
-            tablesContainer.innerHTML = '';
+        document.addEventListener('DOMContentLoaded', function() {
+            const tombolbooking = document.querySelectorAll('.booking');
+            const dot = document.querySelectorAll('.dot');
+            const status = document.querySelectorAll('.tersedia');
+            const konfirmasi = document.getElementById('konfirmasi');
+            const jam = document.getElementById('jam');
+            const idmeja = document.getElementById('idmeja');
             
-            tables.forEach(table => {
-                const isAvailable = table.availableSlots.length > 0;
-                const isSelected = selectedTable === table.id;
-                
-                const tableCard = document.createElement('div');
-                tableCard.className = `col-12 col-sm-6 col-lg-3`;
-                
-                tableCard.innerHTML = `
-                    <div class="table-card ${isSelected ? 'selected' : ''} ${!isAvailable ? 'unavailable' : ''}">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h3 class="h5 reservation-header mb-0">Meja ${table.number}</h3>
-                            <span class="text-muted small">${table.capacity} Orang</span>
-                        </div>
-                        
-                        ${isAvailable ? `
-                            <div class="availability-indicator">
-                                <span class="availability-dot available"></span>
-                                <span class="text-success small">Tersedia</span>
-                            </div>
-                            
-                            <div class="time-slots">
-                                ${table.availableSlots.map(slot => `
-                                    <button class="time-slot available ${isSelected && selectedTime === slot ? 'selected' : ''}" 
-                                            data-table="${table.id}" data-time="${slot}">
-                                        ${slot}
-                                    </button>
-                                `).join('')}
-                            </div>
-                        ` : `
-                            <div class="availability-indicator">
-                                <span class="availability-dot unavailable"></span>
-                                <span class="text-secondary small">Penuh</span>
-                            </div>
-                            
-                            <div class="time-slots">
-                                ${table.bookedSlots.slice(0, 3).map(slot => `
-                                    <div class="time-slot unavailable">${slot}</div>
-                                `).join('')}
-                            </div>
-                        `}
-                    </div>
-                `;
-                
-                tablesContainer.appendChild(tableCard);
-            });
+            let selectedCount = 0;
+            const maxSelection = 1;
             
-            // Add event listeners to time slot buttons
-            document.querySelectorAll('.time-slot.available').forEach(button => {
+            tombolbooking.forEach((button, index) => {
                 button.addEventListener('click', function() {
-                    const tableId = this.getAttribute('data-table');
-                    const time = this.getAttribute('data-time');
-                    
-                    selectTable(tableId, time);
+                    const dotselected = dot[index];
+                    const statusselected = status[index];
+                    if (this.classList.contains('selected')) {
+                        // Deselect
+                        this.classList.remove('selected');
+                        dotselected.classList.remove('selected');
+                        statusselected.classList.remove('selected');
+                        konfirmasi.disabled = true;
+                        selectedCount--;
+                    } else {
+                        // Check if we can select more
+                        if (selectedCount < maxSelection) {
+                            this.classList.add('selected');
+                            dotselected.classList.add('selected');
+                            statusselected.classList.add('selected');
+                            statusselected.textContent = 'Dipilih';
+                            jam.setAttribute('value', '')
+                            konfirmasi.disabled = false;
+                            selectedCount++;
+                        } else {
+                            alert('Maksimal hanya dapat memilih ' + maxSelection + ' nomor meja');
+                        }
+                    }
                 });
             });
-            
-            updateReservationSummary();
-            updateConfirmButton();
-        }
-
-        // Handle table selection
-        function selectTable(tableId, time) {
-            selectedTable = tableId;
-            selectedTime = time;
-            renderTables();
-        }
-
-        // Update reservation summary
-        function updateReservationSummary() {
-            if (selectedTable && selectedTime) {
-                const table = tables.find(t => t.id === selectedTable);
-                selectedTableElement.textContent = `Meja ${table.number}`;
-                selectedTimeElement.textContent = selectedTime;
-                selectedPeopleElement.textContent = numberOfPeople ? `${numberOfPeople} Orang` : "-";
-                reservationSummary.classList.remove('d-none');
-            } else {
-                reservationSummary.classList.add('d-none');
-            }
-        }
-
-        // Update confirm button state
-        function updateConfirmButton() {
-            if (numberOfPeople && selectedTable && selectedTime) {
-                confirmButton.disabled = false;
-            } else {
-                confirmButton.disabled = true;
-            }
-        }
-
-        // Handle confirm reservation
-        function handleConfirmReservation() {
-            if (numberOfPeople && selectedTable && selectedTime) {
-                const table = tables.find(t => t.id === selectedTable);
-                alert(
-                    `Reservasi dikonfirmasi!\n\nMeja: ${table.number}\nWaktu: ${selectedTime}\nJumlah Orang: ${numberOfPeople}`
-                );
-            } else {
-                alert("Mohon lengkapi semua informasi reservasi");
-            }
-        }
-
-        // Event listeners
-        numberOfPeopleSelect.addEventListener('change', function() {
-            numberOfPeople = this.value;
-            updateReservationSummary();
-            updateConfirmButton();
         });
-
-        confirmButton.addEventListener('click', handleConfirmReservation);
-
-        // Initial render
-        renderTables();
     </script>
 </body>
 </html>

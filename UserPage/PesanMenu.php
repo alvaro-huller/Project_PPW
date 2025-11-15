@@ -66,11 +66,9 @@ $hasil = mysqli_query($koneksidb, $query);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Simple JavaScript for selecting menu items
         document.addEventListener('DOMContentLoaded', function() {
             const selectButtons = document.querySelectorAll('.select-btn');
             const selectionInfo = document.querySelector('.selection-info');
-            const cartButton = document.querySelector('.cart-btn');
             
             let selectedCount = 0;
             const maxSelection = 3;
@@ -95,22 +93,6 @@ $hasil = mysqli_query($koneksidb, $query);
                     
                     // Update selection info and cart button
                     selectionInfo.innerHTML = `Maksimal ${maxSelection} Lauk<br>\nLauk terpilin: ${selectedCount}/${maxSelection}`;
-                    cartButton.textContent = `Lihat Pesanan (${selectedCount})`;
-                });
-            });
-            
-            // Filter buttons functionality
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    // In a real app, you would filter the menu items here
-                    // For this example, we'll just show an alert
-                    alert('Filter diterapkan: ' + this.textContent);
                 });
             });
         });
