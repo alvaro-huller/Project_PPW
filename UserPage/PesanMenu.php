@@ -218,7 +218,7 @@ $hasil = mysqli_query($koneksidb, $query);
                                     <h3 class="menu-name"><?= $data["NamaMenu"]; ?></h3>
                                     <p class="menu-description"><?= $data["Deskripsi"]; ?></p>
                                     <div class="menu-price">Rp <?= $data["HargaMenu"]; ?></div>
-                                    <button class="select-btn <?= 'menu'.$i; ?>">Pilih</button>
+                                    <button class="select-btn <?= 'menu'.$i; ?>" value="<?php $i ?>">Pilih</button>
                                 </div>
                             </div>
                         </div>
@@ -241,14 +241,14 @@ $hasil = mysqli_query($koneksidb, $query);
         document.addEventListener('DOMContentLoaded', function() {
             const selectionInfo = document.querySelector('.selection-info');
 
-            let selectButton = [];
+            let selectButton = [[],[]];
             let selectedCount = [0, 0, 0, 0];
             const maxSelection = 3;
 
             for(i = 0; i < <?= $jumlahorang; ?>; i++) {
                 let string = ".menu" + i;
-                selectButton[i] = document.querySelectorAll(string);
-                selectButton[i].forEach(button => {
+                selectButton[i][0] = document.querySelectorAll(string);
+                selectButton[i][0].forEach((button) => {
                     button.addEventListener('click', function() {
                         if (this.classList.contains('selected')) {
                             // Deselect
@@ -257,7 +257,7 @@ $hasil = mysqli_query($koneksidb, $query);
                             selectedCount[i]--;
                         } else {
                             // Check if we can select more
-                            if (selectedCount[0] < maxSelection) {
+                            if (selectedCount[i] < maxSelection) {
                                 this.classList.add('selected');
                                 this.textContent = 'Dipilih';
                                 selectedCount[i]++;
