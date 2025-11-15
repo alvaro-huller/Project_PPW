@@ -1,6 +1,20 @@
 <?php 
 
+if(isset($_POST["jumlahorang"])) {
+    $jumlahorang = $_POST["jumlahorang"];
+    $jam = $_POST["jam"];
+    $idmeja = $_POST["idmeja"];
+}else {
+    echo "
+        <script>
+            alert('Anda belum melakukan reservasi, reservasi meja terlebih dahulu');
+            document.location.href = 'Reservasi.php'
+        </script>
+        ";
+}
+
 include "function.php";
+
 
 $query = "SELECT * FROM datamenu";
 $hasil = mysqli_query($koneksidb, $query);
@@ -19,6 +33,156 @@ $hasil = mysqli_query($koneksidb, $query);
     <!-- <link rel="stylesheet" href="../style/style.css"> -->
     <link rel="stylesheet" href="../style/PesanMenu.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #5D4037;
+        }
+
+        .header {
+            background-color: #5D4037;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .menu-section {
+            padding: 10px 10px;
+            background-color: #f9f5f0;
+        }
+
+        .selection-info {
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            color: #757575;
+        }
+
+        .menu-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-image {
+            height: 180px;
+            background-color: #e0e0e0;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .menu-content {
+            padding: 15px;
+        }
+
+        .menu-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .menu-description {
+            font-size: 14px;
+            color: #757575;
+            margin-bottom: 10px;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .menu-price {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .select-btn {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 15px;
+            font-size: 14px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .select-btn:hover, .select-btn:active {
+            background-color: #1b5e20;
+        }
+
+        .select-btn.selected {
+            background-color: #ff9800;
+        }
+
+        .cart-btn {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .cart-btn:hover {
+            background-color: #f57c00;
+        }
+
+        @media (max-width: 576px) {
+            .menu-card {
+                margin-bottom: 15px;
+            }
+            
+            .menu-image {
+                height: 150px;
+            }
+            
+            .resto-name {
+                font-size: 20px;
+            }
+        }
+        .card-section {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .konfirmasi {
+            background-color: #5D4037;
+            color: #FFF8E1;
+            padding: 1rem 2.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .konfirmasi:hover {
+            background-color: #6D4C41;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+    </style>
 </head>
 <body>
     <div class="header">
@@ -41,24 +205,32 @@ $hasil = mysqli_query($koneksidb, $query);
 
     <section class="menu-section" id="menu">
         <div class="container">
-
-            <h2 class="text-center">Daftar Menu</h2>
-            
-            <div class="row">
-                <?php while($data = mysqli_fetch_assoc($hasil)){ ?>
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="menu-card">
-                            <div class="menu-image" style="background-image: url('../img/<?= $data["GambarMenu"]; ?>');"></div>
-                            <div class="menu-content">
-                                <h3 class="menu-name"><?= $data["NamaMenu"]; ?></h3>
-                                <p class="menu-description"><?= $data["Deskripsi"]; ?></p>
-                                <div class="menu-price">Rp <?= $data["HargaMenu"]; ?></div>
-                                <button class="select-btn">Pilih</button>
+            <div class="card-section">
+                <h2 class="text-center">Daftar Menu</h2>
+                <div class="row">
+                    <?php for($i = 0 ; $i < $jumlahorang; $i++){ ?>
+                        <h2 class="text-center">Pesanan <?= $i+1; ?></h2>
+                    <?php foreach($hasil as $data){ ?>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="menu-card">
+                                <div class="menu-image" style="background-image: url('../img/<?= $data["GambarMenu"]; ?>');"></div>
+                                <div class="menu-content">
+                                    <h3 class="menu-name"><?= $data["NamaMenu"]; ?></h3>
+                                    <p class="menu-description"><?= $data["Deskripsi"]; ?></p>
+                                    <div class="menu-price">Rp <?= $data["HargaMenu"]; ?></div>
+                                    <button class="select-btn <?= 'menu'.$i; ?>">Pilih</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php } ?>
+                    <?php }} ?>
+                </div>
+                <div class="mt-5 text-end">
+                    <button type="submit" id="konfirmasi" class="konfirmasi" name="reservasi" disabled>
+                        Konfirmasi Reservasi
+                    </button>
+                </div>
             </div>
+            
         </div>
     </section>
 
@@ -67,34 +239,39 @@ $hasil = mysqli_query($koneksidb, $query);
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const selectButtons = document.querySelectorAll('.select-btn');
             const selectionInfo = document.querySelector('.selection-info');
-            
-            let selectedCount = 0;
+
+            let selectButton = [];
+            let selectedCount = [0, 0, 0, 0];
             const maxSelection = 3;
-            
-            selectButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    if (this.classList.contains('selected')) {
-                        // Deselect
-                        this.classList.remove('selected');
-                        this.textContent = 'Pilih';
-                        selectedCount--;
-                    } else {
-                        // Check if we can select more
-                        if (selectedCount < maxSelection) {
-                            this.classList.add('selected');
-                            this.textContent = 'Dipilih';
-                            selectedCount++;
+
+            for(i = 0; i < <?= $jumlahorang; ?>; i++) {
+                let string = ".menu" + i;
+                selectButton[i] = document.querySelectorAll(string);
+                selectButton[i].forEach(button => {
+                    button.addEventListener('click', function() {
+                        if (this.classList.contains('selected')) {
+                            // Deselect
+                            this.classList.remove('selected');
+                            this.textContent = 'Pilih';
+                            selectedCount[i]--;
                         } else {
-                            alert('Maksimal hanya dapat memilih ' + maxSelection + ' lauk');
+                            // Check if we can select more
+                            if (selectedCount[0] < maxSelection) {
+                                this.classList.add('selected');
+                                this.textContent = 'Dipilih';
+                                selectedCount[i]++;
+                            } else {
+                                alert('Maksimal hanya dapat memilih ' + maxSelection + ' lauk');
+                            }
                         }
-                    }
-                    
-                    // Update selection info and cart button
-                    selectionInfo.innerHTML = `Maksimal ${maxSelection} Lauk<br>\nLauk terpilin: ${selectedCount}/${maxSelection}`;
+                        
+                        // Update selection info and cart button
+                        selectionInfo.innerHTML = `Maksimal ${maxSelection} Lauk<br>\nLauk terpilin: ${selectedCount}/${maxSelection}`;
+                    });
                 });
-            });
+            }
+            
         });
     </script>
 </body>

@@ -28,7 +28,6 @@ $hasil = mysqli_query($koneksidb, $query);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-
         .card-section {
             background-color: white;
             border-radius: 0.5rem;
@@ -70,6 +69,7 @@ $hasil = mysqli_query($koneksidb, $query);
         .tersedia {
             color: #4CAF50;
         }
+
         .tersedia.selected {
             color: gray;
         }
@@ -132,7 +132,7 @@ $hasil = mysqli_query($koneksidb, $query);
                 <div class="row">
                     <div class="col-md-6">
                         <h2 class="h3 mb-4 reservation-header">Jumlah Orang</h2>
-                        <select class="form-select form-select-lg" name="jumlahorang">
+                        <select class="form-select form-select-lg" name="jumlahorang" required>
                             <option value="" selected disabled>Pilih jumlah orang</option>
                             <option value="1">1 Orang</option>
                             <option value="2">2 Orang</option>
@@ -155,7 +155,7 @@ $hasil = mysqli_query($koneksidb, $query);
                         </div>  
 
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h3 class="meja h5 reservation-header mb-0" value="<?= $data["IDMeja"] ?>">Meja No  <?= $data["NoMeja"]; ?></h3>
+                            <h3 class="idmeja h5 reservation-header mb-0" value="<?= $data["IDMeja"] ?>">Meja No  <?= $data["NoMeja"]; ?></h3>
                         </div>
                         
                         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -177,8 +177,8 @@ $hasil = mysqli_query($koneksidb, $query);
                         </button>
                     </div>
             </div>
-            <input type="text" id="jam" name="jam">
-            <input type="text" id="idmeja" name="idmeja">
+            <input type="text" id="jaminput" name="jam" hidden required>
+            <input type="text" id="idmejainput" name="idmeja" hidden required>
             </form>
         </div>
     </div>
@@ -191,8 +191,10 @@ $hasil = mysqli_query($koneksidb, $query);
             const dot = document.querySelectorAll('.dot');
             const status = document.querySelectorAll('.tersedia');
             const konfirmasi = document.getElementById('konfirmasi');
-            const jam = document.getElementById('jam');
-            const idmeja = document.getElementById('idmeja');
+            const jam = document.querySelectorAll('.jam');
+            const idmeja = document.querySelectorAll('.idmeja');
+            const jaminput = document.getElementById('jaminput');
+            const idmejainput = document.getElementById('idmejainput');
             
             let selectedCount = 0;
             const maxSelection = 1;
@@ -201,12 +203,16 @@ $hasil = mysqli_query($koneksidb, $query);
                 button.addEventListener('click', function() {
                     const dotselected = dot[index];
                     const statusselected = status[index];
+                    const jamselected = jam[index];
+                    const idmejaselected = idmeja[index];
                     if (this.classList.contains('selected')) {
                         // Deselect
                         this.classList.remove('selected');
                         dotselected.classList.remove('selected');
                         statusselected.classList.remove('selected');
                         konfirmasi.disabled = true;
+                        jaminput.removeAttribute('value');
+                        idmejainput.removeAttribute('value');
                         selectedCount--;
                     } else {
                         // Check if we can select more
@@ -215,7 +221,10 @@ $hasil = mysqli_query($koneksidb, $query);
                             dotselected.classList.add('selected');
                             statusselected.classList.add('selected');
                             statusselected.textContent = 'Dipilih';
-                            jam.setAttribute('value', '')
+                            const datajam = jamselected.getAttribute('value')
+                            const dataidmeja = idmejaselected.getAttribute('value')
+                            jaminput.setAttribute('value', datajam)
+                            idmejainput.setAttribute('value', dataidmeja)
                             konfirmasi.disabled = false;
                             selectedCount++;
                         } else {
