@@ -15,6 +15,10 @@ if(isset($_POST["jumlahorang"])) {
 
 include "function.php";
 
+if(isset($_POST["pesan"])) {
+
+}
+
 
 $query = "SELECT * FROM datamenu";
 $hasil = mysqli_query($koneksidb, $query);
@@ -207,8 +211,9 @@ $hasil = mysqli_query($koneksidb, $query);
         <div class="container">
             <div class="card-section">
                 <h2 class="text-center">Daftar Menu</h2>
+                <form action="cek.php" method="post">
                 <div class="row">
-                    <?php for($i = 0 ; $i < $jumlahorang; $i++){ ?>
+                    <?php $j=0; for($i = 0 ; $i < $jumlahorang; $i++){ ?>
                         <h2 class="text-center">Pesanan <?= $i+1; ?></h2>
                     <?php foreach($hasil as $data){ ?>
                         <div class="col-12 col-md-6 col-lg-4">
@@ -218,17 +223,22 @@ $hasil = mysqli_query($koneksidb, $query);
                                     <h3 class="menu-name"><?= $data["NamaMenu"]; ?></h3>
                                     <p class="menu-description"><?= $data["Deskripsi"]; ?></p>
                                     <div class="menu-price">Rp <?= $data["HargaMenu"]; ?></div>
-                                    <button class="select-btn <?= 'menu'.$i; ?>" value="<?php $i ?>">Pilih</button>
+                                    <input type="checkbox"  class="btn-check" id="btncheck<?= ++$j; ?>" name="btncheck<?= $j; ?>" autocomplete="off">
+                                    <button type="button" class="select-btn <?= 'menu'.$i; ?>" for="btncheck<?= $j; ?>" value="<?= $data["IDMenu"] ?>">Pilih</button>
                                 </div>
                             </div>
                         </div>
                     <?php }} ?>
                 </div>
+                <input type="number" name="jumlahorang" value="<?= $jumlahorang ?>" hidden>
+                <input type="number" name="jam" value="<?= $jam ?>" hidden>
+                <input type="number" name="idmeja" value="<?= $idmeja?>" hidden>
                 <div class="mt-5 text-end">
-                    <button type="submit" id="konfirmasi" class="konfirmasi" name="reservasi" disabled>
-                        Konfirmasi Reservasi
+                    <button type="submit" id="konfirmasi" class="konfirmasi" name="menu">
+                        Konfirmasi Menu
                     </button>
-                </div>
+                </div>    
+                </form>
             </div>
             
         </div>
@@ -241,26 +251,27 @@ $hasil = mysqli_query($koneksidb, $query);
         document.addEventListener('DOMContentLoaded', function() {
             const selectionInfo = document.querySelector('.selection-info');
 
-            let selectButton = [[],[]];
+            let selectButton = [];
+            let indexs = [0, 1, 2, 3];
             let selectedCount = [0, 0, 0, 0];
             const maxSelection = 3;
 
-            for(i = 0; i < <?= $jumlahorang; ?>; i++) {
-                let string = ".menu" + i;
-                selectButton[i][0] = document.querySelectorAll(string);
-                selectButton[i][0].forEach((button) => {
+            indexs.forEach(index => {
+                let string = ".menu" + index;
+                selectButton[index] = document.querySelectorAll(string);
+                selectButton[index].forEach(button => {
                     button.addEventListener('click', function() {
                         if (this.classList.contains('selected')) {
                             // Deselect
                             this.classList.remove('selected');
                             this.textContent = 'Pilih';
-                            selectedCount[i]--;
+                            selectedCount[index]--;
                         } else {
                             // Check if we can select more
-                            if (selectedCount[i] < maxSelection) {
+                            if (selectedCount[index] < maxSelection) {
                                 this.classList.add('selected');
                                 this.textContent = 'Dipilih';
-                                selectedCount[i]++;
+                                selectedCount[index]++;
                             } else {
                                 alert('Maksimal hanya dapat memilih ' + maxSelection + ' lauk');
                             }
@@ -270,8 +281,7 @@ $hasil = mysqli_query($koneksidb, $query);
                         selectionInfo.innerHTML = `Maksimal ${maxSelection} Lauk<br>\nLauk terpilin: ${selectedCount}/${maxSelection}`;
                     });
                 });
-            }
-            
+            });
         });
     </script>
 </body>
