@@ -2,7 +2,6 @@
 
 if(isset($_POST["jumlahorang"])) {
     $jumlahorang = $_POST["jumlahorang"];
-    $jam = $_POST["jam"];
     $idmeja = $_POST["idmeja"];
 }else {
     echo "
@@ -34,8 +33,6 @@ $hasil = mysqli_query($koneksidb, $query);
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
-    <!-- <link rel="stylesheet" href="../style/style.css"> -->
-    <link rel="stylesheet" href="../style/PesanMenu.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
         body {
@@ -223,8 +220,8 @@ $hasil = mysqli_query($koneksidb, $query);
                                     <h3 class="menu-name"><?= $data["NamaMenu"]; ?></h3>
                                     <p class="menu-description"><?= $data["Deskripsi"]; ?></p>
                                     <div class="menu-price">Rp <?= $data["HargaMenu"]; ?></div>
-                                    <input type="checkbox"  class="btn-check" id="btncheck<?= ++$j; ?>" name="btncheck<?= $j; ?>" autocomplete="off">
-                                    <button type="button" class="select-btn <?= 'menu'.$i; ?>" for="btncheck<?= $j; ?>" value="<?= $data["IDMenu"] ?>">Pilih</button>
+                                    <input type="checkbox"  class="btn-check" id="btncheck<?= ++$j; ?>" name="btncheck<?= $j; ?>" value="<?= $data["IDMenu"] ?>" autocomplete="off">
+                                    <label class="select-btn <?= 'menu'.$i; ?>" for="btncheck<?= $j; ?>" >Pilih</label>
                                 </div>
                             </div>
                         </div>

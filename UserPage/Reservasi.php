@@ -177,7 +177,6 @@ $hasil = mysqli_query($koneksidb, $query);
                         </button>
                     </div>
             </div>
-            <input type="text" id="jaminput" name="jam" hidden required>
             <input type="text" id="idmejainput" name="idmeja" hidden required>
             </form>
         </div>
@@ -191,9 +190,7 @@ $hasil = mysqli_query($koneksidb, $query);
             const dot = document.querySelectorAll('.dot');
             const status = document.querySelectorAll('.tersedia');
             const konfirmasi = document.getElementById('konfirmasi');
-            const jam = document.querySelectorAll('.jam');
             const idmeja = document.querySelectorAll('.idmeja');
-            const jaminput = document.getElementById('jaminput');
             const idmejainput = document.getElementById('idmejainput');
             
             let selectedCount = 0;
@@ -203,7 +200,6 @@ $hasil = mysqli_query($koneksidb, $query);
                 button.addEventListener('click', function() {
                     const dotselected = dot[index];
                     const statusselected = status[index];
-                    const jamselected = jam[index];
                     const idmejaselected = idmeja[index];
                     if (this.classList.contains('selected')) {
                         // Deselect
@@ -212,7 +208,6 @@ $hasil = mysqli_query($koneksidb, $query);
                         statusselected.classList.remove('selected');
                         statusselected.textContent = 'Tersedia';
                         konfirmasi.disabled = true;
-                        jaminput.removeAttribute('value');
                         idmejainput.removeAttribute('value');
                         selectedCount--;
                     } else {
@@ -222,9 +217,7 @@ $hasil = mysqli_query($koneksidb, $query);
                             dotselected.classList.add('selected');
                             statusselected.classList.add('selected');
                             statusselected.textContent = 'Dipilih';
-                            const datajam = jamselected.getAttribute('value')
                             const dataidmeja = idmejaselected.getAttribute('value')
-                            jaminput.setAttribute('value', datajam)
                             idmejainput.setAttribute('value', dataidmeja)
                             konfirmasi.disabled = false;
                             selectedCount++;
