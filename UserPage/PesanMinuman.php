@@ -1,8 +1,8 @@
 <?php 
 
-if(isset($_POST["jumlahorang"])) {
-    $jumlahorang = $_POST["jumlahorang"];
-    $idmeja = $_POST["idmeja"];
+if(isset($_GET["jumlahorang"])) {
+    $jumlahorang = $_GET["jumlahorang"];
+    $idmeja = $_GET["idmeja"];
 }else {
     echo "
         <script>
@@ -14,11 +14,12 @@ if(isset($_POST["jumlahorang"])) {
 
 include "function.php";
 
-if(isset($_POST["pesanmakanan"])) {
-    pesanmakanan($_POST);
+if(isset($_POST["pesanminum"])) {
+    pesanminuman($_POST);
 }
 
-$query = "SELECT * FROM datalauk";
+
+$query = "SELECT * FROM dataminuman";
 $hasil = mysqli_query($koneksidb, $query);
 
 ?>
@@ -206,20 +207,20 @@ $hasil = mysqli_query($koneksidb, $query);
     <section class="menu-section" id="menu">
         <div class="container">
             <div class="card-section">
-                <h2 class="text-center">Daftar Lauk</h2>
+                <h2 class="text-center">Daftar Minuman</h2>
                 <form action="cek.php" method="post">
                 <div class="row">
-                    <?php $j=0; for($i = 0 ; $i < $jumlahorang; $i++){ ?>
+                    <?php $j=0; for($i = 0 ; $i < 1; $i++){ ?>
                         <h2 class="text-center">Pesanan <?= $i+1; ?></h2>
-                    <?php foreach($hasil as $data){ if($data["IDMenu"] == 0) continue;?>
+                    <?php foreach($hasil as $data){?>
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="menu-card">
-                                <div class="menu-image" style="background-image: url('../img/<?= $data["GambarMenu"]; ?>');"></div>
+                                <div class="menu-image" style="background-image: url('../img/<?= $data["Gambar"]; ?>');"></div>
                                 <div class="menu-content">
-                                    <h3 class="menu-name"><?= $data["NamaMenu"]; ?></h3>
+                                    <h3 class="menu-name"><?= $data["NamaMinuman"]; ?></h3>
                                     <p class="menu-description"><?= $data["Deskripsi"]; ?></p>
-                                    <div class="menu-price">Rp <?= $data["HargaMenu"]; ?></div>
-                                    <input type="checkbox"  class="btn-check" id="btncheck<?= ++$j; ?>" name="btncheck<?= $j; ?>" value="<?= $data["IDMenu"] ?>" autocomplete="off">
+                                    <div class="menu-price">Rp <?= $data["HargaMinuman"]; ?></div>
+                                    <input type="checkbox"  class="btn-check" id="btncheck<?= ++$j; ?>" name="btncheck<?= $j; ?>" value="<?= $data["IDMinuman"] ?>" autocomplete="off">
                                     <label class="select-btn <?= 'menu'.$i; ?>" for="btncheck<?= $j; ?>" >Pilih</label>
                                 </div>
                             </div>
@@ -230,8 +231,8 @@ $hasil = mysqli_query($koneksidb, $query);
                 <input type="number" name="jam" value="<?= $jam ?>" hidden>
                 <input type="number" name="idmeja" value="<?= $idmeja?>" hidden>
                 <div class="mt-5 text-end">
-                    <button type="submit" id="konfirmasi" class="konfirmasi" name="peesanmakanan">
-                        Konfirmasi Menu
+                    <button type="submit" id="konfirmasi" class="konfirmasi" name="pesanminum">
+                        Konfirmasi Minuman
                     </button>
                 </div>    
                 </form>
@@ -250,7 +251,7 @@ $hasil = mysqli_query($koneksidb, $query);
             let selectButton = [];
             let indexs = [0, 1, 2, 3];
             let selectedCount = [0, 0, 0, 0];
-            const maxSelection = 3;
+            const maxSelection = 1;
 
             indexs.forEach(index => {
                 let string = ".menu" + index;
@@ -269,7 +270,7 @@ $hasil = mysqli_query($koneksidb, $query);
                                 this.textContent = 'Dipilih';
                                 selectedCount[index]++;
                             } else {
-                                alert('Maksimal hanya dapat memilih ' + maxSelection + ' lauk');
+                                alert('Maksimal hanya dapat memilih ' + maxSelection + ' minuman');
                             }
                         }
                         

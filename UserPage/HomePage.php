@@ -11,7 +11,7 @@ include "function.php";
 //         ";
 //   }
 
-$query = "SELECT * FROM datamenu";
+$query = "SELECT * FROM datalauk";
 $hasil = mysqli_query($koneksidb, $query);
 
  ?>
@@ -79,6 +79,7 @@ $hasil = mysqli_query($koneksidb, $query);
                 <?php 
                 
                 while($data = mysqli_fetch_assoc($hasil)) {
+                    if($data["IDMenu"] == 0) continue;
                 ?>
                     <div class='col-md-6 col-lg-4'>
                         <div class='menu-item'>
