@@ -2,6 +2,11 @@
 
 include "../koneksi.php";
 
+function logout() {
+    session_destroy();
+    header("location: ../index.php");
+}
+
 function pesanmakanan($data) {
     global $koneksidb;
     
@@ -55,7 +60,36 @@ function pesanmakanan($data) {
 
         $query = "INSERT INTO pesanan (IDReservasi, IDMeja, IDLauk1, IDLauk2, IDLauk3, IDMinuman, Total, Status) VALUES ('$idreservasi', '$idmeja', '$lauk1', '$lauk2', '$lauk3', '$idminuman', '$total', 'Proses')";
         mysqli_query($koneksidb, $query);
+
+        $id = $_SESSION["ID"];
+        $query = "UPDATE user SET IDReservasi = '$idreservasi' WHERE IDUser = '$id'";
+        mysqli_query($koneksidb, $query);
+
+        $query = "UPDATE datameja SET Status = 'Penuh' WHERE IDMeja = '$idmeja'";
+        mysqli_query($koneksidb, $query);
     }
+
+    header("location: HomePage.php");
+}
+
+function batalPesanan($data) {
+    global $koneksidb;
+
+    $idreservasi = $data["idreservasi"];
+    $idmeja = $data["idmeja"];
+    $iduser = $data["iduser"];
+
+    $query = "UPDATE datameja SET Status = 'Kosong' WHERE IDMeja = '$idmeja'";
+    mysqli_query($koneksidb, $query);
+    
+    $query = "UPDATE user SET IDReservasi = 'Kosong' WHERE IDUser = '$iduser'";
+    mysqli_query($koneksidb, $query);
+    
+    $query = "DELETE FROM pesanan WHERE IDReservasi = '$idreservasi'";
+    mysqli_query($koneksidb, $query);
+    
+    $query = "DELETE FROM reservasi WHERE IDReservasi = '$idreservasi'";
+    mysqli_query($koneksidb, $query);
 
     header("location: HomePage.php");
 }

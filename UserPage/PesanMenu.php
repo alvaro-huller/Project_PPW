@@ -1,5 +1,16 @@
 <?php 
 
+include "function.php";
+
+if($_SESSION["Role"] != "Pelanggan") {
+    echo "
+            <script>
+                alert('Anda Tidak Memiliki Akses');
+                document.location.href = '../Index.php';
+            </script>
+        ";
+  }
+
 if(isset($_POST["jumlahorang"])) {
     $jumlahorang = $_POST["jumlahorang"];
     $idmeja = $_POST["idmeja"];
@@ -12,7 +23,6 @@ if(isset($_POST["jumlahorang"])) {
         ";
 }
 
-include "function.php";
 
 if(isset($_POST["pesanmakanan"])) {
     pesanmakanan($_POST);
@@ -267,6 +277,7 @@ $hasilminuman = mysqli_query($koneksidb, $query);
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const selectionInfo = document.querySelector('.selection-info');
+            const tombolkonfirmasi = document.getElementById('konfirmasi');
 
             let buttonlauk = [];
             let buttonminuman = [];
@@ -274,15 +285,21 @@ $hasilminuman = mysqli_query($koneksidb, $query);
             let selectedCountlauk = [0, 0, 0, 0];
             let selectedCountminuman = [0, 0, 0, 0];
 
-            indexs.forEach(index => {
-                if(selectedCountlauk[index] != 0 && selectedCountminuman[index] != 0) {
+            // indexs.forEach(index => {
+            //     if(index == <?= $jumlahorang ?>){
+            //         return; 
+            //     }
+            //     if(selectedCountlauk[index] > 0 && selectedCountminuman[index] > 0) {
+            //         tombolkonfirmasi.disabled = false;
+            //     }else {
+            //         tombolkonfirmasi.disabled = true;
+            //     }
+            // })
 
-                }else {
-                    
+            indexs.forEach(index => {
+                if(index == <?= $jumlahorang ?>){
+                    return; 
                 }
-            })
-
-            indexs.forEach(index => {
                 let string = ".lauk" + index;
                 buttonlauk[index] = document.querySelectorAll(string);
                 buttonlauk[index].forEach(button => {
@@ -307,6 +324,9 @@ $hasilminuman = mysqli_query($koneksidb, $query);
             });
 
             indexs.forEach(index => {
+                if(index == <?= $jumlahorang ?>){
+                    return; 
+                }
                 string = ".minuman" + index;
                 buttonminuman[index] = document.querySelectorAll(string);
                 buttonminuman[index].forEach(button => {

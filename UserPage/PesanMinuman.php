@@ -1,5 +1,16 @@
 <?php 
 
+include "function.php";
+
+if($_SESSION["Role"] != "Pelanggan") {
+    echo "
+            <script>
+                alert('Anda Tidak Memiliki Akses');
+                document.location.href = '../Index.php';
+            </script>
+        ";
+  }
+
 if(isset($_GET["jumlahorang"])) {
     $jumlahorang = $_GET["jumlahorang"];
     $idmeja = $_GET["idmeja"];

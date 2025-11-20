@@ -2,6 +2,15 @@
 
 include "function.php";
 
+if($_SESSION["Role"] != "Pelanggan") {
+    echo "
+            <script>
+                alert('Anda Tidak Memiliki Akses');
+                document.location.href = '../Index.php';
+            </script>
+        ";
+  }
+
 $query = "SELECT * FROM datameja";
 $hasil = mysqli_query($koneksidb, $query);
 

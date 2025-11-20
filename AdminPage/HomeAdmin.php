@@ -18,7 +18,7 @@
     header("location: ../Index.php");
   }
 
-  $query = "SELECT a.IDReservasi, b.* FROM reservasi a, pesanan b WHERE a.IDPesanan = b.IDPesanan AND Status = 'Proses'";
+  $query = "SELECT a.NoMeja, b.* FROM datameja a, pesanan b WHERE a.IDMeja = b.IDMeja AND b.Status = 'Proses'";
   $hasil = mysqli_query($koneksidb, $query);
 ?>
 
@@ -80,8 +80,11 @@
         <tr>
           <th>ID Reservasi</th>
           <th>ID Pesanan</th>
-          <th>ID Meja</th>
-          <th>Menu</th>
+          <th>No Meja</th>
+          <th>Lauk 1</th>
+          <th>Lauk 2</th>
+          <th>Lauk 3</th>
+          <th>Minuman</th>
           <th>Total</th>
           <th>Status</th>
           <th>Aksi</th>
@@ -91,10 +94,13 @@
        <tr>
           <td><?= $data["IDReservasi"]; ?></td>
           <td><?= $data["IDPesanan"]; ?></td>
-          <td><?= $data["IDMeja"]; ?></td>
-          <td>Menu</td>
+          <td><?= $data["NoMeja"]; ?></td>
+          <td><?= $data["IDLauk1"]; ?></td>
+          <td><?= $data["IDLauk2"]; ?></td>
+          <td><?= $data["IDLauk3"]; ?></td>
+          <td><?= $data["IDMinuman"]; ?></td>
           <td><?= $data["Total"]; ?></td>
-          <td><?= $sata["Status"]; ?></td>
+          <td><?= $data["Status"]; ?></td>
           <td>Aksi</td>
         </tr>
        <?php } ?>

@@ -70,15 +70,11 @@ function login($data){
     // cek username apakah ada
     if(mysqli_num_rows($hasil) === 1){
         // cek password apakah benar
-        $pw = mysqli_fetch_assoc($hasil);
-        if($pw["Password"] === $password){
-            echo "
-            <script>
-                alert('cek');
-            </script>
-        ";
+        $data = mysqli_fetch_assoc($hasil);
+        if($data["Password"] === $password){
             // Set session
             $_SESSION["Role"] = $data["Role"];
+            $_SESSION["ID"] = $data["IDUser "];
             header("Location: UserPage/HomePage.php");
         }
     }
