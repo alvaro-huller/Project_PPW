@@ -15,7 +15,7 @@ if(isset($_GET["jumlahorang"])) {
 include "function.php";
 
 if(isset($_POST["pesanminum"])) {
-    pesanminuman($_POST);
+    
 }
 
 

@@ -19,7 +19,10 @@ if(isset($_POST["pesanmakanan"])) {
 }
 
 $query = "SELECT * FROM datalauk";
-$hasil = mysqli_query($koneksidb, $query);
+$hasilmakanan = mysqli_query($koneksidb, $query);
+
+$query = "SELECT * FROM dataminuman";
+$hasilminuman = mysqli_query($koneksidb, $query);
 
 ?>
 
@@ -196,7 +199,7 @@ $hasil = mysqli_query($koneksidb, $query);
                     <div class="selection-info">
                         Maksimal 3 Lauk
                         <br>
-                        Lauk terpilin: 0/3
+                        Maksimal 1 Minuman
                     </div>
                 </div>
             </div>
@@ -206,12 +209,12 @@ $hasil = mysqli_query($koneksidb, $query);
     <section class="menu-section" id="menu">
         <div class="container">
             <div class="card-section">
+                <form action="" method="post">
                 <h2 class="text-center">Daftar Lauk</h2>
-                <form action="cek.php" method="post">
                 <div class="row">
                     <?php $j=0; for($i = 0 ; $i < $jumlahorang; $i++){ ?>
                         <h2 class="text-center">Pesanan <?= $i+1; ?></h2>
-                    <?php foreach($hasil as $data){ if($data["IDMenu"] == 0) continue;?>
+                    <?php foreach($hasilmakanan as $data){ if($data["IDMenu"] == 0) continue;?>
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="menu-card">
                                 <div class="menu-image" style="background-image: url('../img/<?= $data["GambarMenu"]; ?>');"></div>
@@ -219,18 +222,36 @@ $hasil = mysqli_query($koneksidb, $query);
                                     <h3 class="menu-name"><?= $data["NamaMenu"]; ?></h3>
                                     <p class="menu-description"><?= $data["Deskripsi"]; ?></p>
                                     <div class="menu-price">Rp <?= $data["HargaMenu"]; ?></div>
-                                    <input type="checkbox"  class="btn-check" id="btncheck<?= ++$j; ?>" name="btncheck<?= $j; ?>" value="<?= $data["IDMenu"] ?>" autocomplete="off">
-                                    <label class="select-btn <?= 'menu'.$i; ?>" for="btncheck<?= $j; ?>" >Pilih</label>
+                                    <input type="checkbox"  class="btn-check" id="lauk<?= ++$j; ?>" name="lauk<?= $j; ?>" value="<?= $data["IDMenu"] ?>" autocomplete="off">
+                                    <label class="select-btn <?= 'lauk'.$i; ?>" for="lauk<?= $j; ?>" >Pilih</label>
+                                </div>
+                            </div>
+                        </div>
+                    <?php }} ?>
+                </div>
+                <h2 class="text-center">Daftar Minuman</h2>
+                <div class="row">
+                    <?php $j=0; for($i = 0 ; $i < $jumlahorang; $i++){ ?>
+                        <h2 class="text-center">Pesanan <?= $i+1; ?></h2>
+                    <?php foreach($hasilminuman as $data){?>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="menu-card">
+                                <div class="menu-image" style="background-image: url('../img/<?= $data["Gambar"]; ?>');"></div>
+                                <div class="menu-content">
+                                    <h3 class="menu-name"><?= $data["NamaMinuman"]; ?></h3>
+                                    <p class="menu-description"><?= $data["Deskripsi"]; ?></p>
+                                    <div class="menu-price">Rp <?= $data["HargaMinuman"]; ?></div>
+                                    <input type="checkbox"  class="btn-check" id="minuman<?= ++$j; ?>" name="minuman<?= $j; ?>" value="<?= $data["IDMinuman"] ?>" autocomplete="off">
+                                    <label class="select-btn <?= 'minuman'.$i; ?>" for="minuman<?= $j; ?>" >Pilih</label>
                                 </div>
                             </div>
                         </div>
                     <?php }} ?>
                 </div>
                 <input type="number" name="jumlahorang" value="<?= $jumlahorang ?>" hidden>
-                <input type="number" name="jam" value="<?= $jam ?>" hidden>
                 <input type="number" name="idmeja" value="<?= $idmeja?>" hidden>
                 <div class="mt-5 text-end">
-                    <button type="submit" id="konfirmasi" class="konfirmasi" name="peesanmakanan">
+                    <button type="submit" id="konfirmasi" class="konfirmasi" name="pesanmakanan">
                         Konfirmasi Menu
                     </button>
                 </div>    
@@ -247,34 +268,64 @@ $hasil = mysqli_query($koneksidb, $query);
         document.addEventListener('DOMContentLoaded', function() {
             const selectionInfo = document.querySelector('.selection-info');
 
-            let selectButton = [];
+            let buttonlauk = [];
+            let buttonminuman = [];
             let indexs = [0, 1, 2, 3];
-            let selectedCount = [0, 0, 0, 0];
-            const maxSelection = 3;
+            let selectedCountlauk = [0, 0, 0, 0];
+            let selectedCountminuman = [0, 0, 0, 0];
 
             indexs.forEach(index => {
-                let string = ".menu" + index;
-                selectButton[index] = document.querySelectorAll(string);
-                selectButton[index].forEach(button => {
+                if(selectedCountlauk[index] != 0 && selectedCountminuman[index] != 0) {
+
+                }else {
+                    
+                }
+            })
+
+            indexs.forEach(index => {
+                let string = ".lauk" + index;
+                buttonlauk[index] = document.querySelectorAll(string);
+                buttonlauk[index].forEach(button => {
                     button.addEventListener('click', function() {
                         if (this.classList.contains('selected')) {
                             // Deselect
                             this.classList.remove('selected');
                             this.textContent = 'Pilih';
-                            selectedCount[index]--;
+                            selectedCountlauk[index]--;
                         } else {
                             // Check if we can select more
-                            if (selectedCount[index] < maxSelection) {
+                            if (selectedCountlauk[index] < 3) {
                                 this.classList.add('selected');
                                 this.textContent = 'Dipilih';
-                                selectedCount[index]++;
+                                selectedCountlauk[index]++;
                             } else {
-                                alert('Maksimal hanya dapat memilih ' + maxSelection + ' lauk');
+                                alert('Maksimal hanya dapat memilih 3 lauk');
                             }
                         }
-                        
-                        // Update selection info and cart button
-                        selectionInfo.innerHTML = `Maksimal ${maxSelection} Lauk<br>\nLauk terpilin: ${selectedCount}/${maxSelection}`;
+                    });
+                });
+            });
+
+            indexs.forEach(index => {
+                string = ".minuman" + index;
+                buttonminuman[index] = document.querySelectorAll(string);
+                buttonminuman[index].forEach(button => {
+                    button.addEventListener('click', function() {
+                        if (this.classList.contains('selected')) {
+                            // Deselect
+                            this.classList.remove('selected');
+                            this.textContent = 'Pilih';
+                            selectedCountminuman[index]--;
+                        } else {
+                            // Check if we can select more
+                            if (selectedCountminuman[index] < 1) {
+                                this.classList.add('selected');
+                                this.textContent = 'Dipilih';
+                                selectedCountminuman[index]++;
+                            } else {
+                                alert('Maksimal hanya dapat memilih 1 minuman');
+                            }
+                        }
                     });
                 });
             });
