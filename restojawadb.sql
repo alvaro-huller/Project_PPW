@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2025 at 01:05 AM
+-- Generation Time: Nov 21, 2025 at 03:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `datalauk` (
-  `IDMenu` int(10) NOT NULL,
-  `NamaMenu` varchar(30) NOT NULL,
-  `HargaMenu` int(9) NOT NULL,
-  `GambarMenu` varchar(30) NOT NULL,
+  `IDLauk` int(10) NOT NULL,
+  `NamaLauk` varchar(30) NOT NULL,
+  `HargaLauk` int(9) NOT NULL,
+  `GambarLauk` varchar(30) NOT NULL,
   `Kategori` varchar(30) NOT NULL,
   `Stok` int(3) NOT NULL,
   `Deskripsi` text NOT NULL
@@ -41,12 +41,14 @@ CREATE TABLE `datalauk` (
 -- Dumping data for table `datalauk`
 --
 
-INSERT INTO `datalauk` (`IDMenu`, `NamaMenu`, `HargaMenu`, `GambarMenu`, `Kategori`, `Stok`, `Deskripsi`) VALUES
+INSERT INTO `datalauk` (`IDLauk`, `NamaLauk`, `HargaLauk`, `GambarLauk`, `Kategori`, `Stok`, `Deskripsi`) VALUES
 (0, '-', 0, '-', '-', 0, ''),
 (1, 'Gudeg', 8000, 'Gudeg.jpg', 'Lauk', 10, ''),
 (2, 'Rawon', 8000, 'Rawon.jpeg', 'Lauk', 10, ''),
 (3, 'Sayur Lodeh', 8000, 'SayurLodeh.jpg', 'Lauk', 10, ''),
-(4, 'Sayur Asem', 8000, 'SayurAsem.jpg', 'Lauk', 10, '');
+(4, 'Sayur Asem', 8000, 'SayurAsem.jpg', 'Lauk', 10, ''),
+(5, 'Ayam Bakar Kalasan', 8000, 'AyamBakarKalasan.png', 'Lauk', 10, ''),
+(6, 'Telur Balado', 8000, 'TelurBalado.png', 'Lauk', 10, '');
 
 -- --------------------------------------------------------
 
@@ -66,7 +68,7 @@ CREATE TABLE `datameja` (
 --
 
 INSERT INTO `datameja` (`IDMeja`, `NoMeja`, `Jam`, `Status`) VALUES
-(1, 1, '10.00-12.00', 'Kosong'),
+(1, 1, '10.00-12.00', 'Penuh'),
 (2, 1, '12.00-14.00', 'Kosong'),
 (3, 1, '14.00-16.00', 'Kosong'),
 (4, 1, '16.00-18.00', 'Kosong'),
@@ -92,7 +94,7 @@ CREATE TABLE `dataminuman` (
   `IDMinuman` int(10) NOT NULL,
   `NamaMinuman` varchar(30) NOT NULL,
   `HargaMinuman` int(10) NOT NULL,
-  `Gambar` varchar(30) NOT NULL,
+  `GambarMinuman` varchar(30) NOT NULL,
   `Kategori` varchar(30) NOT NULL,
   `Stok` int(10) NOT NULL,
   `Deskripsi` text NOT NULL
@@ -102,8 +104,13 @@ CREATE TABLE `dataminuman` (
 -- Dumping data for table `dataminuman`
 --
 
-INSERT INTO `dataminuman` (`IDMinuman`, `NamaMinuman`, `HargaMinuman`, `Gambar`, `Kategori`, `Stok`, `Deskripsi`) VALUES
-(1, 'wedangjahe', 5000, 'wedangjahe.png', 'Minuman', 10, '');
+INSERT INTO `dataminuman` (`IDMinuman`, `NamaMinuman`, `HargaMinuman`, `GambarMinuman`, `Kategori`, `Stok`, `Deskripsi`) VALUES
+(1, 'Wedang Jahe', 5000, 'WedangJahe.png', 'Minuman', 10, ''),
+(2, 'Es Dawet', 5000, 'EsDawet.png', 'Minuman', 10, ''),
+(3, 'Susu Jahe', 5000, 'SusuJahe.png', 'Minuman', 10, ''),
+(4, 'Es Cincau', 5000, 'EsCincau.png', 'Minuman', 10, ''),
+(5, 'Wedang Uwuh', 5000, 'WedangUwuh.png', 'Minuman', 10, ''),
+(6, 'Es Teler', 5000, 'EsTeler.png', 'Minuman', 10, '');
 
 -- --------------------------------------------------------
 
@@ -148,7 +155,8 @@ CREATE TABLE `pesanan` (
 --
 
 INSERT INTO `pesanan` (`IDPesanan`, `IDReservasi`, `IDMeja`, `IDLauk1`, `IDLauk2`, `IDLauk3`, `IDMinuman`, `Total`, `Status`) VALUES
-(2, '691e4af7db440', 1, 1, 2, 3, 0, 24000, 'Proses');
+(49, '69207a3ca8d58', 1, 1, 2, 3, 1, 29000, 'Proses'),
+(50, '69207a3ca8d58', 1, 4, 5, 6, 2, 29000, 'Proses');
 
 -- --------------------------------------------------------
 
@@ -166,7 +174,9 @@ CREATE TABLE `reservasi` (
 --
 
 INSERT INTO `reservasi` (`IDReservasi`, `IDMeja`) VALUES
-('691e4af7db440', 1);
+('692067b153a44', 1),
+('6920684b1b9b1', 1),
+('69207a3ca8d58', 1);
 
 -- --------------------------------------------------------
 
@@ -176,7 +186,7 @@ INSERT INTO `reservasi` (`IDReservasi`, `IDMeja`) VALUES
 
 CREATE TABLE `user` (
   `IDUser` int(10) NOT NULL,
-  `IDReservasi` varchar(10) NOT NULL,
+  `IDReservasi` varchar(30) NOT NULL,
   `Username` varchar(30) NOT NULL,
   `Password` varchar(30) NOT NULL,
   `Role` varchar(30) NOT NULL
@@ -187,7 +197,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`IDUser`, `IDReservasi`, `Username`, `Password`, `Role`) VALUES
-(1, '', 'raja jawa', 'projo02', 'Pelanggan');
+(8, '69207a3ca8d58', 'raja jawa', 'projo02', 'Pelanggan');
 
 --
 -- Indexes for dumped tables
@@ -197,7 +207,7 @@ INSERT INTO `user` (`IDUser`, `IDReservasi`, `Username`, `Password`, `Role`) VAL
 -- Indexes for table `datalauk`
 --
 ALTER TABLE `datalauk`
-  ADD PRIMARY KEY (`IDMenu`);
+  ADD PRIMARY KEY (`IDLauk`);
 
 --
 -- Indexes for table `datameja`
@@ -243,7 +253,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `datalauk`
 --
 ALTER TABLE `datalauk`
-  MODIFY `IDMenu` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `IDLauk` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `datameja`
@@ -255,7 +265,7 @@ ALTER TABLE `datameja`
 -- AUTO_INCREMENT for table `dataminuman`
 --
 ALTER TABLE `dataminuman`
-  MODIFY `IDMinuman` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `IDMinuman` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
@@ -267,13 +277,13 @@ ALTER TABLE `pegawai`
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `IDPesanan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IDPesanan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `IDUser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `IDUser` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
