@@ -1,23 +1,26 @@
 <?php
+
 include "function.php";
 
-session_start();
 
-  if($_SESSION["Role"] != "Admin") {
-    echo "
-            <script>
-                alert('Anda Tidak Memiliki Akses');
-                document.location.href = '../Index.php';
-            </script>
-        ";
-  }
+if($_SESSION["Role"] != "Admin") {
+  echo "
+          <script>
+              alert('Anda Tidak Memiliki Akses');
+              document.location.href = '../Index.php';
+          </script>
+      ";
+}
   
   if(isset($_POST["logout"])) {
-    unset($_SESSION["Role"]);
+    session_destroy();
     header("location: ../Index.php");
   }
-$query = "SELECT * FROM datamenu";
-$hasil = mysqli_query($koneksidb, $query);
+$query = "SELECT * FROM datalauk";
+$hasillauk = mysqli_query($koneksidb, $query);
+
+$query = "SELECT * FROM dataminuman";
+$hasilminuman = mysqli_query($koneksidb, $query);
 
 if(isset($_POST["hapus"])) {
     hapusDataMenu($_POST["hapus"]);
@@ -100,18 +103,36 @@ if(isset($_POST["hapus"])) {
                 <th>Delete</th>
             </tr>
             <?php
-            while($data = mysqli_fetch_array($hasil)){
+            while($data = mysqli_fetch_array($hasillauk)){
+              if($data["IDLauk"] == 0) continue;
             ?>
             <tr>
-            <td><?= $data['IDMenu']?></td>
-            <td><img src="../img/<?= $data['GambarMenu']?>" class="gambarmenu" alt=""></td>
-            <td><?= $data['NamaMenu']?></td>
+            <td><?= $data['IDLauk']?></td>
+            <td><img src="../img/<?= $data['GambarLauk']?>" class="gambarmenu" alt=""></td>
+            <td><?= $data['NamaLauk']?></td>
             <td><?= $data['Kategori']?></td>
-            <td><?= $data['HargaMenu']?></td>
+            <td><?= $data['HargaLauk']?></td>
             <td><?= $data['Stok']?></td>
             <td><?= $data['Deskripsi']?></td>
-            <td><form action="UpdateMenu.php" method="post"><button type="submit" class="btn btn-success cont" name="id" value="<?= $data['IDMenu']; ?>">Update Data</button></form></td>
-            <td><form action="" method="post"><button type="submit" class="btn btn-success cont" name="hapus" value="<?= $data['IDMenu']; ?>" onclick="return confirm('yakin')">Hapus Data</button></form></td>
+            <td><form action="UpdateMenu.php" method="post"><button type="submit" class="btn btn-success cont" name="id" value="<?= $data['IDLauk']; ?>">Update Data</button></form></td>
+            <td><form action="" method="post"><button type="submit" class="btn btn-success cont" name="hapus" value="<?= $data['IDLauk']; ?>" onclick="return confirm('yakin')">Hapus Data</button></form></td>
+            </tr>
+            <?php
+            }
+            ?>
+            <?php
+            while($data = mysqli_fetch_array($hasilminuman)){
+            ?>
+            <tr>
+            <td><?= $data['IDMinuman']?></td>
+            <td><img src="../img/<?= $data['GambarMinuman']?>" class="gambarmenu" alt=""></td>
+            <td><?= $data['NamaMinuman']?></td>
+            <td><?= $data['Kategori']?></td>
+            <td><?= $data['HargaMinuman']?></td>
+            <td><?= $data['Stok']?></td>
+            <td><?= $data['Deskripsi']?></td>
+            <td><form action="UpdateMenu.php" method="post"><button type="submit" class="btn btn-success cont" name="id" value="<?= $data['IDMinuman']; ?>">Update Data</button></form></td>
+            <td><form action="" method="post"><button type="submit" class="btn btn-success cont" name="hapus" value="<?= $data['IDMinuman']; ?>" onclick="return confirm('yakin')">Hapus Data</button></form></td>
             </tr>
             <?php
             }

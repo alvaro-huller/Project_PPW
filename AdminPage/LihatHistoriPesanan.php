@@ -1,16 +1,15 @@
 <?php
 include "function.php";
 
-session_start();
 
-  if($_SESSION["Role"] != "Admin") {
-    echo "
-            <script>
-                alert('Anda Tidak Memiliki Akses');
-                document.location.href = '../Index.php';
-            </script>
-        ";
-  }
+if($_SESSION["Role"] != "Admin") {
+echo "
+        <script>
+            alert('Anda Tidak Memiliki Akses');
+            document.location.href = '../Index.php';
+        </script>
+    ";
+}
 
   if(isset($_POST["logout"])) {
     unset($_SESSION["Role"]);

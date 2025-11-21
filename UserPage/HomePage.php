@@ -19,13 +19,13 @@ if(isset($_POST["batal"])) {
     batalPesanan($_POST);
 }
 
-
-$query = "SELECT IDReservasi FROM user";
+$iduser = $_SESSION["ID"];
+$query = "SELECT IDReservasi FROM user WHERE IDUser = '$iduser'";
 $hasil = mysqli_query($koneksidb, $query);
 $idreservasi = mysqli_fetch_assoc($hasil);
 $idreservasi = $idreservasi["IDReservasi"];
 
-$query = "SELECT a.IDReservasi, a.IDMeja, b.NoMeja, b.Jam FROM pesanan a, datameja b WHERE a.IDMeja = b.IDMeja AND a.status = 'Proses' AND IDReservasi = '$idreservasi'   "; 
+$query = "SELECT a.IDReservasi, a.IDMeja, b.NoMeja, b.Jam FROM pesanan a, datameja b WHERE a.IDMeja = b.IDMeja AND a.status = 'Proses' AND IDReservasi = '$idreservasi'"; 
 $hasil = mysqli_query($koneksidb, $query);
 $reservasi = mysqli_fetch_assoc($hasil);
 
@@ -71,7 +71,7 @@ $hasilminuman = mysqli_query($koneksidb, $query);
                         </button>
                     </li>
                     <li class="nav-item ms-2">
-                        <a class="btn btn-primary" href="Reservasi.php">Reservasi</a>
+                        <a class="btn btn-primary" href="Reservasi.php" id="reservasi" >Reservasi</a>
                     </li>
                     <li class="nav-item ms-2">
                         <form action="" method="post"><button type="submit" class="btn btn-danger" name="logout">Logout</button></form>
@@ -103,29 +103,24 @@ $hasilminuman = mysqli_query($koneksidb, $query);
     <!-- Menu Section -->
     <section class="menu-section" id="menu">
         <div class="container">
+
             <h2 class="section-title text-center">Daftar Lauk</h2>
             <div class="row">
-                <?php 
-                
-                while($data = mysqli_fetch_assoc($hasillauk)) {
-                    if($data["IDMenu"] == 0) continue;
-                ?>
+                <?php while($data = mysqli_fetch_assoc($hasillauk)) {
+                    if($data["IDLauk"] == 0) continue; ?>
                     <div class='col-md-6 col-lg-4'>
                         <div class='menu-item'>
-                            <div class='menu-item-img' style='background-image: url("../img/<?= $data["GambarMenu"]; ?>");'></div>
+                            <div class='menu-item-img' style='background-image: url("../img/<?= $data["GambarLauk"]; ?>");'></div>
                             <div class='menu-item-content'>
-                                <h4 class='menu-item-title'><?= $data["NamaMenu"]; ?></h4>
+                                <h4 class='menu-item-title'><?= $data["NamaLauk"]; ?></h4>
                                 <p><?= $data["Deskripsi"]; ?></p>
                                 <div class='d-flex justify-content-between align-items-center mt-3'>
-                                    <span class='menu-item-price'>RP <?= $data["HargaMenu"]; ?></span>
+                                    <span class='menu-item-price'>RP <?= $data["HargaLauk"]; ?></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                
-                <?php
-                }
-                ?>
+                <?php } ?>
             </div>
             
             <h2 class="section-title text-center">Daftar Minuman</h2>
@@ -133,7 +128,7 @@ $hasilminuman = mysqli_query($koneksidb, $query);
                 <?php while($data = mysqli_fetch_assoc($hasilminuman)) { ?>
                     <div class='col-md-6 col-lg-4'>
                         <div class='menu-item'>
-                            <div class='menu-item-img' style='background-image: url("../img/<?= $data["Gambar"]; ?>");'></div>
+                            <div class='menu-item-img' style='background-image: url("../img/<?= $data["GambarMinuman"]; ?>");'></div>
                             <div class='menu-item-content'>
                                 <h4 class='menu-item-title'><?= $data["NamaMinuman"]; ?></h4>
                                 <p><?= $data["Deskripsi"]; ?></p>
@@ -203,7 +198,7 @@ $hasilminuman = mysqli_query($koneksidb, $query);
             <?php if($idreservasi != "Kosong"){ ?>
                 <form action="" method="post">
                     <button type="submit" class="btn btn-danger" name="batal" onclick="return confirm('Apakah Anda Yakin Ingin Membatalkan Pesanan?')">Batal</button>   
-                    <input type="number" name="idreservasi" value="<?= $idreservasi ?>" hidden>
+                    <input type="text" name="idreservasi" value="<?= $idreservasi ?>" hidden>
                     <input type="number" name="idmeja" value="<?= $reservasi['IDMeja'] ?>" hidden>
                     <input type="number" name="iduser" value="<?= $_SESSION['ID'] ?>" hidden>
                 </form>
@@ -215,5 +210,21 @@ $hasilminuman = mysqli_query($koneksidb, $query);
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tombolreservasi = document.getElementById('reservasi')
+
+            if("<?= $idreservasi ?>" != "Kosong") {
+                tombolreservasi.removeAttribute('href');
+            }else {
+                tombolreservasi.setAttribute('href', 'Reservasi.php');
+            }
+            tombolreservasi.addEventListener('click', function() {
+                if(this.getAttribute('href') == true) {
+                    alert('Anda Sudah Melakukan Reservasi');
+                }
+            })
+        })
+    </script>
 </body>
 </html>

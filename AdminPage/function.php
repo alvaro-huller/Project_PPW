@@ -1,18 +1,6 @@
 <?php 
 
-// Mengkoneksikan ke database restojawadb
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$database = "restojawadb";
-$koneksidb = new mysqli($hostname, $username, $password, $database);
-
-
-// Mengecek apakah database restojawadb berhasil dikoneksikan
-if($koneksidb->connect_errno){
-    die("Koneksi Gagal" . $koneksidb->connect_errno);
-}
-
+include "../koneksi.php";
 
 // Fungsi menambahkan data menu ke tabel menu di database restojawadb
 function tambahDataMenu($data){

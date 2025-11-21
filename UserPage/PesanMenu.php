@@ -25,7 +25,7 @@ if(isset($_POST["jumlahorang"])) {
 
 
 if(isset($_POST["pesanmakanan"])) {
-    pesanmakanan($_POST);
+    pesanmenu($_POST);
 }
 
 $query = "SELECT * FROM datalauk";
@@ -223,16 +223,16 @@ $hasilminuman = mysqli_query($koneksidb, $query);
                 <h2 class="text-center">Daftar Lauk</h2>
                 <div class="row">
                     <?php $j=0; for($i = 0 ; $i < $jumlahorang; $i++){ ?>
-                        <h2 class="text-center">Pesanan <?= $i+1; ?></h2>
-                    <?php foreach($hasilmakanan as $data){ if($data["IDMenu"] == 0) continue;?>
+                        <h2 class="text-center mt-5">Pesanan <?= $i+1; ?></h2>
+                    <?php foreach($hasilmakanan as $data){ if($data["IDLauk"] == 0) continue;?>
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="menu-card">
-                                <div class="menu-image" style="background-image: url('../img/<?= $data["GambarMenu"]; ?>');"></div>
+                                <div class="menu-image" style="background-image: url('../img/<?= $data["GambarLauk"]; ?>');"></div>
                                 <div class="menu-content">
-                                    <h3 class="menu-name"><?= $data["NamaMenu"]; ?></h3>
+                                    <h3 class="menu-name"><?= $data["NamaLauk"]; ?></h3>
                                     <p class="menu-description"><?= $data["Deskripsi"]; ?></p>
-                                    <div class="menu-price">Rp <?= $data["HargaMenu"]; ?></div>
-                                    <input type="checkbox"  class="btn-check" id="lauk<?= ++$j; ?>" name="lauk<?= $j; ?>" value="<?= $data["IDMenu"] ?>" autocomplete="off">
+                                    <div class="menu-price">Rp <?= $data["HargaLauk"]; ?></div>
+                                    <input type="checkbox"  class="btn-check" id="lauk<?= ++$j; ?>" name="lauk<?= $j; ?>" value="<?= $data["IDLauk"] ?>" autocomplete="off">
                                     <label class="select-btn <?= 'lauk'.$i; ?>" for="lauk<?= $j; ?>" >Pilih</label>
                                 </div>
                             </div>
@@ -242,11 +242,11 @@ $hasilminuman = mysqli_query($koneksidb, $query);
                 <h2 class="text-center">Daftar Minuman</h2>
                 <div class="row">
                     <?php $j=0; for($i = 0 ; $i < $jumlahorang; $i++){ ?>
-                        <h2 class="text-center">Pesanan <?= $i+1; ?></h2>
+                        <h2 class="text-center mt-5">Pesanan <?= $i+1; ?></h2>
                     <?php foreach($hasilminuman as $data){?>
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="menu-card">
-                                <div class="menu-image" style="background-image: url('../img/<?= $data["Gambar"]; ?>');"></div>
+                                <div class="menu-image" style="background-image: url('../img/<?= $data["GambarMinuman"]; ?>');"></div>
                                 <div class="menu-content">
                                     <h3 class="menu-name"><?= $data["NamaMinuman"]; ?></h3>
                                     <p class="menu-description"><?= $data["Deskripsi"]; ?></p>
@@ -261,7 +261,7 @@ $hasilminuman = mysqli_query($koneksidb, $query);
                 <input type="number" name="jumlahorang" value="<?= $jumlahorang ?>" hidden>
                 <input type="number" name="idmeja" value="<?= $idmeja?>" hidden>
                 <div class="mt-5 text-end">
-                    <button type="submit" id="konfirmasi" class="konfirmasi" name="pesanmakanan">
+                    <button type="submit" id="konfirm" class="konfirmasi" name="pesanmakanan">
                         Konfirmasi Menu
                     </button>
                 </div>    
@@ -277,7 +277,7 @@ $hasilminuman = mysqli_query($koneksidb, $query);
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const selectionInfo = document.querySelector('.selection-info');
-            const tombolkonfirmasi = document.getElementById('konfirmasi');
+            const tombolkonfirmasi = document.getElementById('konfirm');
 
             let buttonlauk = [];
             let buttonminuman = [];
@@ -285,21 +285,7 @@ $hasilminuman = mysqli_query($koneksidb, $query);
             let selectedCountlauk = [0, 0, 0, 0];
             let selectedCountminuman = [0, 0, 0, 0];
 
-            // indexs.forEach(index => {
-            //     if(index == <?= $jumlahorang ?>){
-            //         return; 
-            //     }
-            //     if(selectedCountlauk[index] > 0 && selectedCountminuman[index] > 0) {
-            //         tombolkonfirmasi.disabled = false;
-            //     }else {
-            //         tombolkonfirmasi.disabled = true;
-            //     }
-            // })
-
             indexs.forEach(index => {
-                if(index == <?= $jumlahorang ?>){
-                    return; 
-                }
                 let string = ".lauk" + index;
                 buttonlauk[index] = document.querySelectorAll(string);
                 buttonlauk[index].forEach(button => {
@@ -324,9 +310,6 @@ $hasilminuman = mysqli_query($koneksidb, $query);
             });
 
             indexs.forEach(index => {
-                if(index == <?= $jumlahorang ?>){
-                    return; 
-                }
                 string = ".minuman" + index;
                 buttonminuman[index] = document.querySelectorAll(string);
                 buttonminuman[index].forEach(button => {
@@ -349,6 +332,18 @@ $hasilminuman = mysqli_query($koneksidb, $query);
                     });
                 });
             });
+
+            // for(i = 0; i < <?= $jumlahorang ?>; i++){
+            //     if(i >= <?= $jumlahorang ?>){
+            //         selectedCountlauk[i] = 1;
+            //         selectedCountminuman[i] = 1;
+            //     }
+            // }
+            // if(selectedCountlauk[0] == 0 || selectedCountminuman[0] == 0 || selectedCountlauk[1] == 0 || selectedCountminuman[1] == 0 || selectedCountlauk[2] == 0 || selectedCountminuman[2] == 0 || selectedCountlauk[3] == 0 || selectedCountminuman[3] == 0) {
+            //     tombolkonfirmasi.disabled = true;
+            // }else {
+            //     tombolkonfirmasi.disabled = false;
+            // }
         });
     </script>
 </body>

@@ -74,7 +74,7 @@ function login($data){
         if($data["Password"] === $password){
             // Set session
             $_SESSION["Role"] = $data["Role"];
-            $_SESSION["ID"] = $data["IDUser "];
+            $_SESSION["ID"] = $data["IDUser"];
             header("Location: UserPage/HomePage.php");
         }
     }

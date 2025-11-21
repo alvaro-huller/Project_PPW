@@ -2,8 +2,6 @@
 
   include "function.php";
 
-  session_start();
-
   if($_SESSION["Role"] != "Admin") {
     echo "
             <script>

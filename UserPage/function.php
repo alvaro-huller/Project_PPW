@@ -7,7 +7,7 @@ function logout() {
     header("location: ../index.php");
 }
 
-function pesanmakanan($data) {
+function pesanmenu($data) {
     global $koneksidb;
     
     $jumlahorang = $data["jumlahorang"];
@@ -50,7 +50,7 @@ function pesanmakanan($data) {
         $lauk3 = $lauk[$i][2] ?? 0; 
         $idminuman = $minuman[$i];
 
-        $query = "SELECT sum(HargaMenu) AS total FROM datalauk WHERE IDMenu = '$lauk1' OR IDMenu = '$lauk2' OR IDMenu = '$lauk3'";
+        $query = "SELECT sum(HargaLauk) AS total FROM datalauk WHERE IDLauk = '$lauk1' OR IDLauk = '$lauk2' OR IDLauk = '$lauk3'";
         $hasil = mysqli_query($koneksidb, $query);
         $totallauk = mysqli_fetch_assoc($hasil);
         $query = "SELECT HargaMinuman AS total FROM dataminuman WHERE IDMinuman = '$idminuman'";
