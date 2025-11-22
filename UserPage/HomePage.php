@@ -60,7 +60,7 @@ $hasilminuman = mysqli_query($koneksidb, $query);
                         <a class="nav-link" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#menu">Dafta Menu</a>
+                        <a class="nav-link" href="#menu">Daftar Menu</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>

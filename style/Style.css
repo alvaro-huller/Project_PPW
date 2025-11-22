@@ -1,61 +1,63 @@
-/* body */
-body {
-    background-color: rgb(255, 233, 186);
+/* Histori Pesanan Styles */
+.histori-container {
+    background-color: #f9f5f0;
+    min-height: 100vh;
 }
 
-/* Navbar */
-nav {
-    background-color: rgb(112, 50, 0);
-}
-
-.NavLink1 {
-    white-space: nowrap;
-    color: black;
-    background-color: gold;
-    border: transparent;
-    border-radius: 10px;
-    padding: 10px 20px 10px 20px;
-}
-.NavLink2 {
-    white-space: nowrap;
+.histori-header {
+    background-color: #5D4037;
     color: white;
-    background-color: transparent;
-    border: transparent;
-    border-radius: 10px;
-    padding: 10px 20px 10px 20px;
+    padding: 30px 0;
+    margin-bottom: 30px;
 }
 
-/* Login Page & Registrasi Page */
-.card-container {
-    width: 500px;
-    margin-top: 100px;
+.page-title {
+    color: #5D4037;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
-.card-header {
-    color: antiquewhite;
+
+.page-subtitle {
+    color: #8D6E63;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.histori-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.histori-card-header {
+    background-color: #5D4037;
+    color: #FFF8E1;
+    padding: 18px 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.histori-card-body {
+    padding: 25px;
+}
+
+.empty-state {
     text-align: center;
-    background-color: #8B4513;
-}
-#register-hl {
-    text-decoration: none;
-}
-#register-hl:hover {
-    text-decoration: underline;
-}
-#hl {
-    text-decoration: none;
-}
-#hl:hover {
-    text-decoration: underline;
+    padding: 40px 20px;
+    color: #8D6E63;
 }
 
-/* Tombol di halaman tambah menu */
-.btn-brown {
-    background-color: #8B4513;
-    border-color: #8B4513;
-    color: white;
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
 }
-.btn-brown:hover {
-    background-color: #654321;
-    border-color: #654321;
-    color: white;
+
+.data-count {
+    color: #666;
+    font-size: 0.9rem;
+    padding: 10px 0;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 15px;
 }
