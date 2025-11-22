@@ -32,6 +32,15 @@ $query = "SELECT p.*,
           ORDER BY p.IDPesanan DESC";
 $hasil = mysqli_query($koneksidb, $query);
 $jumlah_data = mysqli_num_rows($hasil);
+
+// Query untuk statistik
+$query_statistik = "SELECT 
+                    COUNT(CASE WHEN Status = 'Selesai' THEN 1 END) as pesanan_selesai,
+                    COUNT(CASE WHEN Status = 'Batal' THEN 1 END) as pesanan_batal,
+                    COUNT(*) as total_pesanan
+                    FROM pesanan";
+$hasil_statistik = mysqli_query($koneksidb, $query_statistik);
+$statistik = mysqli_fetch_assoc($hasil_statistik);
 ?>
 
 <!DOCTYPE html>
@@ -82,18 +91,57 @@ $jumlah_data = mysqli_num_rows($hasil);
     </nav>
   
     <!-- Header -->
-    <div class="histori-header">
-        <div class="container">
-            <h1 class="text-white mb-2"><i class="fas fa-history me-3"></i>Histori Pesanan</h1>
-            <p class="text-white mb-0">Daftar semua pesanan yang sudah selesai dan dilayani</p>
+    <div class="admin-header">
+        <div class="container py-5">
+            <h1 class="text-white mb-2">Histori Pesanan</h1>
+            <p class="text-white mb-0">Daftar riwayat pesanan yang sudah diproses</p>
         </div>
+    </div>
+
+    <!-- Statistik -->
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="stat-card stat-card-success">
+            <div class="stat-card-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stat-card-content">
+              <h3><?= $statistik['pesanan_selesai'] ?></h3>
+              <p>Pesanan Selesai</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="stat-card stat-card-danger">
+            <div class="stat-card-icon">
+              <i class="fas fa-times-circle"></i>
+            </div>
+            <div class="stat-card-content">
+              <h3><?= $statistik['pesanan_batal'] ?></h3>
+              <p>Pesanan Batal</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="stat-card stat-card-primary">
+            <div class="stat-card-icon">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <div class="stat-card-content">
+              <h3><?= $statistik['total_pesanan'] ?></h3>
+              <p>Total Pesanan</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Konten Utama -->
     <div class="container">
         <div class="admin-card">
             <div class="admin-card-header">
-                <h3 class="mb-0"><i class="fas fa-list-alt me-2"></i>Daftar Pesanan Selesai</h3>
+                <h3 class="mb-0"><i class="fas fa-list-alt me-2"></i>Daftar Riwayat</h3>
             </div>
             <div class="admin-card-body">
                 <div class="table-responsive">

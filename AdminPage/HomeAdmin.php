@@ -76,61 +76,11 @@
         </div>
     </nav>
   
-    <!-- Header Dashboard -->
+    <!-- Header -->
     <div class="admin-header">
       <div class="container py-5">
         <h1 class="text-white mb-2">Dashboard Admin</h1>
         <p class="text-white mb-0">Selamat datang di dashboard admin Resto Jawa</p>
-      </div>
-    </div>
-
-    <!-- Statistik -->
-    <div class="container mt-4">
-      <div class="row">
-        <div class="col-md-3 mb-4">
-          <div class="stat-card stat-card-warning">
-            <div class="stat-card-icon">
-              <i class="fas fa-clipboard-list"></i>
-            </div>
-            <div class="stat-card-content">
-              <h3><?= $statistik['pesanan_proses'] ?></h3>
-              <p>Pesanan Proses</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 mb-4">
-          <div class="stat-card stat-card-success">
-            <div class="stat-card-icon">
-              <i class="fas fa-check-circle"></i>
-            </div>
-            <div class="stat-card-content">
-              <h3><?= $statistik['pesanan_selesai'] ?></h3>
-              <p>Pesanan Selesai</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 mb-4">
-          <div class="stat-card stat-card-danger">
-            <div class="stat-card-icon">
-              <i class="fas fa-times-circle"></i>
-            </div>
-            <div class="stat-card-content">
-              <h3><?= $statistik['pesanan_batal'] ?></h3>
-              <p>Pesanan Batal</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 mb-4">
-          <div class="stat-card stat-card-primary">
-            <div class="stat-card-icon">
-              <i class="fas fa-chart-bar"></i>
-            </div>
-            <div class="stat-card-content">
-              <h3><?= $statistik['total_pesanan'] ?></h3>
-              <p>Total Pesanan</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
