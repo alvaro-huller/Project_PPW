@@ -1,7 +1,10 @@
 <?php
 include "function.php";
 
+// Mengecek apakah "Role" sesinya Admin
 if($_SESSION["Role"] != "Admin") {
+  
+  // Jika bukan Admin
   echo "
           <script>
               alert('Anda Tidak Memiliki Akses');
@@ -10,19 +13,30 @@ if($_SESSION["Role"] != "Admin") {
       ";
 }
   
+// Mengecek apakah tombol logout dipencet
 if(isset($_POST["logout"])) {
-  session_destroy();
-  header("location: ../Index.php");
+
+  // Memanggil fungsi logout
+  logout();
 }
 
+// Query untuk mengambil semua data yang ada di tabel datalauk di database restojawadb
 $query = "SELECT * FROM datalauk";
 $hasillauk = mysqli_query($koneksidb, $query);
 
+// Query untuk mengambil semua data yang ada di tabel dataminuman di database restojawadb
 $query = "SELECT * FROM dataminuman";
 $hasilminuman = mysqli_query($koneksidb, $query);
 
-if(isset($_POST["hapus"])) {
-    hapusDataMenu($_POST["hapus"]);
+// Mengecek apakah tombol hapuslauk atau tombol hapusminuman dipencet
+if(isset($_POST["hapuslauk"])){
+
+  // Memanggil fungsi hapusDataMenu() dengan parameter $_POST dan kategori
+  hapusDataMenu($_POST["hapuslauk"], "Lauk");
+}else if(isset($_POST["hapusminuman"])) {
+
+  // Memanggil fungsi hapusDataMenu() dengan parameter $_POST dan kategori
+  hapusDataMenu($_POST["hapusminuman"], "Minuman");
 }
 ?>
 
@@ -213,7 +227,7 @@ if(isset($_POST["hapus"])) {
                         <a class="nav-link admin-nav-link" href="HomeAdmin.php"><i class="fas fa-tachometer-alt me-2"></i><b>Dashboard</b></a>
                     </li>
                     <li class="nav-item mx-auto p-2">
-                        <a class="nav-link admin-nav-active" href="LihatMenuAdmin.php"><i class="fas fa-utensils me-2"></i><b>Kelola Menu</b></a>
+                        <a class="nav-link active admin-nav-active" href="LihatMenuAdmin.php"><i class="fas fa-utensils me-2"></i><b>Kelola Menu</b></a>
                     </li>
                     <li class="nav-item mx-auto p-2">
                         <a class="nav-link admin-nav-link" href="LihatHistoriPesanan.php"><i class="fas fa-history me-2"></i><b>Histori Pesanan</b></a>

@@ -13,11 +13,16 @@ function tambahDataMenu($data){
     $stok = $data["stok"];
     $deskripsi = $data["deskripsi"];
 
-    // Query untuk menambahkan data ke tabel menu di database restojawadb
-    $query = "INSERT INTO datamenu (NamaMenu, HargaMenu, GambarMenu, Kategori, Stok, Deskripsi) values ('$nama', '$harga', '$gambar', '$kategori', '$stok', '$deskripsi')";
-    mysqli_query($koneksidb, $query);
+    if($kategori === "Lauk") {
+        // Query untuk menambahkan data lauk di tabel lauk di database restojawadb
+        $query = "INSERT INTO datalauk (NamaLauk, HargaLauk, GambarLauk, Kategori, Stok, Deskripsi) values ('$nama', '$harga', '$gambar', '$kategori', '$stok', '$deskripsi')";
+    }else if($kategori === "Minuman") {
+        // Query untuk menambahkan data minuman di tabel minuman di database restojawadb
+        $query = "INSERT INTO datalauk (NamaLauk, HargaLauk, GambarLauk, Kategori, Stok, Deskripsi) values ('$nama', '$harga', '$gambar', '$kategori', '$stok', '$deskripsi')";
+    }
 
-    return mysqli_error($koneksidb);
+    // Menjalan Query diatas
+    mysqli_query($koneksidb, $query);
 }
 
 
@@ -62,25 +67,36 @@ function uploadGambar(){
 }
 
 
-// Fungsi mengupdate data menu di tabel menu di database restojawadb
+// Fungsi mengupdate data lauk atau minuman di database restojawadb
 function updateDataMenu($data){
     global $koneksidb;
+    $eror = 0;
 
     $id = $data["id"];
-    $nama = $data["nama_menu"];
+    $nama = $data["nama"];
     $kategori = $data["kategori"];
     $harga = $data["harga"];
     $stok = $data["stok"];
     $deskripsi = $data["deskripsi"];
 
-    // Query untuk mengupdate data di tabel menu di database restojawadb
-    $query = "query menu SET NamaMenu = '$nama', Kategori = '$kategori', HargaMenu = '$harga', Stok = '$stok', Deskripsi = '$deskripsi' WHERE IDMenu = $id";
+    if($kategori === "Lauk") {
+        // Query untuk mengupdate data lauk di tabel datalauk di database restojawadb
+        $query = "UPDATE datalauk SET NamaLauk = '$nama', HargaLauk = '$harga', Stok = '$stok', Deskripsi = '$deskripsi' WHERE IDLauk = $id";
+        $eror = 1;
+    }else if($kategori === "Minuman") {
+        // Query untuk mengupdate data minuman di tabel dataminuman di database restojawadb
+        $query = "UPDATE dataminuman SET NamaMinuman = '$nama', HargaMinuman = '$harga', Stok = '$stok', Deskripsi = '$deskripsi' WHERE IDMinuman = $id";
+        $eror = 1;
+    }
+
     mysqli_query($koneksidb, $query);
+
+    return $eror;
 }
 
 
-// Fungsi menghapus data menu di tabel menu di database restojawadb
-function hapusDataMenu($data){
+// Fungsi menghapus data menu lauk atau minuman di database restojawadb
+function hapusDataMenu($data, $kategori){
     global $koneksidb;
 
     $id = $data;
@@ -92,87 +108,31 @@ function hapusDataMenu($data){
 
     unlink($hapus);
 
-    // Query untuk menghapus data di tabel menu di database restojawadb
-    $query = "DELETE FROM datamenu WHERE IDMenu = $id";
-    mysqli_query($koneksidb, $query);
-    echo "<script>alert('File berhasil dihapus');</script>";
-    echo "<script>setTimeout(function() { location.reload(); }, 1);</script>";
+    if($kategori === "Lauk") {
+        // Query untuk menghapus data lauk di tabel datalauk di database restojawadb
+        $query = "DELETE FROM datalauk WHERE IDLauk = $id";
+        mysqli_query($koneksidb, $query);
+    }else if($kategori === "Minuman") {
+        // Query untuk menghapus data minuman di tabel dataminuman di database restojawadb
+        $query = "DELETE FROM datalauk WHERE IDLauk = $id";
+        mysqli_query($koneksidb, $query);
+        
+    }
+
+    echo "
+        <script>
+            alert('Data berhasil dihapus')
+            setTimeout(function() { location.reload(); }, 1)
+        </script>
+    ";
 }
 
 
-// Funsgi menambah data user ke tabel user di database restojawadb
-function tambahDataUser($data){
-    global $koneksidb;
+// Fungsi untuk melakukan logout website
+function logout() {
 
-    $username = $data["username"];
-    $password = $data["password"];
-    $password2 = $data["password2"];
-
-    // Cek apakah username sudah digunakan
-    $query = "SELECT Username FROM user WHERE Username = '$username'";
-    $result = mysqli_query($koneksidb, $query);
-    if(mysqli_fetch_assoc($result)){
-        echo "<script>
-                alert('username yang dipilih sudah ada');
-            </script>";
-        return false;
-    }
-
-    // Cek apakah konfirmasi password benar
-    if($password !== $password2){
-        echo "<script>
-                alert('konfirmasi password tidak sesuai');
-            </script>";
-        return false;
-    }
-
-    // Enkirpsi password
-    $password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Tambahkan userbaru ke database
-    $query = "INSERT INTO user (Username, Password, Role) VALUES ('$username', '$password', 'pelanggan')";
-    mysqli_query($koneksidb, $query);
-
-    return mysqli_affected_rows($koneksidb);
+    // Menghancurkan semua sesi yang ada
+    session_destroy();
+    header("location: ../index.php");
 }
-
-function login($data){
-    global $koneksidb;
-
-    $username = $data["username"];
-    $password = $data["password"];
-
-    $query = "SELECT * FROM pegawai WHERE Username = '$username'";
-    $hasil = mysqli_query($koneksidb, $query);
-
-    // cek username
-    if(mysqli_num_rows($hasil) === 1){
-        // cek password
-        $data = mysqli_fetch_assoc($hasil);
-        if($password === "admin123"){
-            // set session
-            $_SESSION["Role"] = $data["Role"];
-            header("Location: HomeAdmin.php");
-            return 1;
-        }
-    }
-    
-    $query = "SELECT * FROM user WHERE Username = '$username'";
-    $hasil = mysqli_query($koneksidb, $query);
-
-    // cek username
-    if(mysqli_num_rows($hasil) === 1){
-        // cek password
-        $data = mysqli_fetch_assoc($hasil);
-        if(password_verify($password, $data["password"])){
-            // set session
-            $_SESSION["Role"] = $data["Role"];
-            header("Location: HomePage.php");
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
 ?>
