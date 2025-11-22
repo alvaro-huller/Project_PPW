@@ -1,63 +1,306 @@
-/* Histori Pesanan Styles */
-.histori-container {
+/* ===== ADMIN STYLES ===== */
+
+/* Body */
+.admin-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f9f5f0;
-    min-height: 100vh;
+    color: #5D4037;
+    margin: 0;
+    padding: 0;
 }
 
-.histori-header {
+/* Navbar */
+.admin-navbar {
     background-color: #5D4037;
-    color: white;
-    padding: 30px 0;
+    height: 72px;
+    padding: 0 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-nav-active {
+    background-color: #FFF8E1 !important;
+    color: #5D4037 !important;
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 8px 16px !important;
+}
+
+.admin-nav-link {
+    color: #FFF8E1 !important;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 8px 16px !important;
+    transition: all 0.3s ease;
+    margin: 0 5px;
+}
+
+.admin-nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #FFD54F !important;
+}
+
+.admin-logout-btn {
+    background-color: #FFF8E1;
+    color: #5D4037;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.admin-logout-btn:hover {
+    background-color: #FFD54F;
+    color: #5D4037;
+}
+
+/* Header Dashboard */
+.admin-header {
+    background-color: #5D4037;
+    background: linear-gradient(rgba(93, 64, 55, 0.9), rgba(93, 64, 55, 0.9)), 
+                url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    background-position: center;
     margin-bottom: 30px;
 }
 
-.page-title {
-    color: #5D4037;
+/* Stat Cards */
+.stat-card {
+    display: flex;
+    align-items: center;
+    padding: 25px 20px;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 120px;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card-primary {
+    background: linear-gradient(135deg, #5D4037, #8D6E63);
+}
+
+.stat-card-success {
+    background: linear-gradient(135deg, #388E3C, #4CAF50);
+}
+
+.stat-card-warning {
+    background: linear-gradient(135deg, #F57C00, #FF9800);
+}
+
+.stat-card-danger {
+    background: linear-gradient(135deg, #d32f2f, #f44336);
+}
+
+.stat-card-icon {
+    font-size: 2.8rem;
+    margin-right: 20px;
+    opacity: 0.9;
+}
+
+.stat-card-content h3 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
     font-weight: 700;
-    margin-bottom: 10px;
 }
 
-.page-subtitle {
-    color: #8D6E63;
-    font-size: 1.1rem;
-    margin-bottom: 20px;
+.stat-card-content p {
+    margin-bottom: 0;
+    font-size: 1rem;
+    opacity: 0.95;
 }
 
-.histori-card {
+/* Admin Card */
+.admin-card {
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    margin-bottom: 30px;
+    border: none;
 }
 
-.histori-card-header {
+.admin-card-header {
     background-color: #5D4037;
     color: #FFF8E1;
     padding: 18px 25px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.histori-card-body {
+.admin-card-body {
     padding: 25px;
 }
 
-.empty-state {
+/* Admin Table */
+.admin-table {
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.admin-table-header {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #5D4037;
+}
+
+.admin-table th {
+    border-top: none;
+    font-weight: 600;
+    color: #5D4037;
+    padding: 15px 12px;
+    background-color: #FFF8E1;
+}
+
+.admin-table td {
+    padding: 12px 12px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.admin-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.admin-table tbody tr:hover {
+    background-color: rgba(93, 64, 55, 0.05);
+    transform: scale(1.002);
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-block;
     text-align: center;
-    padding: 40px 20px;
-    color: #8D6E63;
+    min-width: 80px;
 }
 
-.empty-state i {
-    font-size: 3rem;
-    margin-bottom: 15px;
-    opacity: 0.5;
+.status-proses {
+    background-color: #FFF8E1;
+    color: #5D4037;
+    border: 1px solid #FFD54F;
 }
 
-.data-count {
-    color: #666;
-    font-size: 0.9rem;
-    padding: 10px 0;
-    border-top: 1px solid #f0f0f0;
-    margin-top: 15px;
+.status-selesai {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #388E3C;
+}
+
+.status-batal {
+    background-color: #f44336;
+    color: white;
+    border: 1px solid #d32f2f;
+}
+
+/* Action Buttons */
+.btn-action {
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+}
+
+.btn-selesai {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #388E3C;
+}
+
+.btn-selesai:hover {
+    background-color: #388E3C;
+    transform: scale(1.05);
+    color: white;
+}
+
+.btn-batal {
+    background-color: #f44336;
+    color: white;
+    border: 1px solid #d32f2f;
+}
+
+.btn-batal:hover {
+    background-color: #d32f2f;
+    transform: scale(1.05);
+    color: white;
+}
+
+/* ===== EXISTING STYLES ===== */
+
+/* body */
+body {
+    background-color: rgb(255, 233, 186);
+}
+
+/* Navbar */
+nav {
+    background-color: rgb(112, 50, 0);
+}
+
+.NavLink1 {
+    white-space: nowrap;
+    color: black;
+    background-color: gold;
+    border: transparent;
+    border-radius: 10px;
+    padding: 10px 20px 10px 20px;
+}
+.NavLink2 {
+    white-space: nowrap;
+    color: white;
+    background-color: transparent;
+    border: transparent;
+    border-radius: 10px;
+    padding: 10px 20px 10px 20px;
+}
+
+/* Login Page & Registrasi Page */
+.card-container {
+    width: 500px;
+    margin-top: 100px;
+}
+.card-header {
+    color: antiquewhite;
+    text-align: center;
+    background-color: #8B4513;
+}
+#register-hl {
+    text-decoration: none;
+}
+#register-hl:hover {
+    text-decoration: underline;
+}
+#hl {
+    text-decoration: none;
+}
+#hl:hover {
+    text-decoration: underline;
+}
+
+/* Tombol di halaman tambah menu */
+.btn-brown {
+    background-color: #8B4513;
+    border-color: #8B4513;
+    color: white;
+}
+.btn-brown:hover {
+    background-color: #654321;
+    border-color: #654321;
+    color: white;
 }

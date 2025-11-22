@@ -91,11 +91,11 @@ $jumlah_data = mysqli_num_rows($hasil);
 
     <!-- Konten Utama -->
     <div class="container">
-        <div class="histori-card">
-            <div class="histori-card-header">
+        <div class="admin-card">
+            <div class="admin-card-header">
                 <h3 class="mb-0"><i class="fas fa-list-alt me-2"></i>Daftar Pesanan Selesai</h3>
             </div>
-            <div class="histori-card-body">
+            <div class="admin-card-body">
                 <div class="table-responsive">
                     <table class="table admin-table">
                         <thead class="admin-table-header">
