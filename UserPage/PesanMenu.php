@@ -285,6 +285,17 @@ $hasilminuman = mysqli_query($koneksidb, $query);
             let selectedCountlauk = [0, 0, 0, 0];
             let selectedCountminuman = [0, 0, 0, 0];
 
+            function validateSelection() {
+                let semuaSudahMemilih = true;
+                for(let i = 0; i < <?= $jumlahorang ?>; i++) {
+                    if(selectedCountlauk[i] === 0 || selectedCountminuman[i] === 0) {
+                        semuaSudahMemilih = false;
+                        break;
+                    }
+                }
+                tombolkonfirmasi.disabled = !semuaSudahMemilih;
+            }
+
             indexs.forEach(index => {
                 let string = ".lauk" + index;
                 buttonlauk[index] = document.querySelectorAll(string);
@@ -305,6 +316,7 @@ $hasilminuman = mysqli_query($koneksidb, $query);
                                 alert('Maksimal hanya dapat memilih 3 lauk');
                             }
                         }
+                        validateSelection();
                     });
                 });
             });
@@ -329,22 +341,14 @@ $hasilminuman = mysqli_query($koneksidb, $query);
                                 alert('Maksimal hanya dapat memilih 1 minuman');
                             }
                         }
+                        validateSelection();
                     });
                 });
             });
-
-            // for(i = 0; i < <?= $jumlahorang ?>; i++){
-            //     if(i >= <?= $jumlahorang ?>){
-            //         selectedCountlauk[i] = 1;
-            //         selectedCountminuman[i] = 1;
-            //     }
-            // }
-            // if(selectedCountlauk[0] == 0 || selectedCountminuman[0] == 0 || selectedCountlauk[1] == 0 || selectedCountminuman[1] == 0 || selectedCountlauk[2] == 0 || selectedCountminuman[2] == 0 || selectedCountlauk[3] == 0 || selectedCountminuman[3] == 0) {
-            //     tombolkonfirmasi.disabled = true;
-            // }else {
-            //     tombolkonfirmasi.disabled = false;
-            // }
+            validateSelection();
         });
+
+        
     </script>
 </body>
 </html>
