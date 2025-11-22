@@ -4,7 +4,7 @@ include "function.php";
 
 // Mengecek apakah "Role" sesinya Admin
 if($_SESSION["Role"] != "Admin") {
-
+    
     // Jika bukan Admin
     echo "
             <script>
@@ -14,30 +14,52 @@ if($_SESSION["Role"] != "Admin") {
         ";
 }
 
-// Mengecek apakah tombol tambah sudah dipencet
-if(isset($_POST["tambah"])) {
+// Mengecek apakah tombol update sudah dipencet
+if(isset($_POST["update"])) {
 
-    // Memanggil fungsi tambahDataMenu() dengan mengirimkan $_POST sebagai parameter
-    if(tambahDataMenu($_POST) > 0) {
+    // Memanggil fungsi UpdateDataMenu() dengan mengirimkan $_POST sebagai parameter
+    if(updateDataMenu($_POST) > 0) {
 
         // Jika data berhasil ditambahkan
         echo "
             <script>
-                alert('Data Berhasil Ditambahkan');
-                document.location.href = 'HomeAdmin.php';
+                alert('Data Berhasil Diupdate');
+                document.location.href = 'LihatMenuAdmin.php';
             </script>
         ";
     }else {
-        
+
         // Jika data gagal ditambahkan
         echo "
             <script>
-                alert('Data Gagal Ditambahkan');
-                document.location.href = 'HomeAdmin.php';
+                alert('Data Gagal Diupdate');
+                document.location.href = 'LihatMenuAdmin.php';
             </script>
         ";
     }
 }
+
+// Mengecek apakah ada ID yang dikirim
+if(isset($_POST["id"])) {
+
+    // Jika ada ID yang dikirim
+    $id = $_POST["id"];
+}else {
+
+    // Jika tidak ada
+    echo "
+            <script>
+                alert('Tidak ada ID yang terkirim');
+                document.location.href = 'LihatMenuAdmin.php';
+            </script>
+        ";
+}
+
+// Mengambil data lauk di tabel datalauk dengan ID tertentu
+$query = "SELECT * FROM datalauk WHERE IDLauk = $id";
+$hasil = mysqli_query($koneksidb, $query);
+$data = mysqli_fetch_assoc($hasil);
+
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +67,7 @@ if(isset($_POST["tambah"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Menu</title>
+    <title>Update Lauk</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <style>
         body {
@@ -85,7 +107,7 @@ if(isset($_POST["tambah"])) {
         <div class="container">
             <div class="row align-items-center">
                 <div class="col">
-                    <h1 class="page-name">Tambah Data Menu</h1>
+                    <h1 class="page-name">Update Data Lauk</h1>
                 </div>
             </div>
         </div>
@@ -95,19 +117,23 @@ if(isset($_POST["tambah"])) {
     <div class="admin-card">
         <div class="admin-card-header text-white text-center">
             <h3 class="mb-0">Resto Jawa</h3>
-            <p class="mb-0 mt-1">Tambah Menu Baru</p>
+            <p class="mb-0 mt-1">Update Lauk</p>
         </div>
         <div class="admin-card-body p-4">
             <form action="" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label class="form-label">Nama Menu</label>
-                    <input type="text" name="nama_menu" class="form-control" required>
+                    <input type="number" name="id" class="form-control" value="<?= $data["IDLauk"] ?>" required hidden>
+                    <input type="text" name="kategori" class="form-control" value="<?= $data["Kategori"] ?>" required hidden>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Nama Lauk</label>
+                    <input type="text" name="nama" class="form-control" value="<?= $data["NamaLauk"] ?>" required>
                 </div>
                 
                 <div class="mb-3">
                     <label class="form-label">Kategori</label>
-                    <select name="kategori" class="form-select" required>
-                        <option value="Lauk">Lauk</option>
+                    <select name="kategori" class="form-select" required disabled>
+                        <option value="Lauk" selected>Lauk</option>
                         <option value="Minuman">Minuman</option>
                     </select>
                 </div>
@@ -115,26 +141,21 @@ if(isset($_POST["tambah"])) {
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Harga</label>
-                        <input type="number" name="harga" class="form-control" required>
+                        <input type="number" name="harga" class="form-control" value="<?= $data["HargaLauk"] ?>" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Stok</label>
-                        <input type="number" name="stok" class="form-control" required>
+                        <input type="number" name="stok" value="<?= $data["Stok"] ?>" class="form-control" required>
                     </div>
                 </div>
                 
                 <div class="mb-3">
                     <label class="form-label">Deskripsi</label>
-                    <textarea name="deskripsi" class="form-control" rows="3"></textarea>
-                </div>
-                
-                <div class="mb-4">
-                    <label class="form-label">Gambar</label>
-                    <input type="file" name="gambar" class="form-control">
+                    <textarea name="deskripsi" class="form-control" rows="3"><?= $data["Deskripsi"] ?></textarea>
                 </div>
                 <div class="d-flex justify-content-between">
                     <a href="LihatMenuAdmin.php" class="btn btn-warning">Kembali</a>
-                    <button type="submit" name="tambah" class="btn btn-success">Tambah Menu</button>
+                    <button type="submit" name="update" class="btn btn-success">Update Lauk</button>
                 </div>
             </form>
         </div>
