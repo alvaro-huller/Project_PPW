@@ -40,12 +40,12 @@ if(isset($_POST["hapuslauk"])){
 }
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kelola Menu - Resto Jawa</title>
+    <title>Histori Pesanan - Resto Jawa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -156,45 +156,10 @@ if(isset($_POST["hapuslauk"])){
           background-color: rgba(93, 64, 55, 0.05);
           transform: scale(1.002);
       }
-
-      /* Tombol Aksi */
-      .btn-action {
-          border: none;
-          border-radius: 6px;
-          padding: 8px 12px;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          font-size: 0.85rem;
-          font-weight: 600;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          min-width: 80px;
-      }
-      .btn-selesai {
-          background-color: #4CAF50;
-          color: white;
-          border: 1px solid #388E3C;
-      }
-      .btn-selesai:hover {
-          background-color: #388E3C;
-          transform: scale(1.05);
-          color: white;
-      }
-      .btn-batal {
-          background-color: #f44336;
-          color: white;
-          border: 1px solid #d32f2f;
-      }
-      .btn-batal:hover {
-          background-color: #d32f2f;
-          transform: scale(1.05);
-          color: white;
-      }
     </style>
   </head>
 
-  <body class="admin-body">
+<body class="admin-body histori-container">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg admin-navbar">
         <div class="container-fluid">
@@ -211,10 +176,10 @@ if(isset($_POST["hapuslauk"])){
                         <a class="nav-link admin-nav-link" href="HomeAdmin.php"><i class="fas fa-tachometer-alt me-2"></i><b>Dashboard</b></a>
                     </li>
                     <li class="nav-item mx-auto p-2">
-                        <a class="nav-link active admin-nav-active" href="LihatMenuAdmin.php"><i class="fas fa-utensils me-2"></i><b>Kelola Menu</b></a>
+                        <a class="nav-link admin-nav-link" href="LihatMenuAdmin.php"><i class="fas fa-utensils me-2"></i><b>Kelola Menu</b></a>
                     </li>
                     <li class="nav-item mx-auto p-2">
-                        <a class="nav-link admin-nav-link" href="LihatDataPenjualan.php"><i class="fas fa-history me-2"></i><b>Data Penjualan</b></a>
+                        <a class="nav-link admin-nav-active" href="LihatDataPenjualan.php"><i class="fas fa-history me-2"></i><b>Data Penjualan</b></a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -233,22 +198,19 @@ if(isset($_POST["hapuslauk"])){
     <!-- Header -->
     <div class="admin-header">
         <div class="container py-5">
-            <h1 class="text-white mb-2"><i class="fas fa-utensils me-3"></i>Kelola Menu</h1>
-            <p class="text-white mb-0">Kelola daftar menu yang tersedia di Resto Jawa</p>
+            <h1 class="text-white mb-2"><i class="fas fa-history me-3"></i>Data Penjualan</h1>
+            <p class="text-white mb-0">Data Makanan dan Minuman yang terjual</p>
         </div>
     </div>
 
     <div class="container">
-      <!-- Card -->
+        <!-- Card -->
       <div class="admin-card">
         <div class="admin-card-header d-flex justify-content-between align-items-center">
           <h3 class="mb-0"><i class="fas fa-list-alt me-2"></i>Daftar Menu</h3>
-          <a href="TambahMenu.php" class="btn admin-logout-btn">
-            <i class="fas fa-plus me-2"></i>Tambah Menu
-          </a>
         </div>
         <div class="admin-card-body">
-          <!-- Table -->
+            <!-- Table -->
           <div class="table-responsive">
             <table class="table table-hover admin-table">
               <thead class="admin-table-header">
@@ -260,7 +222,7 @@ if(isset($_POST["hapuslauk"])){
                   <th>Harga</th>
                   <th>Stok</th>
                   <th>Deskripsi</th>
-                  <th>Aksi</th>
+                  <th>Terjual</th>
                 </tr>
               </thead>
               <tbody>
@@ -285,24 +247,13 @@ if(isset($_POST["hapuslauk"])){
                   </td>
                   <td class="small"><?= $data['Deskripsi'] ?></td>
                   <td>
-                    <!-- Tombol Aksi -->
-                    <div class="d-flex gap-2">
-                      <form action="UpdateLauk.php" method="post">
-                        <button type="submit" class="btn-action btn-selesai" name="id" value="<?= $data['IDLauk']; ?>">
-                          <i class="fas fa-edit me-1"></i>Edit
-                        </button>
-                      </form>
-                      <form action="" method="post">
-                        <button type="submit" class="btn-action btn-batal" name="hapus" value="<?= $data['IDLauk']; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus menu ini?')">
-                          <i class="fas fa-trash me-1"></i>Hapus
-                        </button>
-                      </form>
-                    </div>
+                    
                   </td>
                 </tr>
                 <?php
                 }
                 ?>
+                
                 <?php
                 while($data = mysqli_fetch_array($hasilminuman)){
                 ?>
@@ -323,19 +274,7 @@ if(isset($_POST["hapuslauk"])){
                   </td>
                   <td class="small"><?= $data['Deskripsi'] ?></td>
                   <td>
-                    <!-- Tombol Aksi -->
-                    <div class="d-flex gap-2">
-                      <form action="UpdateMinuman.php" method="post">
-                        <button type="submit" class="btn-action btn-selesai" name="id" value="<?= $data['IDMinuman']; ?>">
-                          <i class="fas fa-edit me-1"></i>Edit
-                        </button>
-                      </form>
-                      <form action="" method="post">
-                        <button type="submit" class="btn-action btn-batal" name="hapus" value="<?= $data['IDMinuman']; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus menu ini?')">
-                          <i class="fas fa-trash me-1"></i>Hapus
-                        </button>
-                      </form>
-                    </div>
+                    
                   </td>
                 </tr>
                 <?php
@@ -349,5 +288,5 @@ if(isset($_POST["hapuslauk"])){
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>

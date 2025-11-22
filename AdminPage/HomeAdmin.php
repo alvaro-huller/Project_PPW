@@ -186,7 +186,7 @@ $hasil = mysqli_query($koneksidb, $query);
         <div class="container-fluid">
             <p class="text-white mb-0 me-5">
               <a class="navbar-brand text-white d-block" href="HomeAdmin.php"><b>Resto Jawa</b></a>
-              <span class="small">Admin Dashboard</span>
+              <span class="small">Admin</span>
             </p>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -200,7 +200,7 @@ $hasil = mysqli_query($koneksidb, $query);
                         <a class="nav-link admin-nav-link" href="LihatMenuAdmin.php"><i class="fas fa-utensils me-2"></i><b>Kelola Menu</b></a>
                     </li>
                     <li class="nav-item mx-auto p-2">
-                        <a class="nav-link admin-nav-link" href="LihatHistoriPesanan.php"><i class="fas fa-history me-2"></i><b>Histori Pesanan</b></a>
+                        <a class="nav-link admin-nav-link" href="LihatDataPenjualan.php"><i class="fas fa-history me-2"></i><b>Data Penjualan</b></a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -224,15 +224,15 @@ $hasil = mysqli_query($koneksidb, $query);
         </div>
     </div>
     
-        <!-- Card -->
-        <div class="container">
+    <div class="container">
+          <!-- Card -->
           <div class="admin-card">
             <div class="admin-card-header">
               <h3 class="mb-0"><i class="fas fa-list-alt me-2"></i>Pesanan Terkini</h3>
             </div>
             <div class="admin-card-body">
+              <!-- Table -->
               <div class="table-responsive">
-                <!-- Table -->
                 <table class="table table-hover admin-table">
                   <thead class="admin-table-header">
                     <tr>
