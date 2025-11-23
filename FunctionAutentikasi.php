@@ -8,7 +8,7 @@ function tambahDataUser($data){
     global $koneksidb;
 
     $username = $data["username"];
-    $password = $data["password"];
+    $password = $data["password1"];
     $password2 = $data["password2"];
 
     // Cek apakah username sudah digunakan
@@ -29,11 +29,8 @@ function tambahDataUser($data){
         return false;
     }
 
-    // Enkirpsi password
-    $password = password_hash($password, PASSWORD_DEFAULT);
-
     // Query untuk menambahkan data user baru ke tabel user di database restojawadb
-    $query = "INSERT INTO user (Username, Password, Role) VALUES ('$username', '$password', 'Pelanggan')";
+    $query = "INSERT INTO user (IDReservasi, Username, Password, Role) VALUES ('Kosong','$username', '$password', 'Pelanggan')";
     mysqli_query($koneksidb, $query);
 
     return mysqli_affected_rows($koneksidb);
@@ -59,7 +56,7 @@ function login($data){
 
             // Set session
             $_SESSION["Role"] = $data["Role"];
-            header("Location: AdminPage/HomeAdmin.php");
+            return 1;
         }
     }
     
@@ -75,7 +72,7 @@ function login($data){
             // Set session
             $_SESSION["Role"] = $data["Role"];
             $_SESSION["ID"] = $data["IDUser"];
-            header("Location: UserPage/HomePage.php");
+            return 2;
         }
     }
 

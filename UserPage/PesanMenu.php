@@ -1,20 +1,28 @@
 <?php 
 
-include "function.php";
+include "FunctionUser.php";
 
+// Mengecek apakah "Role" sesinya Pelanggan
 if($_SESSION["Role"] != "Pelanggan") {
-    echo "
-            <script>
-                alert('Anda Tidak Memiliki Akses');
-                document.location.href = '../Index.php';
-            </script>
-        ";
-  }
 
+    // Jika bukan pelanggan
+    echo "
+        <script>
+            alert('Anda Tidak Memiliki Akses');
+            document.location.href = '../Index.php';
+        </script>
+    ";
+}
+
+// Mengecek apakah ada jumlahorang yang dikirim
 if(isset($_POST["jumlahorang"])) {
+
+    // Jika ada
     $jumlahorang = $_POST["jumlahorang"];
     $idmeja = $_POST["idmeja"];
 }else {
+
+    // Jika tidak ada
     echo "
         <script>
             alert('Anda belum melakukan reservasi, reservasi meja terlebih dahulu');
@@ -23,14 +31,18 @@ if(isset($_POST["jumlahorang"])) {
         ";
 }
 
+// Mengecek apakah tombol pesan dipencet
+if(isset($_POST["pesan"])) {
 
-if(isset($_POST["pesanmakanan"])) {
+    // Memanggil fungsi pesanmenu() untuk memproses pemesanan menu dengam mengirimkan $_POST sebagai parameter
     pesanmenu($_POST);
 }
 
+// Query untuk mengambil semua data di tabel datalauk di database restojawadb
 $query = "SELECT * FROM datalauk";
 $hasilmakanan = mysqli_query($koneksidb, $query);
 
+// Query untuk mengambil semua data di tabel dataminuman di database restojawadb
 $query = "SELECT * FROM dataminuman";
 $hasilminuman = mysqli_query($koneksidb, $query);
 
@@ -261,7 +273,7 @@ $hasilminuman = mysqli_query($koneksidb, $query);
                 <input type="number" name="jumlahorang" value="<?= $jumlahorang ?>" hidden>
                 <input type="number" name="idmeja" value="<?= $idmeja?>" hidden>
                 <div class="mt-5 text-end">
-                    <button type="submit" id="konfirm" class="konfirmasi" name="pesanmakanan">
+                    <button type="submit" id="konfirm" class="konfirmasi" name="pesan">
                         Konfirmasi Menu
                     </button>
                 </div>    

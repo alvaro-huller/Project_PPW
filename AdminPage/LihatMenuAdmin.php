@@ -1,5 +1,5 @@
 <?php
-include "function.php";
+include "FunctionAdmin.php";
 
 // Mengecek apakah "Role" sesinya Admin
 if($_SESSION["Role"] != "Admin") {
@@ -16,8 +16,26 @@ if($_SESSION["Role"] != "Admin") {
 // Mengecek apakah tombol logout dipencet
 if(isset($_POST["logout"])) {
 
-  // Memanggil fungsi logout
-  logout();
+  // Memanngil fungsi logout untuk proses logout
+  if(logout() > 0) {
+    
+    // Jika berhasil logout
+    echo "
+        <script>
+            alert('Berhasil logout');
+            document.location.href = '../Index.php';
+        </script>
+    ";
+  }else {
+
+    // Jika gagal logout
+    echo "
+        <script>
+            alert('Gagal logout');
+            document.location.href = 'HomeAdmin.php';
+        </script>
+    ";
+  }
 }
 
 // Query untuk mengambil semua data yang ada di tabel datalauk di database restojawadb

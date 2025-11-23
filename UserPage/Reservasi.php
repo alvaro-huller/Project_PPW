@@ -1,16 +1,20 @@
 <?php 
 
-include "function.php";
+include "FunctionUser.php";
 
+// Mengecek apakah "Role" sesinya Pelanggan
 if($_SESSION["Role"] != "Pelanggan") {
-    echo "
-            <script>
-                alert('Anda Tidak Memiliki Akses');
-                document.location.href = '../Index.php';
-            </script>
-        ";
-  }
 
+    // Jika bukan pelanggan
+    echo "
+        <script>
+            alert('Anda Tidak Memiliki Akses');
+            document.location.href = '../Index.php';
+        </script>
+    ";
+}
+
+// Query untuk mengambil semua data di tabel datameja di database restojawadb
 $query = "SELECT * FROM datameja";
 $hasil = mysqli_query($koneksidb, $query);
 

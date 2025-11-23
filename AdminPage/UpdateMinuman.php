@@ -1,6 +1,6 @@
 <?php 
 
-include "function.php";
+include "FunctionAdmin.php";
 
 // Mengecek apakah "Role" sesinya Admin
 if($_SESSION["Role"] != "Admin") {

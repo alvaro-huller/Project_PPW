@@ -1,6 +1,6 @@
 <?php
 
-include "function.php";
+include "FunctionAdmin.php";
 
 // Mengecek apakah "Role" sesinya Admin
 if($_SESSION["Role"] != "Admin") {
@@ -17,11 +17,39 @@ if($_SESSION["Role"] != "Admin") {
 // Mengecek apakah tombol logout dipencet
 if(isset($_POST["logout"])) {
 
-  // Memanngil fungsi logout
-  logout();
+  // Memanngil fungsi logout untuk proses logout
+  if(logout() > 0) {
+    
+    // Jika berhasil logout
+    echo "
+        <script>
+            alert('Berhasil logout');
+            document.location.href = '../Index.php';
+        </script>
+    ";
+  }else {
+
+    // Jika gagal logout
+    echo "
+        <script>
+            alert('Gagal logout');
+            document.location.href = 'HomeAdmin.php';
+        </script>
+    ";
+  }
 }
 
-$query = "SELECT a.NoMeja, b.* FROM datameja a, pesanan b WHERE a.IDMeja = b.IDMeja AND b.Status = 'Proses'";
+// Mengecek apakah tombol selesai dipencet
+if(isset($_POST["selesai"])) {
+  pesananSelesai($_POST);
+}
+
+// Mengecek apakah tombol batal dipencet
+if(isset($_POST["batal"])) {
+  batalPesanan($_POST);
+}
+
+$query = "SELECT a.NoMeja, a.IDMeja, b.* FROM datameja a, pesanan b WHERE a.IDMeja = b.IDMeja AND b.Status = 'Proses'";
 $hasil = mysqli_query($koneksidb, $query);
 
 ?>
@@ -225,71 +253,74 @@ $hasil = mysqli_query($koneksidb, $query);
     </div>
     
     <div class="container">
-          <!-- Card -->
-          <div class="admin-card">
-            <div class="admin-card-header">
-              <h3 class="mb-0"><i class="fas fa-list-alt me-2"></i>Pesanan Terkini</h3>
-            </div>
-            <div class="admin-card-body">
-              <!-- Table -->
-              <div class="table-responsive">
-                <table class="table table-hover admin-table">
-                  <thead class="admin-table-header">
-                    <tr>
-                      <th>ID Reservasi</th>
-                      <th>ID Pesanan</th>
-                      <th>No Meja</th>
-                      <th>Lauk 1</th>
-                      <th>Lauk 2</th>
-                      <th>Lauk 3</th>
-                      <th>Minuman</th>
-                      <th>Total</th>
-                      <th>Status</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php while($data = mysqli_fetch_array($hasil)) {?>
-                    <tr>
-                      <td><?= $data["IDReservasi"]; ?></td>
-                      <td><?= $data["IDPesanan"]; ?></td>
-                      <td><?= $data["NoMeja"]; ?></td>
-                      <td><?= $data["IDLauk1"]; ?></td>
-                      <td><?= $data["IDLauk2"]; ?></td>
-                      <td><?= $data["IDLauk3"]; ?></td>
-                      <td><?= $data["IDMinuman"]; ?></td>
-                      <td>Rp <?= number_format($data["Total"], 0, ',', '.'); ?></td>
-                      <td>
-                        <?php 
-                        $status = $data["Status"];
-                        if($status == "Proses") {
-                          echo '<span class="status-badge status-proses">'.$status.'</span>';
-                        } elseif($status == "Selesai") {
-                          echo '<span class="status-badge status-selesai">'.$status.'</span>';
-                        } elseif($status == "Batal") {
-                          echo '<span class="status-badge status-batal">'.$status.'</span>';
-                        } else {
-                          echo '<span class="status-badge">'.$status.'</span>';
-                        }
-                        ?>
-                      </td>
-                      <td>
-                        <!-- Tombol Aksi -->
-                        <div class="d-flex gap-2">
-                          <button class="btn-action btn-selesai">
+      <!-- Card -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h3 class="mb-0"><i class="fas fa-list-alt me-2"></i>Pesanan Terkini</h3>
+        </div>
+        <div class="admin-card-body">
+          <!-- Table -->
+          <div class="table-responsive">
+            <table class="table table-hover admin-table">
+              <thead class="admin-table-header">
+                <tr>
+                  <th>ID Reservasi</th>
+                  <th>ID Pesanan</th>
+                  <th>No Meja</th>
+                  <th>Lauk 1</th>
+                  <th>Lauk 2</th>
+                  <th>Lauk 3</th>
+                  <th>Minuman</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php $idreservasi = ""; while($data = mysqli_fetch_array($hasil)) { ?>
+                  <tr>
+                    <td><?= $data["IDReservasi"]; ?></td>
+                    <td><?= $data["IDPesanan"]; ?></td>
+                    <td><?= $data["NoMeja"]; ?></td>
+                    <td><?= $data["IDLauk1"]; ?></td>
+                    <td><?= $data["IDLauk2"]; ?></td>
+                    <td><?= $data["IDLauk3"]; ?></td>
+                    <td><?= $data["IDMinuman"]; ?></td>
+                    <td>Rp <?= number_format($data["Total"], 0, ',', '.'); ?></td>
+                    <td>
+                      <?php 
+                      $status = $data["Status"];
+                      if($status == "Proses") {
+                        echo '<span class="status-badge status-proses">'.$status.'</span>';
+                      } elseif($status == "Selesai") {
+                        echo '<span class="status-badge status-selesai">'.$status.'</span>';
+                      } elseif($status == "Batal") {
+                        echo '<span class="status-badge status-batal">'.$status.'</span>';
+                      } else {
+                        echo '<span class="status-badge">'.$status.'</span>';
+                      }
+                      ?>
+                    </td>
+                    <td>
+                    <?php if($idreservasi != $data["IDReservasi"]){ ?>
+                      <!-- Tombol Aksi -->
+                      <div class="d-flex gap-2">
+                        <form action="" method="post">
+                          <button name="selesai" class="btn-action btn-selesai" onclick="return confirm('Apakah Pesanan Ini Benar Sudah Selesai?')">
                             <i class="fas fa-check me-1"></i>Selesai
                           </button>
-                          <button class="btn-action btn-batal">
+                          <button name="batal" class="btn-action btn-batal" onclick="return confirm('Yakin Ingin Membatalkan Pesanan?')">
                             <i class="fas fa-times me-1"></i>Batal
                           </button>
-                        </div>
-                      </td>
-                    </tr>
-                    <?php } ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                          <input type="text" name="idreservasi" value="<?= $data['IDReservasi'] ?>" hidden>
+                          <input type="text" name="idmeja" value="<?= $data['IDMeja'] ?>" hidden>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                <?php } $idreservasi = $data["IDReservasi"]; } ?>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

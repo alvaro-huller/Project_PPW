@@ -1,9 +1,9 @@
 <?php 
 
-include "function.php";
+include "FunctionAutentikasi.php";
 
 // Mengecek apakah tombol register sudah ditekan
-if(isset($_POST["register"])) {
+if(isset($_POST["registrasi"])) {
 
     // Memanggil fungsiDataMenu() untuk menambahkan data dengan mengirimkan $_POST sebagai parameter
     if(tambahDataUser($_POST) > 0) {
@@ -51,15 +51,15 @@ if(isset($_POST["register"])) {
                 <form action="" method="post">
                     <div class="mb-3">
                         <label class="form-label">Username</label>
-                        <input type="text" name="username" class="form-control" placeholder="Masukkan Username Anda">
+                        <input type="text" name="username" class="form-control" placeholder="Masukkan Username Anda" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Password</label>
-                        <input type="password" name="password1" class="form-control" placeholder="Masukkan Password Anda">
+                        <input type="password" name="password1" class="form-control" placeholder="Masukkan Password Anda" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Konfirmasi Password</label>
-                        <input type="password" name="password2" class="form-control" placeholder="Konfirmasi Password Anda">
+                        <input type="password" name="password2" class="form-control" placeholder="Konfirmasi Password Anda" required>
                     </div>
                     <button type="submit" id="tombol-registrasi" name="registrasi" class="btn btn-warning">BUAT AKUN</button>
                 </form>

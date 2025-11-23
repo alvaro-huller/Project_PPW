@@ -1,18 +1,28 @@
 <?php 
 
-include "function.php";
+include "FunctionAutentikasi.php";
 
 // Mengecek apakah tombol login sudah ditekan
 if(isset($_POST["login"])) {
 
-    // Memanggil fungsi login() untuk
-    if(login($_POST) == 0) {
+    // Memanggil fungsi login() untuk proses login dengan mengrimkan $_POST sebagai parameter
+    $return = login($_POST);
+    if($return === 1) {
 
-        // Jika gagal login
+        // Jika berhasil login sebgai admin
         echo "
             <script>
-                alert('Gagal Login');
-                document.location.href = 'Index.php';
+                alert('Berhasil login sebagai admin');
+                document.location.href = 'AdminPage/HomeAdmin.php';
+            </script>
+        ";
+    }else if($return === 2) {
+
+        // Jika berhasil login sebgai user
+        echo "
+            <script>
+                alert('Berhasil login');
+                document.location.href = 'UserPage/HomePage.php';
             </script>
         ";
     }
@@ -44,11 +54,11 @@ if(isset($_POST["login"])) {
                 <form action="" method="post">
                     <div class="mb-3">
                         <label class="form-label">Username</label>
-                        <input type="text" name="username" class="form-control" placeholder="Masukkan Username Anda">
+                        <input type="text" name="username" class="form-control" placeholder="Masukkan Username Anda" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Masukkan Password Anda">
+                        <input type="password" name="password" class="form-control" placeholder="Masukkan Password Anda" required>
                     </div>
                     <button type="submit" id="tombol-login" name="login" class="btn btn-warning">LOGIN</button>
                 </form>

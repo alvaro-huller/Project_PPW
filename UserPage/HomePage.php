@@ -1,41 +1,73 @@
 <?php 
 
-include "function.php";
+include "FunctionUser.php";
 
+// Mengecek apakah "Role" sesinya Pelanggan
 if($_SESSION["Role"] != "Pelanggan") {
-    echo "
-            <script>
-                alert('Anda Tidak Memiliki Akses');
-                document.location.href = '../Index.php';
-            </script>
-        ";
-  }
 
-if(isset($_POST["logout"])) {
-    logout();
+    // Jika bukan pelanggan
+    echo "
+        <script>
+            alert('Anda Tidak Memiliki Akses');
+            document.location.href = '../Index.php';
+        </script>
+    ";
 }
 
+// Mengecek apakah tombol logout dipencet
+if(isset($_POST["logout"])) {
+
+  // Memanngil fungsi logout untuk proses logout
+  if(logout() > 0) {
+    
+    // Jika berhasil logout
+    echo "
+        <script>
+            alert('Berhasil logout');
+            document.location.href = '../Index.php';
+        </script>
+    ";
+  }else {
+
+    // Jika gagal logout
+    echo "
+        <script>
+            alert('Gagal logout');
+            document.location.href = 'HomeAdmin.php';
+        </script>
+    ";
+  }
+}
+
+// Mngecek apakah tombol batal dipencet
 if(isset($_POST["batal"])) {
+
+    // Memanggil fungsi batalPesanan() untul membatalkan pesanan dengan mengirim $_POST sebagai parameter
     batalPesanan($_POST);
 }
 
 $iduser = $_SESSION["ID"];
+
+// Query untuk mengambil data IDReservasi di tabel user di database restojawadb dengan IDUser tertentu
 $query = "SELECT IDReservasi FROM user WHERE IDUser = '$iduser'";
 $hasil = mysqli_query($koneksidb, $query);
 $idreservasi = mysqli_fetch_assoc($hasil);
 $idreservasi = $idreservasi["IDReservasi"];
 
+// Query untuk mengambil beberapa data di tabel pesanan dan datameja dengan beberapa ketentuan
 $query = "SELECT a.IDReservasi, a.IDMeja, b.NoMeja, b.Jam FROM pesanan a, datameja b WHERE a.IDMeja = b.IDMeja AND a.status = 'Proses' AND IDReservasi = '$idreservasi'"; 
 $hasil = mysqli_query($koneksidb, $query);
 $reservasi = mysqli_fetch_assoc($hasil);
 
+// Query untuk mengambil semua data di tabel datalauk di database restojawadb
 $query = "SELECT * FROM datalauk";
 $hasillauk = mysqli_query($koneksidb, $query);
 
+// Query untuk mengambil semua data di tabel dataminuman di database restojawadb
 $query = "SELECT * FROM dataminuman";
 $hasilminuman = mysqli_query($koneksidb, $query);
 
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -177,6 +209,7 @@ $hasilminuman = mysqli_query($koneksidb, $query);
         </div>
     </footer>
 
+    <!-- Modal Reservasi -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

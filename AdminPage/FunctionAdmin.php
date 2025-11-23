@@ -5,6 +5,7 @@ include "../koneksi.php";
 // Fungsi menambahkan data menu ke tabel menu di database restojawadb
 function tambahDataMenu($data){
     global $koneksidb;
+    $eror = 0;
 
     $gambar = uploadGambar();
     $nama = $data["nama_menu"];
@@ -16,13 +17,17 @@ function tambahDataMenu($data){
     if($kategori === "Lauk") {
         // Query untuk menambahkan data lauk di tabel lauk di database restojawadb
         $query = "INSERT INTO datalauk (NamaLauk, HargaLauk, GambarLauk, Kategori, Stok, Deskripsi) values ('$nama', '$harga', '$gambar', '$kategori', '$stok', '$deskripsi')";
+        $eror = 1;
     }else if($kategori === "Minuman") {
         // Query untuk menambahkan data minuman di tabel minuman di database restojawadb
         $query = "INSERT INTO datalauk (NamaLauk, HargaLauk, GambarLauk, Kategori, Stok, Deskripsi) values ('$nama', '$harga', '$gambar', '$kategori', '$stok', '$deskripsi')";
+        $eror = 1;
     }
 
     // Menjalan Query diatas
     mysqli_query($koneksidb, $query);
+
+    return $eror;
 }
 
 
@@ -127,12 +132,97 @@ function hapusDataMenu($data, $kategori){
     ";
 }
 
+// Fungsi untuk pemrosesan pesanan selesai
+function pesananSelesai($data) {
+    global $koneksidb;
+
+    $idreservasi = $data["idreservasi"];
+    $idmeja = $data["idmeja"];
+
+    // Query untuk mencari bebarapa data dengan IDReservasi tertentu di tabel pesanan di database restojawadb
+    $query = "SELECT IDLauk1, IDLauk2, IDLauk3, IDMinuman FROM pesanan WHERE IDReservasi = '$idreservasi'";
+    $hasil = mysqli_query($koneksidb, $query);
+    while($data = mysqli_fetch_assoc($hasil)) {
+
+        // Proses pengecekan apakah id ada
+        $idminuman = $data["IDMinuman"];
+        $idlauks = [0, 0, 0];
+        if($data["IDLauk1"] != 0) $idlauks[0] = 1;
+        if($data["IDLauk2"] != 0) $idlauk2[1] = 1;
+        if($data["IDLauk3"] != 0) $idlauk3[2]= 1;
+        
+        // Proses update total penjualan lauk
+        foreach ($idlauks as $idlauk) {
+            if($idlauk == 0) continue;
+
+            // Query untuk mengupdate TotalPenjualan dengan IDLauk tertentu di tabel datalauk di database restojawadb
+            $query = "UPDATE datalauk SET TotalPenjualan = TotalPenjualan + 1 WHERE IDLauk = '$idlauk'";
+            mysqli_query($koneksidb, $query);
+        }
+        
+        // Query untuk mengupdate TotalPenjualan dengan IDMinuman tertentu di tabel dataminuman di database restojawadb
+        $query = "UPDATE dataminuman SET TotalPenjualan = TotalPenjualan + 1 WHERE IDMinuman = '$idminuman'";
+        mysqli_query($koneksidb, $query);
+    }
+
+    // Query untuk mengupdate Status dengan IDReservasi tertentu di tabel pesanan di database restojawadb
+    $query = "UPDATE pesanan SET Status = 'Selesai' WHERE IDReservasi = '$idreservasi'";
+    mysqli_query($koneksidb, $query);
+    
+    // Query untuk mengupdate Status dengan IDReservasi tertentu di tabel user di database restojawadb
+    $query = "UPDATE user SET IDReservasi = 'Kosong' WHERE IDReservasi = '$idreservasi'";
+    mysqli_query($koneksidb, $query);
+    
+    // Query untuk mengupdate Status dengan IDMeja tertentu di tabel datameja di database restojawadb
+    $query = "UPDATE datameja SET Status = 'Kosong' WHERE IDMeja = '$idmeja'";
+    mysqli_query($koneksidb, $query);
+    
+    // Query untuk mengapus data dengan IDReservasi tertentu di tabel reservasi di database restojawadb
+    $query = "DELETE FROM reservasi WHERE IDReservasi = '$idreservasi'";
+    mysqli_query($koneksidb, $query);
+
+    echo "
+        <script>
+            alert('Pesanan telah dilakukan proses penyelesaian')
+        </script>
+    ";
+}
+
+// Fungsi untuk pembatalan pesanan
+function batalPesanan($data) {
+    global $koneksidb;
+
+    $idreservasi = $data["idreservasi"];
+    $idmeja = $data["idmeja"];
+
+    // Query untuk mengupdate Status dengan IDMeja tertentu di tabel datameja di database restojawadb
+    $query = "UPDATE datameja SET Status = 'Kosong' WHERE IDMeja = '$idmeja'";
+    mysqli_query($koneksidb, $query);
+    
+    // Query untuk mengupdate IDReservasi dengan IDReservasi tertentu di tabel user di database restojawadb
+    $query = "UPDATE user SET IDReservasi = 'Kosong' WHERE IDReservasi = '$idreservasi'";
+    mysqli_query($koneksidb, $query);
+    
+    // Query untuk mengapus data dengan IDReservasi tertentu di tabel pesanan di database restojawadb
+    $query = "DELETE FROM pesanan WHERE IDReservasi = '$idreservasi'";
+    mysqli_query($koneksidb, $query);
+    
+    // Query untuk mengapus data dengan IDReservasi tertentu di tabel reservasi di database restojawadb
+    $query = "DELETE FROM reservasi WHERE IDReservasi = '$idreservasi'";
+    mysqli_query($koneksidb, $query);
+
+    echo "
+        <script>
+            alert('Pesanan telah dilakukan proses penyelesaian')
+        </script>
+    ";
+}
 
 // Fungsi untuk melakukan logout website
 function logout() {
 
     // Menghancurkan semua sesi yang ada
     session_destroy();
-    header("location: ../index.php");
+    return 1;
 }
 ?>
