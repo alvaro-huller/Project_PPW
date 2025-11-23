@@ -254,12 +254,12 @@
                   </td>
                   <td><strong><?= $data['NamaLauk'] ?></strong></td>
                   <td>
-                    <span class="status-badge status-proses"><?= $data['Kategori'] ?></span>
+                    <span><?= $data['Kategori'] ?></span>
                   </td>
                   <td><strong>Rp <?= number_format($data['HargaLauk'], 0, ',', '.') ?></strong></td>
                   <td class="small"><?= $data['Deskripsi'] ?></td>
                   <td>
-                    <span class="status-badge <?= $data['TotalPenjualan'] > 0 ? 'status-selesai' : 'status-batal' ?>">
+                    <span>
                       <?= $data['TotalPenjualan'] ?> porsi
                     </span>
                   </td>
@@ -278,17 +278,12 @@
                   </td>
                   <td><strong><?= $data['NamaMinuman'] ?></strong></td>
                   <td>
-                    <span class="status-badge status-proses"><?= $data['Kategori'] ?></span>
+                    <span><?= $data['Kategori'] ?></span>
                   </td>
                   <td><strong>Rp <?= number_format($data['HargaMinuman'], 0, ',', '.') ?></strong></td>
-                  <td>
-                    <span class="status-badge <?= $data['Stok'] > 0 ? 'status-selesai' : 'status-batal' ?>">
-                      <?= $data['Stok'] ?> gelas
-                    </span>
-                  </td>
                   <td class="small"><?= $data['Deskripsi'] ?></td>
                   <td>
-                    <span class="status-badge <?= $data['Stok'] > 0 ? 'status-selesai' : 'status-batal' ?>">
+                    <span>
                       <?= $data['TotalPenjualan'] ?> porsi
                     </span>
                   </td>

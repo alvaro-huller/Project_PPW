@@ -26,7 +26,6 @@ $hasil = mysqli_query($koneksidb, $query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Reservation</title>
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -195,7 +194,6 @@ $hasil = mysqli_query($koneksidb, $query);
         </div>
     </div>
 
-    <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -215,7 +213,6 @@ $hasil = mysqli_query($koneksidb, $query);
                     const statusselected = status[index];
                     const idmejaselected = idmeja[index];
                     if (this.classList.contains('selected')) {
-                        // Deselect
                         this.classList.remove('selected');
                         dotselected.classList.remove('selected');
                         statusselected.classList.remove('selected');
@@ -224,7 +221,6 @@ $hasil = mysqli_query($koneksidb, $query);
                         idmejainput.removeAttribute('value');
                         selectedCount--;
                     } else {
-                        // Check if we can select more
                         if (selectedCount < maxSelection) {
                             this.classList.add('selected');
                             dotselected.classList.add('selected');
