@@ -1,61 +1,61 @@
 <?php
-include "FunctionAdmin.php";
+  include "FunctionAdmin.php";
 
-// Mengecek apakah "Role" sesinya Admin
-if($_SESSION["Role"] != "Admin") {
-  
-  // Jika bukan Admin
-  echo "
+  // Mengecek apakah "Role" sesinya Admin
+  if($_SESSION["Role"] != "Admin") {
+    
+    // Jika bukan Admin
+    echo "
+            <script>
+                alert('Anda Tidak Memiliki Akses');
+                document.location.href = '../Index.php';
+            </script>
+        ";
+  }
+    
+  // Mengecek apakah tombol logout dipencet
+  if(isset($_POST["logout"])) {
+
+    // Memanngil fungsi logout untuk proses logout
+    if(logout() > 0) {
+      
+      // Jika berhasil logout
+      echo "
           <script>
-              alert('Anda Tidak Memiliki Akses');
+              alert('Berhasil logout');
               document.location.href = '../Index.php';
           </script>
       ";
-}
-  
-// Mengecek apakah tombol logout dipencet
-if(isset($_POST["logout"])) {
+    }else {
 
-  // Memanngil fungsi logout untuk proses logout
-  if(logout() > 0) {
-    
-    // Jika berhasil logout
-    echo "
-        <script>
-            alert('Berhasil logout');
-            document.location.href = '../Index.php';
-        </script>
-    ";
-  }else {
-
-    // Jika gagal logout
-    echo "
-        <script>
-            alert('Gagal logout');
-            document.location.href = 'HomeAdmin.php';
-        </script>
-    ";
+      // Jika gagal logout
+      echo "
+          <script>
+              alert('Gagal logout');
+              document.location.href = 'HomeAdmin.php';
+          </script>
+      ";
+    }
   }
-}
 
-// Query untuk mengambil semua data yang ada di tabel datalauk di database restojawadb
-$query = "SELECT * FROM datalauk";
-$hasillauk = mysqli_query($koneksidb, $query);
+  // Query untuk mengambil semua data yang ada di tabel datalauk di database restojawadb
+  $query = "SELECT * FROM datalauk";
+  $hasillauk = mysqli_query($koneksidb, $query);
 
-// Query untuk mengambil semua data yang ada di tabel dataminuman di database restojawadb
-$query = "SELECT * FROM dataminuman";
-$hasilminuman = mysqli_query($koneksidb, $query);
+  // Query untuk mengambil semua data yang ada di tabel dataminuman di database restojawadb
+  $query = "SELECT * FROM dataminuman";
+  $hasilminuman = mysqli_query($koneksidb, $query);
 
-// Mengecek apakah tombol hapuslauk atau tombol hapusminuman dipencet
-if(isset($_POST["hapuslauk"])){
+  // Mengecek apakah tombol hapuslauk atau tombol hapusminuman dipencet
+  if(isset($_POST["hapuslauk"])){
 
-  // Memanggil fungsi hapusDataMenu() dengan parameter $_POST dan kategori
-  hapusDataMenu($_POST["hapuslauk"], "Lauk");
-}else if(isset($_POST["hapusminuman"])) {
+    // Memanggil fungsi hapusDataMenu() dengan parameter $_POST dan kategori
+    hapusDataMenu($_POST["hapuslauk"], "Lauk");
+  }else if(isset($_POST["hapusminuman"])) {
 
-  // Memanggil fungsi hapusDataMenu() dengan parameter $_POST dan kategori
-  hapusDataMenu($_POST["hapusminuman"], "Minuman");
-}
+    // Memanggil fungsi hapusDataMenu() dengan parameter $_POST dan kategori
+    hapusDataMenu($_POST["hapusminuman"], "Minuman");
+  }
 ?>
 
 <!DOCTYPE html>
@@ -238,7 +238,6 @@ if(isset($_POST["hapuslauk"])){
                   <th>Nama Menu</th>
                   <th>Kategori</th>
                   <th>Harga</th>
-                  <th>Stok</th>
                   <th>Deskripsi</th>
                   <th>Terjual</th>
                 </tr>
@@ -258,11 +257,6 @@ if(isset($_POST["hapuslauk"])){
                     <span class="status-badge status-proses"><?= $data['Kategori'] ?></span>
                   </td>
                   <td><strong>Rp <?= number_format($data['HargaLauk'], 0, ',', '.') ?></strong></td>
-                  <td>
-                    <span class="status-badge <?= $data['Stok'] > 0 ? 'status-selesai' : 'status-batal' ?>">
-                      <?= $data['Stok'] ?> porsi
-                    </span>
-                  </td>
                   <td class="small"><?= $data['Deskripsi'] ?></td>
                   <td>
                     <span class="status-badge <?= $data['TotalPenjualan'] > 0 ? 'status-selesai' : 'status-batal' ?>">

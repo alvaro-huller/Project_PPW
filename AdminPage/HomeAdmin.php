@@ -1,56 +1,56 @@
 <?php
 
-include "FunctionAdmin.php";
+  include "FunctionAdmin.php";
 
-// Mengecek apakah "Role" sesinya Admin
-if($_SESSION["Role"] != "Admin") {
+  // Mengecek apakah "Role" sesinya Admin
+  if($_SESSION["Role"] != "Admin") {
 
-  // Jika Bukan Admin
-  echo "
+    // Jika Bukan Admin
+    echo "
+            <script>
+                alert('Anda Tidak Memiliki Akses');
+                document.location.href = '../Index.php';
+            </script>
+        ";
+  }
+
+  // Mengecek apakah tombol logout dipencet
+  if(isset($_POST["logout"])) {
+
+    // Memanngil fungsi logout untuk proses logout
+    if(logout() > 0) {
+      
+      // Jika berhasil logout
+      echo "
           <script>
-              alert('Anda Tidak Memiliki Akses');
+              alert('Berhasil logout');
               document.location.href = '../Index.php';
           </script>
       ";
-}
+    }else {
 
-// Mengecek apakah tombol logout dipencet
-if(isset($_POST["logout"])) {
-
-  // Memanngil fungsi logout untuk proses logout
-  if(logout() > 0) {
-    
-    // Jika berhasil logout
-    echo "
-        <script>
-            alert('Berhasil logout');
-            document.location.href = '../Index.php';
-        </script>
-    ";
-  }else {
-
-    // Jika gagal logout
-    echo "
-        <script>
-            alert('Gagal logout');
-            document.location.href = 'HomeAdmin.php';
-        </script>
-    ";
+      // Jika gagal logout
+      echo "
+          <script>
+              alert('Gagal logout');
+              document.location.href = 'HomeAdmin.php';
+          </script>
+      ";
+    }
   }
-}
 
-// Mengecek apakah tombol selesai dipencet
-if(isset($_POST["selesai"])) {
-  pesananSelesai($_POST);
-}
+  // Mengecek apakah tombol selesai dipencet
+  if(isset($_POST["selesai"])) {
+    pesananSelesai($_POST);
+  }
 
-// Mengecek apakah tombol batal dipencet
-if(isset($_POST["batal"])) {
-  batalPesanan($_POST);
-}
+  // Mengecek apakah tombol batal dipencet
+  if(isset($_POST["batal"])) {
+    batalPesanan($_POST);
+  }
 
-$query = "SELECT a.NoMeja, a.IDMeja, b.* FROM datameja a, pesanan b WHERE a.IDMeja = b.IDMeja AND b.Status = 'Proses'";
-$hasil = mysqli_query($koneksidb, $query);
+  $query = "SELECT a.NoMeja, a.IDMeja, b.* FROM datameja a, pesanan b WHERE a.IDMeja = b.IDMeja AND b.Status = 'Proses'";
+  $hasil = mysqli_query($koneksidb, $query);
 
 ?>
 

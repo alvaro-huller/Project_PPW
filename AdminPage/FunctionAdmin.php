@@ -11,16 +11,15 @@ function tambahDataMenu($data){
     $nama = $data["nama_menu"];
     $harga = $data["harga"];
     $kategori = $data["kategori"];
-    $stok = $data["stok"];
     $deskripsi = $data["deskripsi"];
 
     if($kategori === "Lauk") {
         // Query untuk menambahkan data lauk di tabel lauk di database restojawadb
-        $query = "INSERT INTO datalauk (NamaLauk, HargaLauk, GambarLauk, Kategori, Stok, Deskripsi) values ('$nama', '$harga', '$gambar', '$kategori', '$stok', '$deskripsi')";
+        $query = "INSERT INTO datalauk (NamaLauk, HargaLauk, GambarLauk, Kategori, Deskripsi) values ('$nama', '$harga', '$gambar', '$kategori', '$deskripsi')";
         $eror = 1;
     }else if($kategori === "Minuman") {
         // Query untuk menambahkan data minuman di tabel minuman di database restojawadb
-        $query = "INSERT INTO datalauk (NamaLauk, HargaLauk, GambarLauk, Kategori, Stok, Deskripsi) values ('$nama', '$harga', '$gambar', '$kategori', '$stok', '$deskripsi')";
+        $query = "INSERT INTO dataminuman (NamaMinuman, HargaMinuman, GambarMinuman, Kategori, Deskripsi) values ('$nama', '$harga', '$gambar', '$kategori', '$deskripsi')";
         $eror = 1;
     }
 
@@ -81,16 +80,15 @@ function updateDataMenu($data){
     $nama = $data["nama"];
     $kategori = $data["kategori"];
     $harga = $data["harga"];
-    $stok = $data["stok"];
     $deskripsi = $data["deskripsi"];
 
     if($kategori === "Lauk") {
         // Query untuk mengupdate data lauk di tabel datalauk di database restojawadb
-        $query = "UPDATE datalauk SET NamaLauk = '$nama', HargaLauk = '$harga', Stok = '$stok', Deskripsi = '$deskripsi' WHERE IDLauk = $id";
+        $query = "UPDATE datalauk SET NamaLauk = '$nama', HargaLauk = '$harga', Deskripsi = '$deskripsi' WHERE IDLauk = $id";
         $eror = 1;
     }else if($kategori === "Minuman") {
         // Query untuk mengupdate data minuman di tabel dataminuman di database restojawadb
-        $query = "UPDATE dataminuman SET NamaMinuman = '$nama', HargaMinuman = '$harga', Stok = '$stok', Deskripsi = '$deskripsi' WHERE IDMinuman = $id";
+        $query = "UPDATE dataminuman SET NamaMinuman = '$nama', HargaMinuman = '$harga', Deskripsi = '$deskripsi' WHERE IDMinuman = $id";
         $eror = 1;
     }
 

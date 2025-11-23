@@ -1,64 +1,64 @@
 <?php 
-// Menghubungkan ke file function.php
-include "FunctionAdmin.php";
+    // Menghubungkan ke file function.php
+    include "FunctionAdmin.php";
 
-// Mengecek apakah "Role" sesinya Admin
-if($_SESSION["Role"] != "Admin") {
-    
-    // Jika bukan Admin
-    echo "
-            <script>
-                alert('Anda Tidak Memiliki Akses');
-                document.location.href = '../Index.php';
-            </script>
-        ";
-}
-
-// Mengecek apakah tombol update sudah dipencet
-if(isset($_POST["update"])) {
-
-    // Memanggil fungsi UpdateDataMenu() dengan mengirimkan $_POST sebagai parameter
-    if(updateDataMenu($_POST) > 0) {
-
-        // Jika data berhasil ditambahkan
+    // Mengecek apakah "Role" sesinya Admin
+    if($_SESSION["Role"] != "Admin") {
+        
+        // Jika bukan Admin
         echo "
-            <script>
-                alert('Data Berhasil Diupdate');
-                document.location.href = 'LihatMenuAdmin.php';
-            </script>
-        ";
+                <script>
+                    alert('Anda Tidak Memiliki Akses');
+                    document.location.href = '../Index.php';
+                </script>
+            ";
+    }
+
+    // Mengecek apakah tombol update sudah dipencet
+    if(isset($_POST["update"])) {
+
+        // Memanggil fungsi UpdateDataMenu() dengan mengirimkan $_POST sebagai parameter
+        if(updateDataMenu($_POST) > 0) {
+
+            // Jika data berhasil ditambahkan
+            echo "
+                <script>
+                    alert('Data Berhasil Diupdate');
+                    document.location.href = 'LihatMenuAdmin.php';
+                </script>
+            ";
+        }else {
+
+            // Jika data gagal ditambahkan
+            echo "
+                <script>
+                    alert('Data Gagal Diupdate');
+                    document.location.href = 'LihatMenuAdmin.php';
+                </script>
+            ";
+        }
+    }
+
+    // Mengecek apakah ada ID yang dikirim
+    if(isset($_POST["id"])) {
+
+        // Jika ada ID yang dikirim
+        $id = $_POST["id"];
     }else {
 
-        // Jika data gagal ditambahkan
+        // Jika tidak ada
         echo "
-            <script>
-                alert('Data Gagal Diupdate');
-                document.location.href = 'LihatMenuAdmin.php';
-            </script>
-        ";
+                <script>
+                    alert('Tidak ada ID yang terkirim');
+                    document.location.href = 'LihatMenuAdmin.php';
+                </script>
+            ";
     }
-}
 
-// Mengecek apakah ada ID yang dikirim
-if(isset($_POST["id"])) {
-
-    // Jika ada ID yang dikirim
-    $id = $_POST["id"];
-}else {
-
-    // Jika tidak ada
-    echo "
-            <script>
-                alert('Tidak ada ID yang terkirim');
-                document.location.href = 'LihatMenuAdmin.php';
-            </script>
-        ";
-}
-
-// Mengambil data lauk di tabel datalauk dengan ID tertentu
-$query = "SELECT * FROM datalauk WHERE IDLauk = $id";
-$hasil = mysqli_query($koneksidb, $query);
-$data = mysqli_fetch_assoc($hasil);
+    // Mengambil data lauk di tabel datalauk dengan ID tertentu
+    $query = "SELECT * FROM datalauk WHERE IDLauk = $id";
+    $hasil = mysqli_query($koneksidb, $query);
+    $data = mysqli_fetch_assoc($hasil);
 
 ?>
 
@@ -142,10 +142,6 @@ $data = mysqli_fetch_assoc($hasil);
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Harga</label>
                         <input type="number" name="harga" class="form-control" value="<?= $data["HargaLauk"] ?>" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Stok</label>
-                        <input type="number" name="stok" value="<?= $data["Stok"] ?>" class="form-control" required>
                     </div>
                 </div>
                 

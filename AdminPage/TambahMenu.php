@@ -1,43 +1,43 @@
 <?php 
-// Menghubungkan ke file function.php
-include "FunctionAdmin.php";
+    // Menghubungkan ke file function.php
+    include "FunctionAdmin.php";
 
-// Mengecek apakah "Role" sesinya Admin
-if($_SESSION["Role"] != "Admin") {
+    // Mengecek apakah "Role" sesinya Admin
+    if($_SESSION["Role"] != "Admin") {
 
-    // Jika bukan Admin
-    echo "
-            <script>
-                alert('Anda Tidak Memiliki Akses');
-                document.location.href = '../Index.php';
-            </script>
-        ";
-}
-
-// Mengecek apakah tombol tambah sudah dipencet
-if(isset($_POST["tambah"])) {
-
-    // Memanggil fungsi tambahDataMenu() dengan mengirimkan $_POST sebagai parameter
-    if(tambahDataMenu($_POST) > 0) {
-
-        // Jika data berhasil ditambahkan
+        // Jika bukan Admin
         echo "
-            <script>
-                alert('Data Berhasil Ditambahkan');
-                document.location.href = 'HomeAdmin.php';
-            </script>
-        ";
-    }else {
-        
-        // Jika data gagal ditambahkan
-        echo "
-            <script>
-                alert('Data Gagal Ditambahkan');
-                document.location.href = 'HomeAdmin.php';
-            </script>
-        ";
+                <script>
+                    alert('Anda Tidak Memiliki Akses');
+                    document.location.href = '../Index.php';
+                </script>
+            ";
     }
-}
+
+    // Mengecek apakah tombol tambah sudah dipencet
+    if(isset($_POST["tambah"])) {
+
+        // Memanggil fungsi tambahDataMenu() dengan mengirimkan $_POST sebagai parameter
+        if(tambahDataMenu($_POST) > 0) {
+
+            // Jika data berhasil ditambahkan
+            echo "
+                <script>
+                    alert('Data Berhasil Ditambahkan');
+                    document.location.href = 'HomeAdmin.php';
+                </script>
+            ";
+        }else {
+            
+            // Jika data gagal ditambahkan
+            echo "
+                <script>
+                    alert('Data Gagal Ditambahkan');
+                    document.location.href = 'HomeAdmin.php';
+                </script>
+            ";
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -116,10 +116,6 @@ if(isset($_POST["tambah"])) {
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Harga</label>
                         <input type="number" name="harga" class="form-control" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Stok</label>
-                        <input type="number" name="stok" class="form-control" required>
                     </div>
                 </div>
                 

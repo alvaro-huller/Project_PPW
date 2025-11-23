@@ -119,7 +119,7 @@ $hasilminuman = mysqli_query($koneksidb, $query);
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <h1 class="hero-title">Selamat Datang<br>Di Resto Jawa</h1>
-                    <p class="hero-subtitle">Experience the rich flavors and traditions of Java in every dish. Our restaurant brings you authentic recipes passed down through generations.</p>
+                    <p class="hero-subtitle">Rasakake kekayon lan tradhisi Jawi ing saben panggangku. Restoran kiye nggawa resep asli warisan leluhur sing wis diturunke turun-temurun.</p>
                     <div class="d-flex flex-wrap gap-3">
                         <a href="#menu" class="btn btn-primary btn-lg">Lihat Menu</a>
                         <a href="Reservasi.php" class="btn btn-outline-light btn-lg">Reservasi Meja</a>
