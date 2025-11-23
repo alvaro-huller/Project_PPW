@@ -36,7 +36,33 @@ if(isset($_POST["registrasi"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style/Style.css">
+    <style>
+        body {
+            background-color: rgb(255, 233, 186);
+        }
+
+        .card-container {
+            width: 500px;
+            margin-top: 100px;
+        }
+        .card-header {
+            color: antiquewhite;
+            text-align: center;
+            background-color: #8B4513;
+        }
+        #register-hl {
+            text-decoration: none;
+        }
+        #register-hl:hover {
+            text-decoration: underline;
+        }
+        #hl {
+            text-decoration: none;
+        }
+        #hl:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body id="login-page">
     <div class="container card-container">
